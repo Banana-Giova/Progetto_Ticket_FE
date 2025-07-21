@@ -1,1 +1,101 @@
-/* You can add global styles to this file, and also import other style files */
+/* =============================================================================
+   1. Theme Variables
+   ============================================================================= */
+:root {
+  /* Light theme (default) */
+  --color-primary:    #007bff;
+  --color-secondary:  #6c757d;
+  --color-success:    #28a745;
+  --color-warning:    #ffc107;
+  --color-danger:     #dc3545;
+  --color-light:      #f8f9fa;
+  --color-dark:       #343a40;
+
+  /* Typography */
+  --font-family:      'Inter', sans-serif;
+  --font-size:        16px;
+  --line-height:      1.5;
+}
+
+[data-theme="dark"] {
+  /* Dark theme overrides */
+  --color-light:      #121212;
+  --color-dark:       #f1f1f1;
+  --color-primary:    #90caf9;
+  --color-secondary:  #bbbbbb;
+}
+
+/* =============================================================================
+   2. Reset / Base Styles
+   ============================================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  color: var(--color-dark);
+  background-color: var(--color-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url("/light-background.png");
+  background-size: 720px;
+  background-repeat: repeat;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin: 0.5em 0;
+  color: var(--color-primary);
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* =============================================================================
+   3. Layout Container & Grid
+   ============================================================================= */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -0.5rem;
+}
+
+.col {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+/* =============================================================================
+   4. Utility Classes
+   ============================================================================= */
+/* Margin / Padding */
+.u-mt-1 { margin-top: 0.5rem !important; }
+.u-mb-1 { margin-bottom: 0.5rem !important; }
+.u-p-1  { padding: 0.5rem !important; }
+
+/* Text & Flex */
+.u-text-center     { text-align: center !important; }
+.u-flex            { display: flex !important; }
+.u-justify-between { justify-content: space-between !important; }

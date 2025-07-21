@@ -1,0 +1,7 @@
+.footer-container {
+  /*background-color: var(--color-light);*/
+  text-align: center;
+  padding: 1rem;
+  font-size: small;
+  color: var(--color-dark);
+}

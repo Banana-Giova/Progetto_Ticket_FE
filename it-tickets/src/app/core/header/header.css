@@ -1,0 +1,33 @@
+/* header.component.scss */
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--color-light);
+  color: white;
+}
+
+a.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.logo-class {
+  height: 1.5rem;
+  width: auto;
+  display: block;
+}
+
+
+.router-container {
+  font-weight: bold;
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+}
+.link-class {
+  padding: 0 0.75rem;
+}
