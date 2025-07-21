@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core-module';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { Home } from './features/home/home';
+import { Home } from './pages/home/home';
 
 @NgModule({
   declarations: [
