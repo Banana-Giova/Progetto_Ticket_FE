@@ -4,8 +4,12 @@ import { Login } from './login';
 import { RouterModule } from '@angular/router';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -15,14 +19,17 @@ import { MatCardModule } from '@angular/material/card';
     CommonModule,
     MatChipsModule,
     MatCardModule,
+    MatInputModule,
     MatFormFieldModule,
     MatIconModule,
+    MatIcon,
+    MatButtonModule,
+    FormsModule,
     RouterModule.forChild([
-    {
+      {
         path: "",
         component: Login
-    }
-
+      }
     ])
 
   ]

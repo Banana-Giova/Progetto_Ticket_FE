@@ -1,0 +1,26 @@
+mat-card {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+mat-form-field.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+button.mybutton {
+    background-color:  #007bff;
+    color: white;
+  margin-top: 10px;
+
+}
+
+button:disabled,
+button[disabled]{
+  opacity: 0.5;
+}
+
+

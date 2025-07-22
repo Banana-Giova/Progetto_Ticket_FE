@@ -1,3 +1,6 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import '@angular/material/prebuild-themes/indigo-pink.css'; */
+
 /* =============================================================================
    1. Theme Variables
    ============================================================================= */
@@ -99,3 +102,9 @@ a:hover {
 .u-text-center     { text-align: center !important; }
 .u-flex            { display: flex !important; }
 .u-justify-between { justify-content: space-between !important; }
+
+.has-error{
+  color: red;
+    /* border:1px solid red!important; */
+    /* background-color: #ffe6e6; */
+}
