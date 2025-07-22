@@ -1,0 +1,4 @@
+export const enviroments = {
+    baseUrl: 'http://localhost:8080/',
+    register: 'register'
+}

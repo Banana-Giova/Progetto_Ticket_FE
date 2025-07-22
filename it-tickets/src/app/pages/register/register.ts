@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { RegisterModel } from './models/register.model';
+import { RegisterAPIService } from './services/register.api.service';
 
 @Component({
   selector: 'app-register',
@@ -6,6 +8,14 @@ import { Component } from '@angular/core';
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
-export class Register {
 
+export class Register {
+  model: RegisterModel = new RegisterModel();
+  hide: boolean = true;
+
+  constructor(private registerApi: RegisterAPIService) {}
+
+  register = () => {
+    this.registerApi.register$(this.model).subscribe();
+  }
 }

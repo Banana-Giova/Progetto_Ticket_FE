@@ -1,0 +1,39 @@
+.card-class {
+  max-width:600px; margin:32px auto; padding:16px;
+}
+
+.card-title {
+  margin-bottom: 24px;
+  color: var(--color-primary);
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.single-field {
+  width: 100%;
+}
+
+.multi-field {
+  flex: 1 1 0;
+  min-width: 120px;
+}
+
+.password-button {
+  margin-right: 8px;
+  border: 0;
+  background: transparent;
+}
+
+.registration-button {
+  background-color: var(--color-primary)!important;
+  color: var(--color-light)!important;
+}
+
+.registration-button:disabled {
+  background-color: grey!important;
+  color: var(--color-dark)!important;
+}
