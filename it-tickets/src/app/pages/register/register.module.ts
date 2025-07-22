@@ -6,7 +6,7 @@ import { Register } from './register';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatCard, MatCardModule } from '@angular/material/card';
-import { MatGridList } from '@angular/material/grid-list';
+import { MatGridList, MatGridListModule } from '@angular/material/grid-list';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatButton, MatButtonModule } from '@angular/material/button';
@@ -17,17 +17,11 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     FormsModule,
-
     MatFormFieldModule,
-    MatInputModule,
     MatCardModule,
-    MatCard,
-    MatGridList,
-    MatIcon,
+    MatInputModule,
     MatIconModule,
-    MatButtonModule,
-    MatButton,
-   
+    MatButtonModule,   
     RouterModule.forChild([
       { path: '', component: Register }
     ])
