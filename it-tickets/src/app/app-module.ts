@@ -1,11 +1,10 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-
-import { CoreModule } from './core/core-module';
-import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Home } from './pages/home/home';
+import { AppRoutingModule } from './app-routing-module';
+import { CoreModule } from './core/core-module';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,8 @@ import { Home } from './pages/home/home';
   imports: [
     BrowserModule,
     CoreModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners()
