@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Layout } from './core/layout/layout';
-import { Home } from './pages/home/home';
 
 const routes: Routes = [
   {
     path: '',
     component: Layout,
     children: [
-    { path: '',       component: Home },
+        {
+          path: '',
+          loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
+        }
     ]
   },
   { path: '**', redirectTo: '' },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
