@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { RegisterModel } from './models/register.model';
 import { RegisterAPIService } from './services/register.api.service';
 
