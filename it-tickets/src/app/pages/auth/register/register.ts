@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RegisterModel } from './models/register.model';
-import { RegisterAPIService } from './services/register.api.service';
+import { UserAPIService } from '../services/user.api.service';
 
 @Component({
   selector: 'app-register',
@@ -13,9 +13,9 @@ export class Register {
   model: RegisterModel = new RegisterModel();
   hide: boolean = true;
 
-  constructor(private registerApi: RegisterAPIService) {}
+  constructor(private service: UserAPIService) {}
 
   register = () => {
-    this.registerApi.register$(this.model).subscribe();
+    this.service.register$(this.model).subscribe();
   }
 }
