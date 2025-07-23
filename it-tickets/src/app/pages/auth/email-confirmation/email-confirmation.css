@@ -1,0 +1,29 @@
+.card-class {
+  max-width: 600px;
+  margin: 32px auto;
+  padding: 16px;
+}
+
+.card-title {
+  margin-bottom: 24px;
+  color: var(--color-primary);
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.token-send-button {
+  background-color: var(--color-primary) !important;
+  color: var(--color-light) !important;
+  border-radius: 25px;
+  min-height: 48px;
+}
+
+.token-send-button:disabled {
+  background-color: grey!important;
+  color: var(--color-dark)!important;
+}

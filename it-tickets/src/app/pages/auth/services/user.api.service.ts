@@ -4,6 +4,7 @@ import { LoginModel } from "../login/models/login.model";
 import { Observable } from "rxjs";
 import { RegisterModel } from "../register/models/register.model";
 import { enviroments } from "../../../../enviroments/enviroment.dev";
+import { EmailConfirmationModel } from "../email-confirmation/models/email-confirmation.model";
 
 @Injectable ({
     
@@ -20,7 +21,11 @@ export class UserAPIService {
   }
 
   register$(model: RegisterModel): Observable<any> {
-        return this.http.post<any>(enviroments.baseUrl + enviroments.register, model)
-    }
+    return this.http.post<any>(enviroments.baseUrl + enviroments.register, model)
+  }
+  
+  confirmEmail$(model: EmailConfirmationModel): Observable<any> {
+    return this.http.post<any>(enviroments.baseUrl + enviroments.emailConfirmation, model)
+  }
 
 }
