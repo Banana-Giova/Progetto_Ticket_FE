@@ -15,11 +15,14 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule)
-  }
-  ,
+  },
   {
     path: 'email-confirmation',
     loadChildren: () => import('./auth/email-confirmation/email-confirmation.module').then(m => m.EmailConfirmationModule)
+  },
+  {
+    path: 'reset-password',
+    loadChildren: () => import('./auth/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
   { path: '**', redirectTo: 'home' } 
 ];
