@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { EmailConfirmation } from './email-confirmation';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [ EmailConfirmation ],
@@ -14,9 +13,8 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     FormsModule,
     MatCardModule,
-    MatFormFieldModule,
+    MatIconModule,
     MatButtonModule,
-    MatInputModule,
     RouterModule.forChild([
       { path: '', component: EmailConfirmation }
     ])

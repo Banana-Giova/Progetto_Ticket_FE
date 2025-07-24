@@ -13,6 +13,7 @@ import { catchError, EMPTY, tap } from 'rxjs';
 
 export class EmailConfirmation implements OnInit {
   token?: string;
+  success?: boolean;
   model: EmailConfirmationModel = new EmailConfirmationModel();
   
   constructor(
@@ -23,25 +24,31 @@ export class EmailConfirmation implements OnInit {
 
   ngOnInit(): void {
     this.token = this.route.snapshot.queryParamMap.get('token') ?? undefined;
-
+  
     if (!this.token) {
       this.router.navigate(['/'])
       return;
     }
     this.model.token = this.token;
-  }
 
-  confirmEmail = (): void => {
     this.service.confirmEmail$(this.model).pipe(
-    tap(() => this.router.navigate(['/login'])),
+    tap(() => this.success = true),
 
     catchError(err => {
       if (err.status === 400) {
-        this.router.navigate(['/register']);
+        this.success = false;
         return EMPTY;
       }
       throw err;
       
     })).subscribe();
+  }
+
+  loginRedirect = (): void => {
+    this.router.navigate(['/login']);
+  }
+
+  registerRedirect = (): void => {
+    this.router.navigate(['/register']);
   }
 }

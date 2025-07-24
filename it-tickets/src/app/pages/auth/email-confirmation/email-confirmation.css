@@ -1,29 +1,36 @@
-.card-class {
-  max-width: 600px;
-  margin: 32px auto;
-  padding: 16px;
-}
-
-.card-title {
-  margin-bottom: 24px;
-  color: var(--color-primary);
-}
-
-.form-row {
+.confirmation-wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.confirmation-card {
+  width: 100%;
+  max-width: 400px;
 }
 
-.token-send-button {
-  background-color: var(--color-primary) !important;
-  color: var(--color-light) !important;
-  border-radius: 25px;
-  min-height: 48px;
+.confirmation-card.success {
+  background-color: #e8f5e9; 
+  color: #2e7d32;
 }
 
-.token-send-button:disabled {
-  background-color: grey!important;
-  color: var(--color-dark)!important;
+.confirmation-card.failure {
+  background-color: #ffebee; 
+  color: #c62828;
+}
+
+.redirect-button {
+  margin: 0 auto;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+}
+
+.redirect-button.success {
+  background-color: rgba(48, 226, 72, 0.2);
+  color: rgb(0, 0, 0);
+}
+
+.redirect-button.failure {
+  background-color: rgba(226, 48, 48, 0.2);
+  color: rgb(0, 0, 0);
 }

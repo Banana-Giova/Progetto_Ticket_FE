@@ -1,78 +1,85 @@
-<mat-card class="card-class">
-  <mat-card-header>
-    <mat-card-title class="card-title">Registrati</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="form-row">
-      <mat-form-field appearance="fill" class="single-field">
-        <mat-label [class.has-error]="!model.isValidEmail()">Email</mat-label>
-        <input 
-          id="email-field"
-          matInput 
-          required
-          [(ngModel)] = "model.email"
-          type="email"
-          placeholder="Inserisci la tua email">
-      </mat-form-field>
+<div class="wrapper">
+  <mat-card class="card-class">
+    <mat-card-header>
+      <mat-card-title class="card-title">Registrati</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="content">
+      <div class="form-row">
+        <mat-form-field appearance="fill" class="single-field">
+          <mat-label [class.has-error]="emailField.touched && !model.isValidEmail()">Email</mat-label>
+          <input 
+            id="email-field"
+            matInput 
+            required
+            [(ngModel)] = "model.email"
+            #emailField="ngModel"
+            type="email"
+            placeholder="Inserisci la tua email">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="multi-field">
-        <mat-label>Nome</mat-label>
-        <input 
-          matInput 
-          required 
-          [(ngModel)] = "model.name"
-          placeholder="Inserisci il nome">
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="multi-field">
+          <mat-label>Nome</mat-label>
+          <input 
+            matInput 
+            required 
+            [(ngModel)] = "model.name"
+            placeholder="Inserisci il nome">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="multi-field">
-        <mat-label>Cognome</mat-label>
-        <input 
-          matInput 
-          required
-          [(ngModel)] = "model.surname"
-          placeholder="Inserisci il cognome">
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="multi-field">
+          <mat-label>Cognome</mat-label>
+          <input 
+            matInput 
+            required
+            [(ngModel)] = "model.surname"
+            placeholder="Inserisci il cognome">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="single-field">
-        <mat-label [class.has-error]="!model.isValidPassword()">Password</mat-label>
-        <input
-          matInput 
-          required
-          [(ngModel)] = "model.password"
-          [type]="hide ? 'password' : 'text'" 
-          placeholder="Inserisci la tua password">
+        <mat-form-field appearance="fill" class="single-field">
+          <mat-label [class.has-error]="passwordField.touched && !model.isValidPassword()">Password</mat-label>
+          <input
+            matInput 
+            required
+            [(ngModel)] = "model.password"
+            #passwordField="ngModel"
+            [type]="hide ? 'password' : 'text'" 
+            placeholder="Inserisci la tua password">
+            <button 
+              mat-icon-button 
+              matSuffix
+              (click)="hide = !hide"
+              class="password-button">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="single-field">
+          <mat-label [class.has-error]="confirmField.touched && !model.isValidPassword()">Conferma password</mat-label>
+          <input
+            matInput 
+            required
+            [(ngModel)] = "model.confirmPassword"
+            #confirmField="ngModel"
+            [type]="hide ? 'password' : 'text'"
+            placeholder="Conferma la tua password">
+            <button 
+              mat-icon-button 
+              matSuffix
+              (click)="hide = !hide"
+              class="password-button">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+      </div>
+        <div class="actions">
           <button 
-            mat-icon-button 
-            matSuffix
-            (click)="hide = !hide"
-            class="password-button">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            mat-raised-button 
+            class="registration-button" 
+            [disabled]="!model.isAllValid()"
+            (click)="register()">
+            Registrati
           </button>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="single-field">
-        <mat-label [class.has-error]="!model.isValidPassword()">Conferma password</mat-label>
-        <input
-          matInput 
-          required
-          [(ngModel)] = "model.confirmPassword"
-          [type]="hide ? 'password' : 'text'"
-          placeholder="Conferma la tua password">
-          <button 
-            mat-icon-button 
-            matSuffix
-            (click)="hide = !hide"
-            class="password-button">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-      </mat-form-field>
-      <button 
-        mat-raised-button 
-        class="registration-button" 
-        [disabled]="!model.isAllValid()"
-        (click)="register()">
-        Registrati!
-      </button>
-    </div>
-  </mat-card-content>
-</mat-card>
+        </div>
+    </mat-card-content>
+  </mat-card>
+</div>

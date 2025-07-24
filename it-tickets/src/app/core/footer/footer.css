@@ -1,5 +1,9 @@
 .footer-container {
-  /*background-color: var(--color-light);*/
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--color-light);
   text-align: center;
   padding: 1rem;
   font-size: small;

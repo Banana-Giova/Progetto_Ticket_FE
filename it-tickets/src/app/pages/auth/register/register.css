@@ -1,5 +1,20 @@
 .card-class {
-  max-width:600px; margin:32px auto; padding:16px;
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  width: 100%;
+  padding: 16px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .card-title {
@@ -34,6 +49,6 @@
 }
 
 .registration-button:disabled {
-  background-color: grey!important;
+  background-color: rgba(0, 0, 0, 0.12)!important;
   color: var(--color-dark)!important;
 }

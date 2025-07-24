@@ -1,13 +1,14 @@
 <mat-card>
   <div class="email">
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label [class.has-error]="!model.isValidEmail()"
+      <mat-label [class.has-error]="emailField.touched && !model.isValidEmail()"
         >Enter your Email</mat-label
       >
       <input
         matInput
         type="email"
         [(ngModel)]="model.email"
+        #emailField="ngModel"
         name="email"
         placeholder="email"
         required
@@ -16,13 +17,14 @@
 
     <div class="password">
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label [class.has-error]="!model.isValidPassword()">
+        <mat-label [class.has-error]="passwordField.touched && !model.isValidPassword()">
           Enter your Password</mat-label
         >
         <input
           matInput
           [type]="hide ? 'password' : 'text'"
           [(ngModel)]="model.password"
+          #passwordField="ngModel"
           name="password"
           placeholder="password"
           required
