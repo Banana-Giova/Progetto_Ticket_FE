@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RegisterModel } from './models/register.model';
 import { UserAPIService } from '../services/user.api.service';
+import { tap, catchError, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -12,10 +13,21 @@ import { UserAPIService } from '../services/user.api.service';
 export class Register {
   model: RegisterModel = new RegisterModel();
   hide: boolean = true;
+  loading: boolean = false;
 
   constructor(private service: UserAPIService) {}
 
   register = () => {
-    this.service.register$(this.model).subscribe();
+    this.loading = true;
+    this.service.register$(this.model).pipe(
+    tap(() => {
+      // Inserire toast successo OK
+    }),
+    catchError(err => {
+      // Inserire toast errore KO
+      throw err;
+    }),
+    finalize(() => this.loading = false)
+    ).subscribe();
   }
 }

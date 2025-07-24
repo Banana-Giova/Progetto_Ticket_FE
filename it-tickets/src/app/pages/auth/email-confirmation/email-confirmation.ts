@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { EmailConfirmationModel } from './models/email-confirmation.model';
 import { UserAPIService } from '../services/user.api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, EMPTY, tap } from 'rxjs';
 
 @Component({
   selector: 'app-email-confirmation',
   standalone: false,
   templateUrl: './email-confirmation.html',
-  styleUrl: './email-confirmation.css'
+  styleUrls: ['./email-confirmation.css']
 })
 
-export class EmailConfirmation {
+export class EmailConfirmation implements OnInit {
   token?: string;
   model: EmailConfirmationModel = new EmailConfirmationModel();
   
@@ -30,7 +31,17 @@ export class EmailConfirmation {
     this.model.token = this.token;
   }
 
-  confirmEmail = () => {
-    this.service.confirmEmail$(this.model).subscribe();
+  confirmEmail = (): void => {
+    this.service.confirmEmail$(this.model).pipe(
+    tap(() => this.router.navigate(['/login'])),
+
+    catchError(err => {
+      if (err.status === 400) {
+        this.router.navigate(['/register']);
+        return EMPTY;
+      }
+      throw err;
+      
+    })).subscribe();
   }
 }
