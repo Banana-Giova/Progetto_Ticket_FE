@@ -13,21 +13,18 @@ import { tap, catchError, finalize } from 'rxjs';
 export class Register {
   model: RegisterModel = new RegisterModel();
   hide: boolean = true;
-  loading: boolean = false;
 
   constructor(private service: UserAPIService) {}
 
   register = () => {
-    this.loading = true;
     this.service.register$(this.model).pipe(
-    tap(() => {
-      // Inserire toast successo OK
-    }),
-    catchError(err => {
-      // Inserire toast errore KO
-      throw err;
-    }),
-    finalize(() => this.loading = false)
+    // tap(() => {
+    //   // Inserire toast successo OK
+    // }),
+    // catchError(err => {
+    //   // Inserire toast errore KO
+    //   throw err;
+    // })
     ).subscribe();
   }
 }

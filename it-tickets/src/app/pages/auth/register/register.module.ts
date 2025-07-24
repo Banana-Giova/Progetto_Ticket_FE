@@ -9,8 +9,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
 
 @NgModule({
   declarations: [ Register ],
@@ -22,7 +20,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressSpinnerModule,
     RouterModule.forChild([
       { path: '', component: Register }
     ])

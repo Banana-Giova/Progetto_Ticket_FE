@@ -6,7 +6,9 @@ import { CoreModule } from './core/core.module';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { LoadingInterceptor } from './shared/loader/loading-interceptor';
+import { SpinnerModule } from './shared/loader/spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,17 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    SpinnerModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [App]
 })
