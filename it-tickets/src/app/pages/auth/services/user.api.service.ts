@@ -6,6 +6,7 @@ import { RegisterModel } from "../register/models/register.model";
 import { enviroments } from "../../../../enviroments/enviroment.dev";
 import { EmailConfirmationModel } from "../email-confirmation/models/email-confirmation.model";
 import { ResetPasswordModel } from "../reset-password/models/reset-password.model";
+import { ForgotPasswordModel } from "../forgot-password/models/forgot-password.model";
 
 @Injectable ({
     
@@ -33,7 +34,7 @@ export class UserAPIService {
     return this.http.post<any>(enviroments.baseUrl + enviroments.resetPassword, model)
   }
 
-  forgotPassword$(model: ResetPasswordModel): Observable<any> {
+  forgotPassword$(model: ForgotPasswordModel): Observable<any> {
     return this.http.post<any>(enviroments.baseUrl + enviroments.forgotPassword, model)
   }
 }
