@@ -32,4 +32,8 @@ export class UserAPIService {
   resetPassword$(model: ResetPasswordModel): Observable<any> {
     return this.http.post<any>(enviroments.baseUrl + enviroments.resetPassword, model)
   }
+
+  forgotPassword$(model: ResetPasswordModel): Observable<any> {
+    return this.http.post<any>(enviroments.baseUrl + enviroments.forgotPassword, model)
+  }
 }

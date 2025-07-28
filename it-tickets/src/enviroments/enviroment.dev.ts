@@ -3,5 +3,6 @@ export const enviroments = {
     register: 'register',
     login:'login',
     emailConfirmation:'email-confirmation',
-    resetPassword:'reset-password'
+    resetPassword:'reset-password',
+    forgotPassword:'forgot-password'
 }
