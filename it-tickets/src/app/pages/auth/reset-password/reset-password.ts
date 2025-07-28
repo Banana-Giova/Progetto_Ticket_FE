@@ -18,6 +18,9 @@ export class ResetPassword {
   constructor(private service: UserAPIService) { }
 
   resetPassword = () => {
+    this.model.userEmail = 'giovannidigiuseppe@protonmail.com';
+    // Mail hardcoded, rimuovere quando il login funge
+
     this.service.resetPassword$(this.model).pipe(
     // tap(() => {
     //   // Inserire toast successo OK
