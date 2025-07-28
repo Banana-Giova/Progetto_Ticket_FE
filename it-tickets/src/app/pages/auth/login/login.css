@@ -23,4 +23,8 @@ button[disabled]{
   opacity: 0.5;
 }
 
-
+.link-class {
+  padding: 0 0.75rem;
+  margin-top: 0 auto;
+  padding-top: 1rem;
+}

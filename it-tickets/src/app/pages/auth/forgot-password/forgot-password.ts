@@ -11,7 +11,6 @@ import { UserAPIService } from '../services/user.api.service';
 
 export class ForgotPassword {
   model = new ForgotPasswordModel();
-  // Inserire ngOnInit per prendere l'email
 
   constructor(private service: UserAPIService) { }
 
