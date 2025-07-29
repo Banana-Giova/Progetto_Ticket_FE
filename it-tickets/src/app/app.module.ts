@@ -6,11 +6,13 @@ import { CoreModule } from './core/core.module';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { AuthorizationInterceptor } from './core/services/auth-interceptors';
 
 @NgModule({
   declarations: [
-    App
+    App,
+    
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,12 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [App]
 })

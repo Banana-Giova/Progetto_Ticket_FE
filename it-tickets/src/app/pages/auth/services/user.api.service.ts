@@ -23,4 +23,8 @@ export class UserAPIService {
         return this.http.post<any>(enviroments.baseUrl + enviroments.register, model)
     }
 
+  test() {
+    return this.http.get<any>(enviroments.baseUrl+ "test")
+  }
+
 }
