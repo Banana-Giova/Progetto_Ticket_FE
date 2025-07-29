@@ -3,6 +3,8 @@ import { LoginModel } from './models/login.model';
 import { UserAPIService } from '../services/user.api.service';
 import { tap } from 'rxjs/operators';
 import { UserStorageService } from '../services/user.storage';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,44 +15,30 @@ import { UserStorageService } from '../services/user.storage';
 export class Login implements OnInit {
   model = new LoginModel();
   hide = true;
+  returnUrl: string = '/profile'; 
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService,
     private loginService: UserAPIService,
     private userStorage: UserStorageService
   ) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.loginService.test().subscribe();
-
-    }, 60.000)
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/profile';
+    // setTimeout(() => {
+    //   this.loginService.test().subscribe();
+    // }, 60.000)
   }
 
   login() {
     this.loginService.login$(this.model).pipe(
       tap((resp) => {
-        this.userStorage.saveToken(resp.token)
+        this.userStorage.saveToken(resp.token);
+        this.authService.markAsLoggedIn();
+        this.router.navigateByUrl(this.returnUrl);
       })
     ).subscribe();
-
   }
-
-
-
-
-  // checkValidFields(labelEmail?:HTMLElement, labelPassword?: HTMLElement){
-  //   if(!this.model.isValidEmail() && labelEmail ) {
-  //     debugger;
-  //     labelEmail.style = "color:red!important;"
-  //   }
-
-  //   if(!this.model.isValidPassword() && labelPassword) {
-  //     debugger;
-  //     labelPassword.style = "color:red!important;"
-  //   }
-
-
-  // }
-
 }
-

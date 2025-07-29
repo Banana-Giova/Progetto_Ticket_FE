@@ -10,13 +10,14 @@ export const TOKEN_KEY = 'jwtToken'
 export class UserStorageService {
 
   saveToken(token: string) {
-    localStorage.setItem(TOKEN_KEY, token)
+    localStorage.setItem(TOKEN_KEY, token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY)
+    return localStorage.getItem(TOKEN_KEY);
   }
 
-  
-
+  clearToken(): void {
+    localStorage.clear();
+  }
 }

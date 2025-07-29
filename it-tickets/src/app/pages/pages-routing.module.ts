@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Home } from './home/home';
+import { AuthGuard } from '../core/guards/auth.guard';
+import { GuestGuard } from '../core/guards/guest.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  {
-    path: 'home',
-    component: Home
-  },
+  { path: '', redirectTo: 'profile', pathMatch: 'full' },
   {
     path: 'register',
+    canActivate: [GuestGuard],
     loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule)
   },
   {
     path: 'login',
+    canActivate: [GuestGuard],
     loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule)
   },
   {
@@ -21,14 +20,19 @@ const routes: Routes = [
     loadChildren: () => import('./auth/email-confirmation/email-confirmation.module').then(m => m.EmailConfirmationModule)
   },
   {
+    path: 'forgot-password',
+    loadChildren: () => import('./auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
+  },
+  {
     path: 'reset-password',
     loadChildren: () => import('./auth/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
   },
   {
-    path: 'forgot-password',
-    loadChildren: () => import('./auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
+    path: 'profile',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./auth/profile/profile.module').then(m => m.ProfileModule)
   },
-  { path: '**', redirectTo: 'home' } 
+  { path: '**', redirectTo: 'profile' } 
 ];
 
 

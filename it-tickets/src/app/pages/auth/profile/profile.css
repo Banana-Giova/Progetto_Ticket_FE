@@ -1,0 +1,36 @@
+.confirmation-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.confirmation-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.confirmation-card.success {
+  background-color: #e8f5e9; 
+  color: #2e7d32;
+}
+
+.confirmation-card.failure {
+  background-color: #ffebee; 
+  color: #c62828;
+}
+
+.redirect-button {
+  margin: 0 auto;
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+}
+
+.redirect-button.success {
+  background-color: rgba(48, 226, 72, 0.2);
+  color: rgb(0, 0, 0);
+}
+
+.redirect-button.failure {
+  background-color: rgba(226, 48, 48, 0.2);
+  color: rgb(0, 0, 0);
+}
