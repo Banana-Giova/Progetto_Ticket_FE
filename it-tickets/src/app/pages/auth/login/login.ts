@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginModel } from './models/login.model';
 import { UserAPIService } from '../services/user.api.service';
+import { tap } from 'rxjs/operators';
+import { UserStorageService } from '../services/user.storage';
 
 @Component({
   selector: 'app-login',
@@ -8,15 +10,33 @@ import { UserAPIService } from '../services/user.api.service';
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
-export class Login {
+export class Login implements OnInit {
   model = new LoginModel();
   hide = true;
 
-  constructor(private loginService:UserAPIService){}
+  constructor(
+    private loginService: UserAPIService,
+    private userStorage: UserStorageService
+  ) { }
 
-   login() {
-     this.loginService.login$(this.model).subscribe()
-   }
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.loginService.test().subscribe();
+
+    }, 60.000)
+  }
+
+  login() {
+    this.loginService.login$(this.model).pipe(
+      tap((resp) => {
+        this.userStorage.saveToken(resp.token)
+      })
+    ).subscribe();
+
+  }
+
+
+
 
   // checkValidFields(labelEmail?:HTMLElement, labelPassword?: HTMLElement){
   //   if(!this.model.isValidEmail() && labelEmail ) {

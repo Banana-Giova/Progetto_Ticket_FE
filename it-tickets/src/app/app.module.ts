@@ -9,10 +9,12 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LoadingInterceptor } from './shared/loader/loading-interceptor';
 import { SpinnerModule } from './shared/loader/spinner/spinner.module';
+import { AuthorizationInterceptor } from './core/services/auth-interceptors';
 
 @NgModule({
   declarations: [
-    App
+    App,
+    
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,11 @@ import { SpinnerModule } from './shared/loader/spinner/spinner.module';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,

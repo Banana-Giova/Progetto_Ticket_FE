@@ -37,4 +37,9 @@ export class UserAPIService {
   forgotPassword$(model: ForgotPasswordModel): Observable<any> {
     return this.http.post<any>(enviroments.baseUrl + enviroments.forgotPassword, model)
   }
+  
+  test() {
+    return this.http.get<any>(enviroments.baseUrl+ "test")
+  }
+
 }
