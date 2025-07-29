@@ -13,8 +13,9 @@ import { catchError, EMPTY, tap } from 'rxjs';
 
 export class EmailConfirmation implements OnInit {
   token?: string;
-  success?: boolean;
+  success?: string;
   model: EmailConfirmationModel = new EmailConfirmationModel();
+  private storageKey = 'confirmedToken';
   
   constructor(
     private service: UserAPIService,
@@ -31,12 +32,28 @@ export class EmailConfirmation implements OnInit {
     }
     this.model.token = this.token;
 
+    const confirmed: string[] = JSON.parse(
+      sessionStorage.getItem(this.storageKey) || '[]'
+    );
+
+    if (confirmed.includes(this.token)) {
+      this.success = 'already_confirmed';
+      return;
+    }
+
     this.service.confirmEmail$(this.model).pipe(
-    tap(() => this.success = true),
+    tap(() => {
+      this.success = 'true'
+      
+      sessionStorage.setItem(
+        this.storageKey,
+        JSON.stringify([...confirmed, this.token!])
+      );
+    }),
 
     catchError(err => {
       if (err.status === 400) {
-        this.success = false;
+        this.success = 'false';
         return EMPTY;
       }
       throw err;

@@ -1,6 +1,6 @@
 <div class="confirmation-wrapper">
   <!-- Success Message -->
-  <mat-card *ngIf="success === true" class="confirmation-card success">
+  <mat-card *ngIf="success === 'true'" class="confirmation-card success">
     <mat-card-header>
       <mat-card-title>Account attivato con successo!</mat-card-title>
     </mat-card-header>
@@ -16,8 +16,25 @@
     </mat-card-actions>
   </mat-card>
 
-  <!-- Error Message -->
-  <mat-card *ngIf="success === false" class="confirmation-card failure">
+  <!-- Already Confirmed Error Message -->
+  <mat-card *ngIf="success === 'already_confirmed'" class="confirmation-card success">
+    <mat-card-header>
+      <mat-card-title>Verifica email già completata</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      Hai già confermato l'email del tuo account! 
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        class="redirect-button success"
+        (click)="loginRedirect()">
+        Accedi</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- General Error Message -->
+  <mat-card *ngIf="success === 'false'" class="confirmation-card failure">
     <mat-card-header>
       <mat-card-title>Verifica email fallita</mat-card-title>
     </mat-card-header>
