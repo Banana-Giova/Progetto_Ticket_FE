@@ -17,6 +17,10 @@ mat-form-field.full-width {
   color: var(--color-primary);
 }
 
+.register-line {
+  margin-top: 10px;
+}
+
 button.mybutton {
   /* background-color:  #007bff;
   color: white;

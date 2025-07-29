@@ -11,7 +11,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
         const token=this.storageService.getToken();
         console.log("token caricato:", token)
         //clona la richeista 
-        if (!token || req.url.includes('/login') || req.url.includes('/register') || req.url.includes("/email-confirmation"))
+        if (!token || req.url.includes('/login') || req.url.includes('/register') || req.url.includes("/email-confirmation") || req.url.includes("/forgot-password"))
              return next.handle(req)
         const authReq = req.clone({ 
             setHeaders: { 
