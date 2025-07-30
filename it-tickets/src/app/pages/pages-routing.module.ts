@@ -28,6 +28,10 @@ const routes: Routes = [
     path: 'forgot-password',
     loadChildren: () => import('./auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
   },
+  {
+    path: 'add-ticket',
+    loadChildren: () => import('./auth/ticket/ticket.module').then(m => m.TicketModule)
+  },
   { path: '**', redirectTo: 'home' } 
 ];
 

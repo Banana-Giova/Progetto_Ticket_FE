@@ -1,0 +1,72 @@
+<!-- <form [formGroup]="ticketform" (ngSubmit)="onSubmit()" class="ticket-form">
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Titolo</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Descrizione</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Categoria</mat-label>
+    <mat-select formControlName="category">
+      <mat-option value="">-- Seleziona Categoria --</mat-option>
+      <mat-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="is_priority">
+    Priorità
+  </mat-checkbox>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="ticketform.invalid">
+    Invia Ticket
+  </button>
+</form> -->
+
+
+<form [formGroup]="ticketform" (ngSubmit)="onSubmit()">
+<mat-card class="ticket-class">
+  <mat-card-title class="ticket-title">Invia il tuo ticket</mat-card-title>
+ <div>
+    <mat-form-field appearance="fill" class="full-width"> 
+    <mat-label>Title</mat-label>
+      <input matInput
+      type="text"
+      formControlName="title"
+      placeholder="title"
+      required/>
+    </mat-form-field>
+</div> 
+<div>
+    <mat-form-field appearance="fill" class="full-width"> 
+    <mat-label>Description</mat-label>
+      <input matInput
+      type="text"
+      formControlName="description"
+      placeholder="description"
+      required/>
+    </mat-form-field>
+</div> 
+<div>
+    <mat-form-field appearance="fill" class="full-width"> 
+    <mat-label>Category</mat-label>
+      <mat-select formControlName="category" required>
+      <mat-option *ngFor="let cat of categories" [value]="cat.id">
+        {{ cat.name }}
+      </mat-option>
+    </mat-select>
+    </mat-form-field>
+</div> 
+<div>
+  <mat-checkbox formControlName="is_priority">
+    Priorità alta
+  </mat-checkbox>
+</div>
+
+</mat-card>
+</form>
+

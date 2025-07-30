@@ -7,6 +7,8 @@ import { enviroments } from "../../../../enviroments/enviroment.dev";
 import { EmailConfirmationModel } from "../email-confirmation/models/email-confirmation.model";
 import { ResetPasswordModel } from "../reset-password/models/reset-password.model";
 import { ForgotPasswordModel } from "../forgot-password/models/forgot-password.model";
+import { TicketModel } from "../ticket/models/ticket.model";
+import { CategoryModel } from "../catgoryModels/category.model";
 
 @Injectable ({
     
@@ -37,9 +39,19 @@ export class UserAPIService {
   forgotPassword$(model: ForgotPasswordModel): Observable<any> {
     return this.http.post<any>(enviroments.baseUrl + enviroments.forgotPassword, model)
   }
-  
+
   test() {
     return this.http.get<any>(enviroments.baseUrl+ "test")
   }
+
+  addTicket$(model: TicketModel): Observable<any> {
+    return this.http.post<any>(enviroments.baseUrl + enviroments.addTicket, model)
+  }
+
+  getCategories$(model: CategoryModel): Observable<any> {
+        return this.http.get<any>(enviroments.baseUrl + enviroments.getCategories)
+
+  }
+
 
 }

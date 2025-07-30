@@ -4,5 +4,7 @@ export const enviroments = {
     login:'login',
     emailConfirmation:'email-confirmation',
     resetPassword:'reset-password',
-    forgotPassword:'forgot-password'
+    forgotPassword:'forgot-password',
+    addTicket: 'add-ticket',
+    getCategories: 'categories'
 }

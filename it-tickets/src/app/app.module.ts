@@ -5,27 +5,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LoadingInterceptor } from './shared/loader/loading-interceptor';
 import { SpinnerModule } from './shared/loader/spinner/spinner.module';
 import { AuthorizationInterceptor } from './core/services/auth-interceptors';
-import { Ticket } from './pages/ticket/ticket';
+import { Ticket } from './pages/auth/ticket/ticket';
 
 @NgModule({
   declarations: [
-    App,
-    Ticket,
-    
+    App
   ],
   imports: [
     BrowserModule,
     CoreModule,
     RouterModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    SpinnerModule
+    SpinnerModule,
+
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
