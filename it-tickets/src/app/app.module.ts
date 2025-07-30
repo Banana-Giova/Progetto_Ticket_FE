@@ -10,12 +10,10 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { LoadingInterceptor } from './shared/loader/loading-interceptor';
 import { SpinnerModule } from './shared/loader/spinner/spinner.module';
 import { AuthorizationInterceptor } from './core/services/auth-interceptors';
-import { Ticket } from './pages/ticket/ticket';
 
 @NgModule({
   declarations: [
-    App,
-    Ticket,
+    App
     
   ],
   imports: [
