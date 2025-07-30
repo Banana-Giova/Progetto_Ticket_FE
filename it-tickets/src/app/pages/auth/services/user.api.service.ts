@@ -7,8 +7,8 @@ import { enviroments } from "../../../../enviroments/enviroment.dev";
 import { EmailConfirmationModel } from "../email-confirmation/models/email-confirmation.model";
 import { ResetPasswordModel } from "../reset-password/models/reset-password.model";
 import { ForgotPasswordModel } from "../forgot-password/models/forgot-password.model";
-import { TicketModel } from "../ticket/models/ticket.model";
-import { CategoryModel } from "../catgoryModels/category.model";
+import { TicketModel } from "../../ticket/models/ticket.model";
+import { CategoryModel } from "../../ticket/models/category.model";
 
 @Injectable ({
     

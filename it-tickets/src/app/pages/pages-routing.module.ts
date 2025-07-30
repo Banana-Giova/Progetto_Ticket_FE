@@ -29,8 +29,8 @@ const routes: Routes = [
     loadChildren: () => import('./auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
   },
   {
-    path: 'add-ticket',
-    loadChildren: () => import('./auth/ticket/ticket.module').then(m => m.TicketModule)
+    path: 'ticket',
+    loadChildren: () => import('./ticket/ticket.module').then(m => m.TicketModule)
   },
   { path: '**', redirectTo: 'home' } 
 ];

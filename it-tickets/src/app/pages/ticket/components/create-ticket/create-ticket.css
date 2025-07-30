@@ -10,3 +10,9 @@
   margin-bottom: 24px;
   color: var(--color-primary);
 }
+
+button.mybutton {
+  background-color: var(--color-primary)!important;
+  color: var(--color-light)!important;
+
+}

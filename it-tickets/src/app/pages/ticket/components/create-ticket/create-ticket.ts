@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserAPIService } from '../services/user.api.service';
-import { CategoryModel } from '../catgoryModels/category.model';
-import { TicketModel } from './models/ticket.model';
+import { UserAPIService } from '../../../auth/services/user.api.service';
+import { CategoryModel } from '../../models/category.model';
+import { TicketModel } from '../../models/ticket.model';
 
 @Component({
-  selector: 'app-ticket',
+  selector: 'app-create-ticket',
   standalone: false,
-  templateUrl: './ticket.html',
-  styleUrl: './ticket.css'
+  templateUrl: './create-ticket.html',
+  styleUrl: './create-ticket.css'
 })
-export class Ticket implements OnInit{
+export class CreateTicket implements OnInit{
   model: TicketModel = new TicketModel;
   ticketform: FormGroup; //è il modulo per creare il ticket
   categories: CategoryModel[] = [];
@@ -19,7 +19,7 @@ export class Ticket implements OnInit{
      this.ticketform = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      category: [null, Validators.required],
+      category: [null],
       is_priority: [false]
     });
 

@@ -3,6 +3,7 @@ import { LoginModel } from './models/login.model';
 import { UserAPIService } from '../services/user.api.service';
 import { tap } from 'rxjs/operators';
 import { UserStorageService } from '../services/user.storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class Login implements OnInit {
 
   constructor(
     private loginService: UserAPIService,
-    private userStorage: UserStorageService
+    private userStorage: UserStorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class Login implements OnInit {
     this.loginService.login$(this.model).pipe(
       tap((resp) => {
         this.userStorage.saveToken(resp.token)
+        this.router.navigate(["/ticket/create"])
       })
     ).subscribe();
 
