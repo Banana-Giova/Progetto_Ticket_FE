@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { RegisterModel } from './models/register.model';
 import { UserAPIService } from '../services/user.api.service';
-import { tap, catchError, finalize } from 'rxjs';
+import { tap, catchError, finalize, Observable } from 'rxjs';
+import { CanComponentDeactivate } from '../../../core/guards/unsaved.guard';
 
 @Component({
   selector: 'app-register',
@@ -10,11 +11,19 @@ import { tap, catchError, finalize } from 'rxjs';
   styleUrl: './register.css'
 })
 
-export class Register {
+export class Register implements CanComponentDeactivate {
+  
   model: RegisterModel = new RegisterModel();
   hide: boolean = true;
 
   constructor(private service: UserAPIService) {}
+  
+  canDeactivate(): boolean {
+    if (this.model.isDirty()) {
+      return confirm("Hai modifiche non salvate. Vuoi abbandonare?")
+    }
+    return true;
+  }
 
   register = () => {
     this.service.register$(this.model).pipe(

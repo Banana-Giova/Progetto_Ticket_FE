@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { GuestGuard } from '../core/guards/guest.guard';
+// import { AuthLoadGuard } from '../core/guards/auth-load.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -30,6 +31,7 @@ const routes: Routes = [
   {
     path: 'profile',
     canActivate: [AuthGuard],
+    // canLoad: [AuthLoadGuard],
     loadChildren: () => import('./auth/profile/profile.module').then(m => m.ProfileModule)
   },
   { path: '**', redirectTo: 'profile' } 
