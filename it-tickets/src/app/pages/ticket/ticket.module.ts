@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Tickets } from './components/tickets/tickets'; 
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSelectModule,
     MatIconModule,
     MatCheckboxModule,  
+    MatTableModule,
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
@@ -37,7 +39,7 @@ import {MatDialogModule} from '@angular/material/dialog';
         component: CreateTicket
       }, 
       {
-        path: "list",
+        path: "tickets",
         component: Tickets
       }
     ])

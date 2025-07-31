@@ -48,9 +48,12 @@ export class UserAPIService {
     return this.http.post<any>(enviroments.baseUrl + enviroments.addTicket, model)
   }
 
-  getCategories$(model: CategoryModel): Observable<any> {
-        return this.http.get<any>(enviroments.baseUrl + enviroments.getCategories)
+  getCategories$() {
+    return this.http.get<any>(enviroments.baseUrl + enviroments.getCategories)
+  }
 
+  getTickets$() {
+    return this.http.get<any>(enviroments.baseUrl + enviroments.getTickets)
   }
 
 

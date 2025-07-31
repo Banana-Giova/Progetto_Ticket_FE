@@ -6,5 +6,6 @@ export const enviroments = {
     resetPassword:'reset-password',
     forgotPassword:'forgot-password',
     addTicket: 'add-ticket',
-    getCategories: 'categories'
+    getCategories: 'categories',
+    getTickets: 'tickets'
 }

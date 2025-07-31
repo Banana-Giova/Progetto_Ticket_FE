@@ -1,0 +1,25 @@
+
+
+.class-button {
+  background-color: var(--color-primary)!important;
+  color: var(--color-light)!important;
+  float: right;
+  margin-top: 2%;
+
+}
+
+mat-header-cell {
+  font-weight: bold;
+}
+
+.title-class {
+    color: var(--color-primary);
+}
+
+
+
+
+
+
+
+

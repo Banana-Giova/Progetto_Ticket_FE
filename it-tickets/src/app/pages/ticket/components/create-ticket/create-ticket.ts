@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserAPIService } from '../../../auth/services/user.api.service';
 import { CategoryModel } from '../../models/category.model';
 import { TicketModel } from '../../models/ticket.model';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-ticket',
@@ -15,7 +16,12 @@ export class CreateTicket implements OnInit{
   ticketform: FormGroup; //è il modulo per creare il ticket
   categories: CategoryModel[] = [];
 
-  constructor(private service: UserAPIService, private fb: FormBuilder) { //form builder è per creare formgroup
+  constructor(
+    private service: UserAPIService, 
+    private fb: FormBuilder, 
+    private dialogRef: MatDialog
+  ) 
+  { //form builder è per creare formgroup
      this.ticketform = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -27,8 +33,7 @@ export class CreateTicket implements OnInit{
 
 
   ngOnInit(): void {
-    const model = new CategoryModel(); // può essere anche vuoto
-    this.service.getCategories$(model).subscribe({
+    this.service.getCategories$().subscribe({
       next: data => {
         this.categories = data;    //Se va bene (next:), salva le categorie nell'array categories altrimenti lancia l'errore
         console.log('Categorie caricate:', data);
@@ -47,6 +52,7 @@ export class CreateTicket implements OnInit{
           console.log('Ticket creato:', response);
           alert('Ticket creato con successo!'); //se la creazione è avvenuta stampa il messaggio
           this.ticketform.reset(); //riporta il form allo stato iniziale
+          this.dialogRef.closeAll(); //chiude il modale alla fine dell'aggiunta
         },
         error: err => {
           console.error('Errore durante la creazione del ticket:', err);  //altrimenti lancia l'errore

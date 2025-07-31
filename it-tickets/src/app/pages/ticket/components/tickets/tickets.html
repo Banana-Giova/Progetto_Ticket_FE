@@ -1,2 +1,40 @@
-<p>tickets works!</p>
 <!-- bottone che apre la modale -->
+<!-- <section>
+<div class="example-button-row">
+    <button matButton="outlined" href="/create"  target="_blank">Inserisci Ticket</button>
+  </div>
+</section> -->
+<mat-card class="tickets-class" class="mat-elevation-z8">
+    <mat-card-title class="title-class">Ticket inviati</mat-card-title>
+<mat-table [dataSource]="this.tickets">
+    
+  <!-- Position Column -->
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+    <mat-cell *matCellDef="let tickets"> {{tickets.title}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+    <mat-cell *matCellDef="let tickets"> {{tickets.description}} </mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+    <mat-cell *matCellDef="let tickets"> {{tickets.category.name}} </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="is_priority">
+    <mat-header-cell *matHeaderCellDef> Priority </mat-header-cell>
+    <mat-cell *matCellDef="let tickets"> {{tickets.is_priority}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+</mat-card>
+
+<button matButton="elevated" class="class-button" (click)="openDialog()">Aggiungi Ticket</button>

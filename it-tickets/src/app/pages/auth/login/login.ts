@@ -32,7 +32,7 @@ export class Login implements OnInit {
     this.loginService.login$(this.model).pipe(
       tap((resp) => {
         this.userStorage.saveToken(resp.token)
-        this.router.navigate(["/ticket/create"])
+        this.router.navigate(["/ticket/tickets"])
       })
     ).subscribe();
 
