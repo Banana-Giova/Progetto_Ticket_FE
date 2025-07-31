@@ -18,8 +18,19 @@ export class Tickets implements OnInit{
   constructor(private dialog: MatDialog, private service: UserAPIService, 
   ) {}
 
-    ngOnInit(): void {
-      this.service.getTickets$().subscribe({
+  ngOnInit(): void {
+    this.loadTickets();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateTicket);
+    dialogRef.afterClosed().subscribe(()=>{
+      this.loadTickets()
+    });
+  }
+
+  loadTickets(){
+    this.service.getTickets$().subscribe({ //quando chiude il dialog ricaricara i ticket con lo stesso metodo di sopra
         next: data => {
           this.tickets = data;    //Se va bene (next:), salva le categorie nell'array categories altrimenti lancia l'errore
           console.log('Ticket caricati:', data);
@@ -28,21 +39,6 @@ export class Tickets implements OnInit{
           console.error('Errore nel caricamento ticket:', err);
         }
       });
-    }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CreateTicket);
-    dialogRef.afterClosed().subscribe(()=>{
-      this.service.getTickets$().subscribe({ //quando chiude il dialog ricaricara i ticket con lo stesso metodo di sopra
-        next: data => {
-          this.tickets = data;    //Se va bene (next:), salva le categorie nell'array categories altrimenti lancia l'errore
-          console.log('Ticket aggiornati:', data);
-        },
-        error: err => {
-          console.error('Errore nel caricamento ticket:', err);
-        }
-      });
-    });
   }
 
 

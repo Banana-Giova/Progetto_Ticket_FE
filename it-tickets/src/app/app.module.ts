@@ -10,10 +10,12 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { LoadingInterceptor } from './shared/loader/loading-interceptor';
 import { SpinnerModule } from './shared/loader/spinner/spinner.module';
 import { AuthorizationInterceptor } from './core/services/auth-interceptors';
+import { Modal } from './shared/modal/modal';
 
 @NgModule({
   declarations: [
-    App
+    App,
+    Modal
   ],
   imports: [
     BrowserModule,
