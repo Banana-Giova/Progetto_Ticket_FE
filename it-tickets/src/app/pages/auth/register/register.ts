@@ -20,7 +20,7 @@ export class Register implements CanComponentDeactivate {
   
   canDeactivate(): boolean {
     if (this.model.isDirty()) {
-      return confirm("Hai modifiche non salvate. Vuoi abbandonare?")
+      return confirm("Hai modifiche non salvate. Vuoi abbandonare?");
     }
     return true;
   }

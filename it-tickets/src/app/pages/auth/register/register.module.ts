@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Register } from './register';
+import { UnsavedChangesGuard } from '../../../core/guards/unsaved.guard';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatButtonModule,
     RouterModule.forChild([
-      { path: '', component: Register }
+      { path: '', component: Register, canDeactivate: [UnsavedChangesGuard] }
     ])
   ],
   exports: [ Register ]

@@ -22,6 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
+    canActivate: [GuestGuard],
     loadChildren: () => import('./auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
   },
   {
@@ -31,7 +32,6 @@ const routes: Routes = [
   {
     path: 'profile',
     canActivate: [AuthGuard],
-    // canLoad: [AuthLoadGuard],
     loadChildren: () => import('./auth/profile/profile.module').then(m => m.ProfileModule)
   },
   { path: '**', redirectTo: 'profile' } 

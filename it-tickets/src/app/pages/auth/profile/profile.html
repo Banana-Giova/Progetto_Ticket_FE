@@ -1,3 +1,33 @@
-<div class="confirmation-wrapper">
-  <h1>SONO PAZZO, PAZZO PER IL POLLO</h1>
-</div>
+<mat-card class="card-class">
+  <div class="content">
+    <div class="card-header">
+      <img class="avatar" [src]="avatarUrl" alt="Avatar" />
+      <div class="header-info">
+        <h2 class="card-title">{{ profile.name }}</h2>
+        <p class="muted">{{ profile.role }}</p>
+      </div>
+    </div>
+
+
+    <hr class="divider"/>
+
+
+  <mat-card-content>
+    <div class="info-row">
+      <div class="label">Nome completo</div>
+      <div class="value" tabindex="0">{{ profile.name + ' ' + profile.surname }}</div>
+    </div>
+    <hr class="divider"/>
+    <div class="info-row">
+      <div class="label">Email</div>
+      <div class="value" tabindex="0">{{ profile.email }}</div>
+    </div>
+  </mat-card-content>
+
+
+    <div class="actions">
+      <button mat-stroked-button (click)="profileTickets()">I tuoi tickets</button>
+      <button mat-stroked-button (click)="onChangePassword()">Cambia password</button>
+    </div>
+  </div>
+</mat-card>

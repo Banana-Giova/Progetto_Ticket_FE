@@ -1,5 +1,8 @@
 export class ProfileModel {
-    token: string = '';
+    name: String = '';
+    surname: String = '';
+    email: String = '';
+    role: String = '';
     constructor(data?:any) {
         Object.assign(this, data)
     }

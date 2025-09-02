@@ -3,13 +3,15 @@ import { CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
 
 export interface CanComponentDeactivate {
-  canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
+  // Metodo standard, non una proprietà-funzione
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class UnsavedChangesGuard implements CanDeactivate<CanComponentDeactivate> {
   canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
-    if (component.canDeactivate) {
+    console.log('UnsavedChangesGuard invoked for', component);
+    if (component && component.canDeactivate) {
       return component.canDeactivate();
     }
     return true;

@@ -26,6 +26,13 @@ a.logo {
   font-size: var(--text-xl);
   line-height: var(--text-xl--line-height);
 }
+
 .link-class {
   padding: 0 0.75rem;
+  cursor: pointer;
+}
+
+.link-class:hover {
+  padding: 0 0.75rem;
+  cursor: pointer;
 }

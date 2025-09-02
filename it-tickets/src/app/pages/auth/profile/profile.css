@@ -1,36 +1,72 @@
-.confirmation-wrapper {
+:root {
+  --mat-form-field-outlined-disabled-input-text-color: black !important;
+}
+
+.card-class {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-.confirmation-card {
+  flex-direction: column;
+  max-width: 600px;
   width: 100%;
-  max-width: 400px;
+  padding: 16px;
 }
 
-.confirmation-card.success {
-  background-color: #e8f5e9; 
-  color: #2e7d32;
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.confirmation-card.failure {
-  background-color: #ffebee; 
-  color: #c62828;
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
 }
 
-.redirect-button {
-  margin: 0 auto;
-  margin-top: 2.5%;
-  margin-bottom: 2.5%;
+.card-title {
+  margin-bottom: 4px;
+  color: var(--color-primary);
+  margin: 0;
 }
 
-.redirect-button.success {
-  background-color: rgba(48, 226, 72, 0.2);
-  color: rgb(0, 0, 0);
+.card-header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-.redirect-button.failure {
-  background-color: rgba(226, 48, 48, 0.2);
-  color: rgb(0, 0, 0);
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.header-info p.muted,
+.muted {
+  margin: 0;
+  font-size: 13px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+.label {
+  color: var(--color-muted);
+  font-size: 13px;
+}
+.value {
+  font-weight: 600;
+  color: #222;
+  word-break: break-all;
+}
+
+.logout-button {
+  background-color: var(--color-primary) !important;
+  color: var(--color-light) !important;
 }

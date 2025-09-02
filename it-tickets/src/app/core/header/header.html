@@ -3,8 +3,16 @@
     <img [src]="logoUrl" alt="IT Tickets" class="logo-class" />
     <span class="logo-class"> IT Tickets</span>
   </a>
-  <nav>
-    <a routerLink="/register" class="link-class">Register</a>
-    <a routerLink="/login" class="link-class">Login</a>
-  </nav>
+  <div *ngIf="!(isLoggedIn$ | async)">
+    <nav>
+      <a routerLink="/register" class="link-class">Register</a>
+      <a routerLink="/login" class="link-class">Login</a>
+    </nav>
+  </div>
+  <div *ngIf="isLoggedIn$ | async">
+    <nav>
+      <a routerLink="/profile" class="link-class">Profilo</a>
+      <a (click)="logout()" class="link-class">Logout</a>
+    </nav>
+  </div>
 </header>

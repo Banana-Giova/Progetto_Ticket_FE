@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProfileModel } from './models/profile';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -8,4 +10,22 @@ import { Component } from '@angular/core';
 })
 
 export class Profile {
+
+  public avatarUrl = '/logo_de.png';
+  public profile: ProfileModel = {
+    name: 'Mario',
+    surname: 'Rossi',
+    email: 'mario.rossi@example.com',
+    role: 'Utente',
+  };
+
+  constructor (private router: Router) {}
+
+  profileTickets(): void {
+    this.router.navigateByUrl('/tickets');
+  }
+
+  onChangePassword(): void {
+    this.router.navigateByUrl('/reset-password');
+  }
 }

@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { UnsavedChangesGuard } from '../../../core/guards/unsaved.guard';
 
 @NgModule({
   declarations: [ ResetPassword ],
@@ -20,7 +21,7 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatButtonModule,
     RouterModule.forChild([
-      { path: '', component: ResetPassword }
+      { path: '', component: ResetPassword, canDeactivate: [UnsavedChangesGuard] }
     ])
   ],
   exports: [ ResetPassword ]
