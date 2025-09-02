@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProfileModel } from './models/profile';
+import { ProfileModel } from './models/profile.model';
 import { Router } from '@angular/router';
 
 @Component({
