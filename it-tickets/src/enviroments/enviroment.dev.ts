@@ -7,5 +7,7 @@ export const enviroments = {
     forgotPassword:'forgot-password',
     addTicket: 'add-ticket',
     getCategories: 'categories',
-    getTickets: 'tickets'
+    // getTickets: 'pagination'
+    getTickets: 'tickets',
+    gestStatus: 'tickets/status'
 }

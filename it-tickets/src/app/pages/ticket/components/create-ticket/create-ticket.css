@@ -1,7 +1,7 @@
 .ticket-class {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
+  width: 800px;
   width: 100%;
   padding: 16px;
 }

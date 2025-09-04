@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Tickets } from './components/tickets/tickets'; 
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginator } from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
+    MatPaginator,
     RouterModule.forChild([
       {
         path: "create",

@@ -1,14 +1,45 @@
-<!-- bottone che apre la modale -->
-<!-- <section>
-<div class="example-button-row">
-    <button matButton="outlined" href="/create"  target="_blank">Inserisci Ticket</button>
-  </div>
-</section> -->
+
+<div class="filter-container">
+
+  <!-- Keyword -->
+<div class="keyword">
+  <mat-form-field appearance="outline">
+    <mat-label>Keyword</mat-label>
+    <input matInput [(ngModel)]="searchKeyword" (keyup.enter)="onFilterChange()">  <!-- //se l’utente preme Enter, viene chiamato il metodo -->
+  </mat-form-field>
+    <button class="filter-button" mat-raised-button color="primary" (click)="onFilterChange()">Applica filtri</button>
+
+</div>
+
+
+<div class="cat-status">
+  <!-- Categoria -->
+  <mat-form-field appearance="outline">
+    <mat-label>Categoria</mat-label>
+    <mat-select [(value)]="selectedCategory" (selectionChange)="onFilterChange()">  <!-- //quando cambia la selezione, richiama onFilterChange() -->
+      <mat-option value="">Seleziona tutte</mat-option>
+      <mat-option *ngFor="let c of categories" [value]="c.name">{{ c.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Stato -->
+  <mat-form-field appearance="outline">
+    <mat-label>Stato</mat-label>
+    <mat-select [(value)]="selectedStatus" (selectionChange)="onFilterChange()">
+      <mat-option value="">Seleziona tutti</mat-option>
+      <mat-option *ngFor="let s of status" [value]="s">{{ s }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+</div>
+
+
+<div class="user-list-container"> 
 <mat-card class="tickets-class" class="mat-elevation-z8">
     <mat-card-title class="title-class">Ticket inviati</mat-card-title>
+
 <mat-table [dataSource]="tickets" > 
-  <!-- | async -->
-    
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef> Titolo </mat-header-cell>
     <mat-cell *matCellDef="let tickets"> {{tickets.title}} </mat-cell>
@@ -19,22 +50,37 @@
     <mat-cell *matCellDef="let tickets"> {{tickets.description}} </mat-cell>
   </ng-container>
 
+    <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef> Stato </mat-header-cell>
+    <mat-cell *matCellDef="let tickets"> {{tickets.status}} </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="category">
     <mat-header-cell *matHeaderCellDef> Categoria </mat-header-cell>
-    <mat-cell *matCellDef="let tickets"> {{tickets.category.name}} </mat-cell>
+    <mat-cell *matCellDef="let tickets"> {{tickets.categoryName}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="is_priority">
     <mat-header-cell *matHeaderCellDef> Priorità </mat-header-cell>
     <mat-cell *matCellDef="let tickets"> 
-    <mat-icon *ngIf="tickets.is_priority">check</mat-icon>
-    <mat-icon *ngIf="!tickets.is_priority">close</mat-icon>
+    <mat-icon *ngIf="tickets.isPriority">check</mat-icon>
+    <mat-icon *ngIf="!tickets.isPriority">close</mat-icon>
     </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
+  <mat-paginator
+    [length]="totalTickets"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)">
+  </mat-paginator> 
+  
 </mat-card>
 
-<button matButton="elevated" class="class-button" (click)="openDialog()">Aggiungi Ticket</button>
+<button  matButton="elevated" class="class-button" (click)="openDialog()">Aggiungi Ticket</button>
+
+</div>

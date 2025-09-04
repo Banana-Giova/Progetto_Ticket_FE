@@ -1,9 +1,9 @@
 export class TicketModel {
     title: string = "";
     description: string = "";
-    category?: number;
+    category?: string;
     is_priority?: boolean;
-    status: string = "";
+    status?: string = "";
 
      constructor(data?:any) {
         Object.assign(this, data)

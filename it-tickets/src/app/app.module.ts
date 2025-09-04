@@ -15,7 +15,7 @@ import { Modal } from './shared/modal/modal';
 @NgModule({
   declarations: [
     App,
-    Modal
+    Modal,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +26,7 @@ import { Modal } from './shared/modal/modal';
     BrowserAnimationsModule,
     FormsModule,
     SpinnerModule,
+
 
   ],
   providers: [
