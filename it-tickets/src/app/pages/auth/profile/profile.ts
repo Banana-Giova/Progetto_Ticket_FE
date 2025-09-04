@@ -3,6 +3,7 @@ import { ProfileModel } from './models/profile.model';
 import { Router } from '@angular/router';
 import { UserStorageService } from '../services/user.storage';
 import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../shared/toasts/notification.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ export class Profile implements OnInit {
 
   constructor (
     private router: Router,
+    private notify: NotificationService,
     private storage: UserStorageService,
     private profileService: AuthService
   ) {}
@@ -32,7 +34,7 @@ export class Profile implements OnInit {
 
     } else {
       this.storage.clearAll();
-      // Toast di errore
+      this.notify.error('Ruoli utenti non trovati: utente illegale!');
       this.router.navigateByUrl('/login');
     }
   }
@@ -47,6 +49,7 @@ export class Profile implements OnInit {
 
   logout(): void {
     this.profileService.logout();
+    this.notify.success('Logout effettuato con successo!');
     this.router.navigateByUrl('/login');
   }
 }

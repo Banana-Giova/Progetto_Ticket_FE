@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { RegisterModel } from './models/register.model';
 import { UserAPIService } from '../services/user.api.service';
-import { tap, catchError, finalize, Observable } from 'rxjs';
+import { tap, catchError, finalize, Observable, throwError } from 'rxjs';
 import { CanComponentDeactivate } from '../../../core/guards/unsaved.guard';
+import { NotificationService } from '../../../shared/toasts/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -12,12 +13,15 @@ import { CanComponentDeactivate } from '../../../core/guards/unsaved.guard';
 })
 
 export class Register implements CanComponentDeactivate {
-  
+
   model: RegisterModel = new RegisterModel();
   hide: boolean = true;
 
-  constructor(private service: UserAPIService) {}
-  
+  constructor(
+    private service: UserAPIService,
+    private notify: NotificationService
+  ) { }
+
   canDeactivate(): boolean {
     if (this.model.isDirty()) {
       return confirm("Hai modifiche non salvate. Vuoi abbandonare?");
@@ -27,13 +31,14 @@ export class Register implements CanComponentDeactivate {
 
   register = () => {
     this.service.register$(this.model).pipe(
-    // tap(() => {
-    //   // Inserire toast successo OK
-    // }),
-    // catchError(err => {
-    //   // Inserire toast errore KO
-    //   throw err;
-    // })
+      tap(() => {
+        this.notify.success('Registrazione completata!')
+      }),
+      catchError(err => {
+        const msg = err.error?.message || err.message || 'Errore sconosciuto';
+        this.notify.error('Registrazione fallita: ' + msg);
+        return throwError(() => err);
+      })
     ).subscribe();
   }
 }

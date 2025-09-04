@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { ForgotPasswordModel } from './models/forgot-password.model';
 import { UserAPIService } from '../services/user.api.service';
+import { catchError, tap } from 'rxjs/operators';
+import { NotificationService } from '../../../shared/toasts/notification.service';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-reset-password',
@@ -12,17 +15,21 @@ import { UserAPIService } from '../services/user.api.service';
 export class ForgotPassword {
   model = new ForgotPasswordModel();
 
-  constructor(private service: UserAPIService) { }
+  constructor(
+    private service: UserAPIService,
+    private notify: NotificationService
+  ) { }
 
   forgotPassword = () => {
     this.service.forgotPassword$(this.model).pipe(
-    // tap(() => {
-    //   // Inserire toast successo OK
-    // }),
-    // catchError(err => {
-    //   // Inserire toast errore KO
-    //   throw err;
-    // })
+      tap(() => {
+        this.notify.success('Email di recupero inviata!');
+      }),
+      catchError(err => {
+        const msg = err.error?.message || err.message || 'Errore sconosciuto';
+        this.notify.error('Invio email di recupero fallito: ' + msg);
+        return throwError(() => err);
+      })
     ).subscribe();
   }
 }

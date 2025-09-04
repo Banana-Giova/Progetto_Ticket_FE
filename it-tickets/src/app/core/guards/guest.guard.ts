@@ -6,12 +6,14 @@ import {
   Router
 } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { NotificationService } from '../../shared/toasts/notification.service';
 
 @Injectable({ providedIn: 'root' })
 export class GuestGuard implements CanActivate {
 
   constructor(
     private auth: AuthService,
+    private notify: NotificationService,
     private router: Router
   ) {}
 
@@ -20,8 +22,7 @@ export class GuestGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     if (this.auth.isLoggedIn) {
-      console.log("GUEST GUARD => BLOCCATO UN UTENTE. LOGGATO? " 
-        + this.auth.isLoggedIn)    
+      this.notify.warning("[Guest Guard] Accesso negato alla route per gli utenti autenticati.")    
       this.router.navigate(['/profile']);
       return false;
     }

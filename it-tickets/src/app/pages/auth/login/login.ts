@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginModel } from './models/login.model';
 import { UserAPIService } from '../services/user.api.service';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { UserStorageService } from '../services/user.storage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../shared/toasts/notification.service';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +21,7 @@ export class Login implements OnInit {
 
   constructor(
     private router: Router,
+    private notify: NotificationService,
     private route: ActivatedRoute,
     private authService: AuthService,
     private loginService: UserAPIService,
@@ -32,13 +35,16 @@ export class Login implements OnInit {
   login() {
     this.loginService.login$(this.model).pipe(
       tap((resp) => {
-        console.log('USER_KEY raw:', localStorage.getItem('userInfo'));
-        console.log('TOKEN raw:', localStorage.getItem('jwtToken'));
-
         this.userStorage.saveToken(resp.token);
         this.userStorage.saveUser(resp);
+        this.notify.success('Login effettuato con successo!')
         this.authService.markAsLoggedIn();
         this.router.navigateByUrl(this.returnUrl);
+      }),
+      catchError(err => {
+        const msg = err.error?.message || err.message || 'Errore sconosciuto';
+        this.notify.error('Login fallito: ' + msg);
+        return throwError(() => err);
       })
     ).subscribe();
   }

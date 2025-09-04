@@ -118,3 +118,31 @@ a:hover {
 mat-toolbar {
   flex: 0 0 auto;
 }
+
+.toast-success {
+  background-color: #155724 !important;
+  color: white !important;
+}
+
+.toast-error {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+.notif-success {
+    color: #155724 !important;
+    background-color: #d4edda !important;
+    border-color: #c3e6cb !important;
+    .mat-simple-snackbar-action {
+        color: #155724 !important;
+    }
+}
+
+.notif-error {
+    color: #f44336 !important;
+    background-color: #d4edda !important;
+    border-color: #c3e6cb !important;
+    .mat-simple-snackbar-action {
+        color: #f44336 !important;
+    }
+}
