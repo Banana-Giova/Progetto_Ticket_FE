@@ -38,7 +38,7 @@ export class Profile implements OnInit {
   }
 
   profileTickets(): void {
-    this.router.navigateByUrl('/tickets');
+    this.router.navigateByUrl('/ticket/tickets');
   }
 
   onChangePassword(): void {

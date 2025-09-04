@@ -12,6 +12,7 @@
   <div *ngIf="isLoggedIn$ | async">
     <nav>
       <a routerLink="/profile" class="link-class">Profilo</a>
+      <a routerLink="/ticket/tickets" class="link-class">Tickets</a>
       <a (click)="logout()" class="link-class">Logout</a>
     </nav>
   </div>
