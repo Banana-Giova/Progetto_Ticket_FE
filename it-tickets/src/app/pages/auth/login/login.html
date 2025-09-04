@@ -12,6 +12,7 @@
         #emailField="ngModel"
         name="email"
         placeholder="Inserisci la tua email"
+        (keyup.enter)="login()"
         required
       />
     </mat-form-field>
@@ -28,6 +29,7 @@
           #passwordField="ngModel"
           name="password"
           placeholder="Inserisci la tua password"
+          (keyup.enter)="login()"
           required
         />
         <button
