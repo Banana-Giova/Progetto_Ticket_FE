@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.storage.clearToken();
+    this.storage.clearAll();
     this.loggedInSubject.next(false);
   }
 

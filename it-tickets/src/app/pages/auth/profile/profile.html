@@ -4,7 +4,7 @@
       <img class="avatar" [src]="avatarUrl" alt="Avatar" />
       <div class="header-info">
         <h2 class="card-title">{{ profile.name }}</h2>
-        <p class="muted">{{ profile.role }}</p>
+        <p class="muted">{{ roleString }}</p>
       </div>
     </div>
 
@@ -24,10 +24,10 @@
     </div>
   </mat-card-content>
 
-
     <div class="actions">
       <button mat-stroked-button (click)="profileTickets()">I tuoi tickets</button>
       <button mat-stroked-button (click)="onChangePassword()">Cambia password</button>
+      <button mat-stroked-button class="logout-button" (click)="logout()">Logout</button>
     </div>
   </div>
 </mat-card>

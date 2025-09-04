@@ -27,15 +27,16 @@ export class Login implements OnInit {
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/profile';
-    // setTimeout(() => {
-    //   this.loginService.test().subscribe();
-    // }, 60.000)
   }
 
   login() {
     this.loginService.login$(this.model).pipe(
       tap((resp) => {
+        console.log('USER_KEY raw:', localStorage.getItem('userInfo'));
+        console.log('TOKEN raw:', localStorage.getItem('jwtToken'));
+
         this.userStorage.saveToken(resp.token);
+        this.userStorage.saveUser(resp);
         this.authService.markAsLoggedIn();
         this.router.navigateByUrl(this.returnUrl);
       })

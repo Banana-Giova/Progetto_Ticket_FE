@@ -11,7 +11,7 @@
         [(ngModel)]="model.email"
         #emailField="ngModel"
         name="email"
-        placeholder="Email"
+        placeholder="Inserisci la tua email"
         required
       />
     </mat-form-field>
@@ -19,15 +19,15 @@
     <div class="password">
       <mat-form-field appearance="fill" class="full-width">
         <mat-label [class.has-error]="passwordField.touched && !model.isValidPassword()">
-          Password</mat-label
-        >
+          Password
+        </mat-label>
         <input
           matInput
           [type]="hide ? 'password' : 'text'"
           [(ngModel)]="model.password"
           #passwordField="ngModel"
           name="password"
-          placeholder="password"
+          placeholder="Inserisci la tua password"
           required
         />
         <button
