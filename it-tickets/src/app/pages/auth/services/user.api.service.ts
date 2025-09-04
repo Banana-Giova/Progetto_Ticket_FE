@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { LoginModel } from "../login/models/login.model";
 import { Observable } from "rxjs";
@@ -8,6 +8,9 @@ import { EmailConfirmationModel } from "../email-confirmation/models/email-confi
 import { ResetPasswordModel } from "../reset-password/models/reset-password.model";
 import { ForgotPasswordModel } from "../forgot-password/models/forgot-password.model";
 import { OnlyEmailModel } from "../login/models/onlyEmail.model";
+import { TicketModel } from "../../ticket/models/ticket.model";
+import { CategoryModel } from "../../ticket/models/category.model";
+import { Tickets } from "../../ticket/components/tickets/tickets";
 
 @Injectable ({
     
@@ -56,4 +59,33 @@ export class UserAPIService {
   remove_operator_test() {
     return this.http.get<any>(enviroments.baseUrl+ "roles/remove_operator_test")
   }
+  addTicket$(model: TicketModel): Observable<any> {
+    return this.http.post<any>(enviroments.baseUrl + enviroments.addTicket, model)
+  }
+
+  getCategories$() {
+    return this.http.get<any>(enviroments.baseUrl + enviroments.getCategories)
+  }
+
+  // getUTickets$() {
+  //   return this.http.get<any>(enviroments.baseUrl + enviroments.getTickets)
+  // }
+
+  getStatus$() {
+    return this.http.get<any>(enviroments.baseUrl+ enviroments.gestStatus)
+  }
+
+  getTickets$(pageIndex: number, pageSize: number, keyword?: string, categoryName?: string, status?: string): Observable<{content: TicketModel[]; totalElements: number }>  {
+    let params = new HttpParams()
+      .set('page', pageIndex.toString())
+      .set('size', pageSize.toString());
+
+      if (keyword) params = params.set('keyword', keyword);
+      if (categoryName) params = params.set('categoryName', categoryName);
+      if (status) params = params.set('status', status);
+
+      
+    return this.http.get<{content: TicketModel[]; totalElements: number }>((enviroments.baseUrl + enviroments.getTickets), {params});
+  }
+
 }

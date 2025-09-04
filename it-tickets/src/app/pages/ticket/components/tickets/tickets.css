@@ -1,0 +1,71 @@
+
+
+.class-button {
+  background-color: var(--color-primary)!important;
+  color: var(--color-light)!important;
+  float: right;
+  margin-top: 2%;
+
+}
+
+mat-header-cell {
+  font-weight: bold;
+}
+
+.title-class {
+    color: var(--color-primary);
+}
+
+.tickets-class {
+  position: relative;
+  padding-bottom: 80px; /* lascia spazio per il bottone */
+}
+
+.full-table {
+  width: 100%;
+  table-layout: fixed; /* facoltativo per uniformità colonne */
+}
+
+
+.user-list-container {
+  position: relative; /* riferimento per bottone */}
+
+.table {
+  width: 100%;
+}
+
+.mat-paginator {
+  margin-top: 10px;
+}
+
+.filter-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* due colonne di uguale larghezza */
+  margin-top: 10%;
+}
+
+.filter-button {
+  display: flex;
+  background-color: var(--color-primary)!important;
+  color: var(--color-light)!important;
+  
+}
+
+.add-ticket {
+  position: fixed;   /* Fisso rispetto alla finestra */
+  bottom: 24px;      /* distanza dal bordo inferiore */
+  right: 24px;       /* distanza dal bordo destro */
+  z-index: 1000;     /* sopra gli altri elementi */
+}
+
+
+
+
+
+
+
+
+
+
+
+

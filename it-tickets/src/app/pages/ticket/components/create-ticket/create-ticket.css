@@ -1,0 +1,22 @@
+.ticket-class {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  width: 100%;
+  padding: 16px;
+}
+
+.ticket-title {
+  margin-bottom: 24px;
+  color: var(--color-primary);
+}
+
+button.mybutton {
+  background-color: var(--color-primary)!important;
+  color: var(--color-light)!important;
+
+}
+
+
+
+

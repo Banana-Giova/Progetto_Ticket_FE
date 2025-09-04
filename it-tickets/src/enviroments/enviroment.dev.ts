@@ -5,5 +5,10 @@ export const enviroments = {
     emailConfirmation: 'email-confirmation',
     resetPassword: 'reset-password',
     forgotPassword: 'forgot-password',
-    profileFetch: 'profile-fetch'
+    profileFetch: 'profile-fetch',
+    addTicket: 'add-ticket',
+    getCategories: 'categories',
+    // getTickets: 'pagination'
+    getTickets: 'tickets',
+    gestStatus: 'tickets/status'
 }

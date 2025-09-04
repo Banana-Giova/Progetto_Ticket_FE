@@ -34,7 +34,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./auth/profile/profile.module').then(m => m.ProfileModule)
   },
-  { path: '**', redirectTo: 'profile' } 
+  { path: '**', redirectTo: 'profile' },
+  {
+    path: 'ticket',
+    loadChildren: () => import('./ticket/ticket.module').then(m => m.TicketModule)
+  }
 ];
 
 
