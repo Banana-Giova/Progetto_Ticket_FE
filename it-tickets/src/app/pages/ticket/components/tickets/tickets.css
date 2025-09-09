@@ -1,71 +1,82 @@
-
-
-.class-button {
-  background-color: var(--color-primary)!important;
-  color: var(--color-light)!important;
-  float: right;
-  margin-top: 2%;
-
-}
-
-mat-header-cell {
-  font-weight: bold;
-}
-
-.title-class {
-    color: var(--color-primary);
-}
-
-.tickets-class {
-  position: relative;
-  padding-bottom: 80px; /* lascia spazio per il bottone */
-}
-
-.full-table {
-  width: 100%;
-  table-layout: fixed; /* facoltativo per uniformità colonne */
-}
-
-
-.user-list-container {
-  position: relative; /* riferimento per bottone */}
-
-.table {
-  width: 100%;
-}
-
-.mat-paginator {
-  margin-top: 10px;
-}
-
-.filter-container {
-  display: grid;
-  grid-template-columns: 2fr 1fr; /* due colonne di uguale larghezza */
-  margin-top: 10%;
-}
-
-.filter-button {
+.page-header {
   display: flex;
-  background-color: var(--color-primary)!important;
-  color: var(--color-light)!important;
+  justify-content: space-between; /* titolo a sx, bottone a dx */
+  align-items: center;
+  margin-bottom: 1rem;
   
 }
 
-.add-ticket {
-  position: fixed;   /* Fisso rispetto alla finestra */
-  bottom: 24px;      /* distanza dal bordo inferiore */
-  right: 24px;       /* distanza dal bordo destro */
-  z-index: 1000;     /* sopra gli altri elementi */
+.title-class {
+  color: var(--color-primary);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 10rem; 
+  padding: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  
+}
+
+.ricerca {
+  display:flex ;
+  align-items: center;
 }
 
 
+.button-ticket {
+  background-color: var(--color-primary)!important;
+  color: var(--color-light)!important;
+}
+
+
+/* ::ng-deep .mat-mdc-text-field-wrapper {
+  height: 36px !important;
+  align-items: center!important;
+} */
+
+/* Centrare verticalmente l'input vero e proprio */
+/* .small-fields .mat-mdc-text-field-input {
+  height: 100% !important;
+
+} */
+
+/* ::ng-deep .mat-mdc-floating-label {
+  top: 50%!important;             
+} */
 
 
 
+.table-container {
+  max-height: 400px;  
+  width: 1000px;
+  min-height: 400px;
+  overflow-y: auto;   
+  display: block;
+  padding-left: 2%;
+  padding-right: 2%;
+}
 
+::ng-deep .mat-mdc-header-row {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
 
+.mycell{
+  font-size: 15px;      
+  font-weight: 600;    
+}
 
-
-
-
+.my-icon{
+  z-index: 1;
+  color: #000000DE!important;
+}
 

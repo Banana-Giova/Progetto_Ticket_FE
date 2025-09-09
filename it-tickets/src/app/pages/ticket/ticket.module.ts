@@ -14,6 +14,7 @@ import { Tickets } from './components/tickets/tickets';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator } from "@angular/material/paginator";
+import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,8 @@ import { MatPaginator } from "@angular/material/paginator";
     MatFormFieldModule,
     MatSelectModule,
     MatIconModule,
+    MatExpansionModule,
+    MatAccordion,
     MatCheckboxModule,  
     MatTableModule,
     MatInputModule,

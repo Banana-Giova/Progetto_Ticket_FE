@@ -4,6 +4,7 @@ import { UserAPIService } from '../../../auth/services/user.api.service';
 import { CategoryModel } from '../../models/category.model';
 import { TicketModel } from '../../models/ticket.model';
 import { MatDialog } from '@angular/material/dialog';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-create-ticket',
@@ -26,27 +27,43 @@ export class CreateTicket implements OnInit{
       title: ['', Validators.required],
       description: ['', Validators.required],
       category: [null],
-      is_priority: [false]
+      is_priority: [false],
+      status: null
     });
 
   }
 
 
   ngOnInit(): void {
-    this.service.getCategories$().subscribe({
-      next: data => {
-        this.categories = data;    //Se va bene (next:), salva le categorie nell'array categories altrimenti lancia l'errore
+    this.service.getCategories$().
+        pipe(
+      tap(data => {
+        this.categories = data;    //Se va bene salva le categorie nell'array categories altrimenti lancia l'errore
         console.log('Categorie caricate:', data);
-      },
-      error: err => {
-        console.error('Errore nel caricamento categorie:', err);
-      }
-    });
+      }), catchError (err => {
+         console.error('Errore nel caricamento categorie:', err);
+         return of({ content: [], totalElements: 0 });
+      })
+    ).subscribe()  
   }
+    
+  //   subscribe({
+  //     next: data => {
+  //       this.categories = data;    //Se va bene (next:), salva le categorie nell'array categories altrimenti lancia l'errore
+  //       // console.log('Categorie caricate:', data);
+  //     },
+  //     error: err => {
+  //       console.error('Errore nel caricamento categorie:', err);
+  //     }
+  //   });
+  // }
+
+ 
 
   onSubmit(): void {
     if (this.ticketform.valid) {
       const ticket = new TicketModel(this.ticketform.value); //se tutti i campi nel form sono validi, crea un oggetto ticket model
+      // console.log('Ticket inviato:', ticket);
       this.service.addTicket$(ticket).subscribe({
         next: response => {
           console.log('Ticket creato:', response);
