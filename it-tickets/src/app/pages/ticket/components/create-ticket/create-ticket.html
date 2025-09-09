@@ -1,47 +1,53 @@
-<form [formGroup]="ticketform" (ngSubmit)="onSubmit()">
-<mat-card class="ticket-class">
-  <mat-card-title class="ticket-title">Invia il tuo ticket</mat-card-title>
- <div>
-    <mat-form-field appearance="fill" class="full-width"> 
-    <mat-label>Title</mat-label>
-      <input matInput
-      type="text"
-      formControlName="title"
-      placeholder="title"
-      required/>
-    </mat-form-field>
-</div> 
-<div>
-    <mat-form-field appearance="fill" class="full-width"> 
-    <mat-label>Description</mat-label>
-      <textarea matInput
-      type="text"
-      formControlName="description"
-      placeholder="description"
-      required></textarea>
-    </mat-form-field>
-</div> 
-<div>
-    <mat-form-field appearance="fill" class="full-width"> 
-    <mat-label>Category</mat-label>
-      <mat-select formControlName="category" required>
-      <mat-option *ngFor="let cat of categories" [value]="cat.id">
-        {{ cat.name }}
-      </mat-option>
-    </mat-select>
-    </mat-form-field>
-</div> 
-<div>
-  <mat-checkbox formControlName="is_priority">
-    Priorità alta
-  </mat-checkbox>
+<div class="container">
+  <form [formGroup]="ticketform" (ngSubmit)="onSubmit()">
+    <mat-card class="ticket-class pt-4">
+      <mat-card-title class="ticket-title">Crea ticket</mat-card-title>
+
+      <div class="row mb-3">
+        <div class="col-12">
+          <mat-form-field appearance="outline" floatLabel="always" class="w-100"> 
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" required />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12">
+          <mat-form-field appearance="outline" floatLabel="always" class="w-100" > 
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category" required>
+              <mat-option *ngFor="let cat of categories" [value]="cat.id">
+                {{ cat.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12">
+          <mat-form-field appearance="outline" floatLabel="always" class="w-100 textarea-field"> 
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" required></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-12">
+          <mat-checkbox class="my-checkbox" formControlName="is_priority">
+            Priorità alta
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 text-end">
+          <button class="mybutton" mat-raised-button color="primary" type="submit" [disabled]="ticketform.invalid">
+            Invia
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </form>
 </div>
-
-</mat-card>
-<button matButton color="primary" type="submit" [disabled]="ticketform.invalid" >
-    Invia
-  </button>
-</form>
-
-
-
