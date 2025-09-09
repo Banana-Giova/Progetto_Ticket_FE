@@ -32,7 +32,7 @@ export class Register implements CanComponentDeactivate {
   register = () => {
     this.service.register$(this.model).pipe(
       tap(() => {
-        this.notify.success('Registrazione completata!')
+        this.notify.success('Registrazione completata. Verifica la tua email per attivare l\'account.')
       }),
       catchError(err => {
         const msg = err.error?.message || err.message || 'Errore sconosciuto';

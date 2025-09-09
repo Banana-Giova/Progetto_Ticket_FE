@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EmailConfirmationModel } from './models/email-confirmation.model';
 import { UserAPIService } from '../services/user.api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, EMPTY, tap } from 'rxjs';
+import { catchError, EMPTY, tap, throwError } from 'rxjs';
+import { NotificationService } from '../../../shared/toasts/notification.service';
 
 @Component({
   selector: 'app-email-confirmation',
@@ -19,6 +20,7 @@ export class EmailConfirmation implements OnInit {
   
   constructor(
     private service: UserAPIService,
+    private notify: NotificationService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -43,7 +45,8 @@ export class EmailConfirmation implements OnInit {
 
     this.service.confirmEmail$(this.model).pipe(
     tap(() => {
-      this.success = 'true'
+      this.success = 'true';
+      this.notify.success('Email confermata!');
       
       sessionStorage.setItem(
         this.storageKey,
@@ -52,13 +55,11 @@ export class EmailConfirmation implements OnInit {
     }),
 
     catchError(err => {
-      if (err.status === 400) {
-        this.success = 'false';
-        return EMPTY;
-      }
-      throw err;
-      
-    })).subscribe();
+      this.success = 'false';
+        const msg = err.error?.message || err.message || 'Errore sconosciuto';
+        this.notify.error('Conferma email fallita: ' + msg);
+        return throwError(() => err);
+      })).subscribe();
   }
 
   loginRedirect = (): void => {

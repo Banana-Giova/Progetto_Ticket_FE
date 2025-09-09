@@ -22,7 +22,8 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     if (!this.auth.isLoggedIn) {
-      this.notify.warning("[Auth Guard] Accesso negato alla route per gli utenti non autenticati.")   
+      console.log("[Auth Guard] Accesso negato alla route per gli utenti non autenticati.")
+      this.notify.warning("Sessione scaduta. Effettuare login.")   
       this.router.navigate(['/login']);
       return false;
     }

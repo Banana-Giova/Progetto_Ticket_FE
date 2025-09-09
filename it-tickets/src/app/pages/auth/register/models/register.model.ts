@@ -11,7 +11,7 @@ export class RegisterModel {
 
     isValidPassword = (): boolean => {
         if (this.newPassword != this.confirmPassword) { return false };
-        return /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,24}$/.test(this.newPassword);
+        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,24}$/.test(this.newPassword);
     }
 
     isValidEmail = (): boolean => {

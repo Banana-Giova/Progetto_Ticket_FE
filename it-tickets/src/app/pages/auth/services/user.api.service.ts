@@ -42,8 +42,8 @@ export class UserAPIService {
     return this.http.post<any>(enviroments.baseUrl + enviroments.forgotPassword, model)
   }
 
-  profileFetch$(model: OnlyEmailModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.profileFetch, model);
+  profileFetch$(): Observable<any> {
+    return this.http.get<any>(enviroments.baseUrl + enviroments.profileFetch);
   }
   
   // Testing

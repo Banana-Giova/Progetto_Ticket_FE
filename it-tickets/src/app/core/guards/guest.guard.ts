@@ -22,7 +22,8 @@ export class GuestGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     if (this.auth.isLoggedIn) {
-      this.notify.warning("[Guest Guard] Accesso negato alla route per gli utenti autenticati.")    
+      console.log("[Guest Guard] Accesso negato alla route per gli utenti autenticati.")
+      // this.notify.warning("Accesso negato per gli utenti autenticati.")    
       this.router.navigate(['/profile']);
       return false;
     }

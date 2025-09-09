@@ -12,11 +12,14 @@ import { SpinnerModule } from './shared/loader/spinner/spinner.module';
 import { AuthorizationInterceptor } from './core/services/auth-interceptors';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Modal } from './shared/modal/modal';
+import { NotificationComponent } from './shared/toasts/notification.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     App,
     Modal,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -26,10 +29,9 @@ import { Modal } from './shared/modal/modal';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatIconModule,
     FormsModule,
-    SpinnerModule,
-
-
+    SpinnerModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
