@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef } from '@angular/material/snack-bar';
+import { NotificationComponent } from './notification.component';
 
 export type ToastType = 'success'|'error'|'info'|'warning';
 
@@ -7,17 +8,32 @@ export type ToastType = 'success'|'error'|'info'|'warning';
 export class NotificationService {
   private snackBar = inject(MatSnackBar);
 
-  private cfg(duration = 4000): MatSnackBarConfig {
-    return { duration, horizontalPosition: 'right', verticalPosition: 'bottom' };
+  private cfg(duration = 4000, panelClass: string[] = []): MatSnackBarConfig {
+    return {
+      duration,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass
+    };
   }
 
-  show(message: string, type: ToastType = 'info', duration = 4000) {
+  private mapType(t: ToastType) {
+    return { success: 'Success', error: 'Error', info: 'Info', warning: 'Warn' }[t];
+  }
+
+  showComponent(message: string, type: ToastType = 'info', duration = 4000): MatSnackBarRef<NotificationComponent> {
+    const snackType = this.mapType(type);
+    const panel = [`toast-${type}`];
     this.snackBar.dismiss();
-    this.snackBar.open(message, 'Chiudi', { ...this.cfg(duration), panelClass: [`toast-${type}`] });
+    const ref = this.snackBar.openFromComponent(NotificationComponent, {
+      data: { message, snackType },
+      ...this.cfg(duration, panel)
+    });
+    return ref as MatSnackBarRef<NotificationComponent>;
   }
 
-  success(m: string, d = 3000){ this.show(m,'success',d); }
-  error(m: string, d = 6000){ this.show(m,'error',d); }
-  info(m: string, d = 4000){ this.show(m,'info',d); }
-  warning(m: string, d = 5000){ this.show(m,'warning',d); }
+  success(m: string, d = 3000){ return this.showComponent(m,'success',d); }
+  error(m: string, d = 6000){ return this.showComponent(m,'error',d); }
+  info(m: string, d = 4000){ return this.showComponent(m,'info',d); }
+  warning(m: string, d = 5000){ return this.showComponent(m,'warning',d); }
 }

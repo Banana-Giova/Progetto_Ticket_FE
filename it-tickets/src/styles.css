@@ -146,3 +146,13 @@ mat-toolbar {
         color: #f44336 !important;
     }
 }
+
+.snack-container .icon-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: none !important;  /* rimuove eventuali trasformazioni di Material */
+  margin: 0 !important;         /* azzera eventuali margini predefiniti */
+  padding: 4px;                 /* aggiusta padding interno, se vuoi */
+  z-index: 1;                   /* per sicurezza, sopra la text */
+}
