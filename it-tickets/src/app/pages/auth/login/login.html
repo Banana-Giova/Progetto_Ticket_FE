@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title class="card-title">Accedi</mat-card-title>
   <div class="email">
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="outline" floatLabel="always" class="full-width">
       <mat-label [class.has-error]="emailField.touched && !model.isValidEmail()"
         >Email</mat-label
       >
@@ -18,7 +18,7 @@
     </mat-form-field>
 
     <div class="password">
-      <mat-form-field appearance="fill" class="full-width">
+      <mat-form-field appearance="outline" floatLabel="always" class="full-width">
         <mat-label [class.has-error]="passwordField.touched && !model.isValidPassword()">
           Password</mat-label>
         <input
@@ -32,11 +32,12 @@
           required
         />
         <button
+        class="buttonicon"
           mat-icon-button
           matSuffix
           (click)="hide = !hide"
         >
-          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          <mat-icon class="icon">{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
       </mat-form-field>
     </div>

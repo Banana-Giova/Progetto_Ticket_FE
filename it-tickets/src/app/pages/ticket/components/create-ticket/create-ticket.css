@@ -1,14 +1,18 @@
 .ticket-class {
   display: flex;
   flex-direction: column;
-  width: 800px;
-  width: 100%;
-  padding: 16px;
+  width: 600px;
+  height: 550px;
+  box-shadow: none;
+  margin: 4px;
+  padding: 4px;
+  
 }
 
 .ticket-title {
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
   color: var(--color-primary);
+  text-align: center;
 }
 
 button.mybutton {
@@ -17,6 +21,23 @@ button.mybutton {
 
 }
 
+button:disabled{
+  background-color: rgba(0, 0, 0, 0.12)!important;
+  color: var(--color-dark)!important;
+}
+
+.textarea-field {
+  height: 200px!important;
+}
 
 
+::ng-deep .mat-mdc-checkbox.my-checkbox .mdc-checkbox__native-control:checked ~ .mdc-checkbox__background {
+  background-color: var(--color-primary)!important;
+  color: var(--color-light)!important;
+  border-color: black!important;
+}
+
+::ng-deep .mat-mdc-checkbox.my-checkbox .mdc-checkbox__checkmark-path {
+  stroke: white !important; 
+}
 

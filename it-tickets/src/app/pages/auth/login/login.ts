@@ -34,10 +34,12 @@ export class Login implements OnInit {
 
   login() {
     this.loginService.login$(this.model).pipe(
-      tap((resp) => {
-        this.userStorage.saveToken(resp.token);
-        this.userStorage.saveUser(resp);
-        this.notify.success('Login effettuato con successo!')
+      tap((response) => {
+        console.log('USER_KEY raw:', localStorage.getItem('userInfo'));
+        console.log('TOKEN raw:', localStorage.getItem('jwtToken'));
+
+        this.userStorage.saveToken(response.token);
+        this.userStorage.saveUser(response);
         this.authService.markAsLoggedIn();
         this.router.navigateByUrl(this.returnUrl);
       }),

@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> Ticket: {{ data.title }} </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-list role="list">
+      
+      <mat-list-item>
+        <mat-icon matListIcon>description</mat-icon>
+        <span><strong>Descrizione:</strong> {{ data.description}}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListIcon>category</mat-icon>
+        <span><strong>Categoria:</strong> {{ data.categoryName}}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListIcon>info</mat-icon>
+        <span><strong>Stato:</strong> {{ data.status}}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListIcon>priority_high</mat-icon>
+        <span>
+          <strong>Priorità:</strong>
+          <ng-container *ngIf="data.is_priority; else normal">Urgente</ng-container>
+          <ng-template #normal>Normale</ng-template>
+        </span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

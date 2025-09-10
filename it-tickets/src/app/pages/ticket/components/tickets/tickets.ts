@@ -6,6 +6,8 @@ import { UserAPIService } from '../../../auth/services/user.api.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { CategoryModel } from '../../models/category.model';
+import { catchError, forkJoin, of, tap } from 'rxjs';
+import { TicketDetail } from '../ticket-detail/ticket-detail';
 
 @Component({
   selector: 'app-tickets',
@@ -16,7 +18,7 @@ import { CategoryModel } from '../../models/category.model';
 export class Tickets implements OnInit{
 
   tickets: TicketModel[] = [];
-  displayedColumns: string[] = ['title', 'description', 'category', 'is_priority', 'status'];
+  displayedColumns: string[] = ['title','category', 'status','is_priority','details' ];
   totalTickets = 0;
   pageSize = 10;
   pageIndex = 0;
@@ -39,30 +41,51 @@ export class Tickets implements OnInit{
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CreateTicket);
-    dialogRef.afterClosed().subscribe(()=>{
-      this.loadTickets()
+    this.dialog.open(CreateTicket)
+     .afterClosed()
+     .pipe(
+       tap(() => this.loadTickets())
+    )
+    .subscribe();
+ }
+
+  openTicketDetails(ticket: TicketModel): void {
+      console.log('Categoria:', ticket.categoryName);
+      console.log('priority', ticket.is_priority);
+    
+    this.dialog.open(TicketDetail, {
+      width: "600px",
+      height: "400px",
+      data: ticket  // qui passi i dati del ticket selezionato
     });
   }
 
-  loadTickets(){
-    this.service.getTickets$(this.pageIndex, this.pageSize, this.searchKeyword, this.selectedCategory, this.selectedStatus).subscribe({ //quando chiude il dialog ricaricara i ticket con lo stesso metodo di sopra
-        next: (data) => {
-          this.tickets = data.content;    //Se va bene (next:), salva le categorie nell'array tickets altrimenti lancia l'errore
-          this.totalTickets = data.totalElements;
-          console.log('ticket presenti:', data.totalElements)
-          console.log('Ticket caricati:', data.content);
-        },
-        error: err => {
-          console.error('Errore nel caricamento ticket:', err);
-        }
-      });
-  }
+  
+  loadTickets() {
+    this.service.getTickets$(this.pageIndex, this.pageSize, this.searchKeyword, this.selectedCategory, this.selectedStatus
+   ).pipe(
+      tap(data => {
+        this.tickets = data.content;
+        this.totalTickets = data.totalElements;
+        console.log('ticket presenti:', data.totalElements);
+        console.log('Ticket caricati:', data.content);
+      }),
+      catchError(err => {
+        console.error('Errore nel caricamento ticket:', err);
+        // catcherror deve tornare necessariamente un observable, non può essere void
+        return of({ content: [], totalElements: 0 });
+      })
+    ).subscribe();
+}
 
   loadFilters(): void {
-    this.service.getCategories$().subscribe(data => this.categories = data);
-    this.service.getStatus$().subscribe(data => this.status = data);
-    console.log('stati', this.status)
+    forkJoin({
+      categories: this.service.getCategories$(),
+      status: this.service.getStatus$()
+    }).subscribe(({categories, status}) => {
+      this.categories = categories;
+      this.status = status;
+    });
   }
   
   onPageChange(event: PageEvent): void {
@@ -71,17 +94,17 @@ export class Tickets implements OnInit{
     this.loadTickets();
   }
 
-  onFilterChange(): void {
-    this.pageIndex = 0; // resetta la pagina quando cambia un filtro
-    this.loadTickets();
+  private searchTimeout: any;
+  searched: boolean = false;
+
+  onFilterChange(value: string): void {
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout= setTimeout(() => {
+      this.pageIndex = 0; // resetta la pagina quando cambia un filtro
+      this.loadTickets();
+      this.searched = true;
+    }, 500);
+
   }
-
-//   onSearch(keyword: string): void {
-//   this.searchKeyword = keyword;
-//   this.pageIndex = 0; // resetta alla prima pagina quando fai una nuova ricerca
-//   this.loadTickets();
-// }
-
-
   
 }
