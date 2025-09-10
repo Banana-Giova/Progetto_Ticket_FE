@@ -13,138 +13,136 @@
   </div>
 </div>
 
-<div class="user-list-container pb-3">
-  <mat-card class="tickets-class mat-elevation-z8">
-    <div class="table-header">
-      <div class="filters">
-        <mat-form-field
-          appearance="outline"
-          floatLabel="always"
-          class="small-field"
-        >
-          <mat-label>Categoria</mat-label>
-          <mat-select
-            [(value)]="selectedCategory"
-            (selectionChange)="onFilterChange(selectedCategory)"
-          >
-            <mat-option value="">Tutte</mat-option>
-            <mat-option *ngFor="let c of categories" [value]="c.name">{{
-              c.name
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field
-          appearance="outline"
-          floatLabel="always"
-          class="small-field"
-        >
-          <mat-label>Stato</mat-label>
-          <mat-select
-            [(value)]="selectedStatus"
-            (selectionChange)="onFilterChange(selectedStatus)"
-          >
-            <mat-option value="">Tutti</mat-option>
-            <mat-option *ngFor="let s of status" [value]="s">{{
-              s
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="ricerca">
-        <mat-form-field
-          appearance="outline"
-          floatLabel="always"
-          class="small-field"
-        >
-          <mat-label>Ricerca</mat-label>
-          <input
-            matInput
-            [(ngModel)]="searchKeyword"
-            (ngModelChange)="onFilterChange($event)"
-          />
-          <button
-            mat-icon-button
-            matPrefix
-            (click)="onFilterChange(searchKeyword)"
-          >
-            <mat-icon>search</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-    </div>
-
-    <div class="table-container">
-      <mat-table
-        *ngIf="tickets.length > 0; else noTicketsFound"
-        [dataSource]="tickets"
-        class="big-table"
+<div class="tickets-class  pb-3 mat-elevation-z4">
+  <div class="table-header">
+    <div class="filters">
+      <mat-form-field
+        appearance="outline"
+        floatLabel="always"
+        class="small-field"
       >
-        <ng-container matColumnDef="title">
-          <mat-header-cell class="mycell" *matHeaderCellDef>
-            Titolo
-          </mat-header-cell>
-          <mat-cell *matCellDef="let tickets"> {{ tickets.title }} </mat-cell>
-        </ng-container>
+        <mat-label>Categoria</mat-label>
+        <mat-select
+          [(value)]="selectedCategory"
+          (selectionChange)="onFilterChange(selectedCategory)"
+        >
+          <mat-option value="">Tutte</mat-option>
+          <mat-option *ngFor="let c of categories" [value]="c.name">{{
+            c.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <ng-container matColumnDef="category">
-          <mat-header-cell class="mycell" *matHeaderCellDef>
-            Categoria
-          </mat-header-cell>
-          <mat-cell *matCellDef="let tickets">
-            {{ tickets.categoryName }}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="details">
-          <mat-header-cell class="mycell" *matHeaderCellDef>
-          </mat-header-cell>
-          <mat-cell *matCellDef="let ticket">
-              <button mat-icon-button color="primary" (click)="openTicketDetails(ticket)">
-                <mat-icon class="my-icon">launch</mat-icon>
-              </button>
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="status">
-          <mat-header-cell class="mycell" *matHeaderCellDef>
-            Stato
-          </mat-header-cell>
-          <mat-cell *matCellDef="let tickets"> {{ tickets.status }} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="is_priority">
-          <mat-header-cell class="mycell" *matHeaderCellDef>
-            Priorità
-          </mat-header-cell>
-          <mat-cell *matCellDef="let tickets">
-            <mat-icon class="my-icon" *ngIf="tickets.is_priority">check</mat-icon>
-            <mat-icon class="my-icon" *ngIf="!tickets.is_priority">close</mat-icon>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      </mat-table>
-
-      <ng-template #noTicketsFound>
-        <div class="no-results">
-          <span *ngIf="!searched; else noSearch">Nessun ticket presente</span>
-          <ng-template #noSearch
-            >Nessun elemento trovato per i criteri di ricerca</ng-template
-          >
-        </div>
-      </ng-template>
+      <mat-form-field
+        appearance="outline"
+        floatLabel="always"
+        class="small-field"
+      >
+        <mat-label>Stato</mat-label>
+        <mat-select
+          [(value)]="selectedStatus"
+          (selectionChange)="onFilterChange(selectedStatus)"
+        >
+          <mat-option value="">Tutti</mat-option>
+          <mat-option *ngFor="let s of status" [value]="s">{{
+            s
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
-    <mat-paginator
-      [length]="totalTickets"
-      [pageSize]="pageSize"
-      [pageIndex]="pageIndex"
-      [pageSizeOptions]="[5, 10, 20]"
-      (page)="onPageChange($event)"
+    <div class="ricerca">
+      <mat-form-field
+        appearance="outline"
+        floatLabel="always"
+        class="small-field"
+      >
+        <mat-label>Ricerca</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchKeyword"
+          (ngModelChange)="onFilterChange($event)"
+        />
+        <button
+          mat-icon-button
+          matPrefix
+          (click)="onFilterChange(searchKeyword)"
+        >
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <mat-table
+      *ngIf="tickets.length > 0; else noTicketsFound"
+      [dataSource]="tickets"
+      class="big-table"
     >
-    </mat-paginator>
-  </mat-card>
+      <ng-container matColumnDef="title">
+        <mat-header-cell class="mycell" *matHeaderCellDef>
+          Titolo
+        </mat-header-cell>
+        <mat-cell *matCellDef="let tickets"> {{ tickets.title }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <mat-header-cell class="mycell" *matHeaderCellDef>
+          Categoria
+        </mat-header-cell>
+        <mat-cell *matCellDef="let tickets">
+          {{ tickets.categoryName }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <mat-header-cell class="mycell" *matHeaderCellDef>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let ticket">
+            <button mat-icon-button color="primary" (click)="openTicketDetails(ticket)">
+              <mat-icon class="my-icon">launch</mat-icon>
+            </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell class="mycell" *matHeaderCellDef>
+          Stato
+        </mat-header-cell>
+        <mat-cell *matCellDef="let tickets"> {{ tickets.status }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="is_priority">
+        <mat-header-cell class="mycell" *matHeaderCellDef>
+          Priorità
+        </mat-header-cell>
+        <mat-cell *matCellDef="let tickets">
+          <mat-icon class="my-icon" *ngIf="tickets.is_priority">check</mat-icon>
+          <mat-icon class="my-icon" *ngIf="!tickets.is_priority">close</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <ng-template #noTicketsFound>
+      <div class="no-results">
+        <span *ngIf="!searched; else noSearch">Nessun ticket presente</span>
+        <ng-template #noSearch
+          >Nessun elemento trovato per i criteri di ricerca</ng-template
+        >
+      </div>
+    </ng-template>
+  </div>
+
+  <mat-paginator
+    [length]="totalTickets"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
 </div>

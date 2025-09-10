@@ -6,8 +6,25 @@
   
 }
 
+.user-list-container {
+  background: var(--app-bg, #f6f8fb);
+}
+
+.tickets-class {
+  width: min(1080px, 94vw);
+  height: min(720px, 92vh);
+  background: var(--mat-background, #fff);
+  border-radius: 10px;
+  padding: 2rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-sizing: border-box;
+}
+
 .title-class {
   color: var(--color-primary);
+  
 }
 
 .table-header {
