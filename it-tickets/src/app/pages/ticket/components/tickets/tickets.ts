@@ -7,6 +7,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { CategoryModel } from '../../models/category.model';
 import { catchError, forkJoin, of, tap } from 'rxjs';
+import { TicketDetail } from '../ticket-detail/ticket-detail';
 
 @Component({
   selector: 'app-tickets',
@@ -17,7 +18,7 @@ import { catchError, forkJoin, of, tap } from 'rxjs';
 export class Tickets implements OnInit{
 
   tickets: TicketModel[] = [];
-  displayedColumns: string[] = ['title','category', 'status','is_priority', 'description' ];
+  displayedColumns: string[] = ['title','category', 'status','is_priority','details' ];
   totalTickets = 0;
   pageSize = 10;
   pageIndex = 0;
@@ -47,6 +48,17 @@ export class Tickets implements OnInit{
     )
     .subscribe();
  }
+
+  openTicketDetails(ticket: TicketModel): void {
+      console.log('Categoria:', ticket.categoryName);
+      console.log('priority', ticket.is_priority);
+    
+    this.dialog.open(TicketDetail, {
+      width: "600px",
+      height: "400px",
+      data: ticket  // qui passi i dati del ticket selezionato
+    });
+  }
 
   
   loadTickets() {

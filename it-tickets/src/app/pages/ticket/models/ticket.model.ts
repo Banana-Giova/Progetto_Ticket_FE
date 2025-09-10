@@ -1,7 +1,7 @@
 export class TicketModel {
     title: string = "";
     description: string = "";
-    category?: string;
+    categoryName?: string;
     is_priority?: boolean;
     status?: string = "";
 

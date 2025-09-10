@@ -97,12 +97,11 @@
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="description">
+        <ng-container matColumnDef="details">
           <mat-header-cell class="mycell" *matHeaderCellDef>
-            Descrizione
           </mat-header-cell>
-          <mat-cell *matCellDef="let tickets">
-              <button mat-icon-button color="primary">
+          <mat-cell *matCellDef="let ticket">
+              <button mat-icon-button color="primary" (click)="openTicketDetails(ticket)">
                 <mat-icon class="my-icon">launch</mat-icon>
               </button>
           </mat-cell>
@@ -120,8 +119,8 @@
             Priorità
           </mat-header-cell>
           <mat-cell *matCellDef="let tickets">
-            <mat-icon class="my-icon" *ngIf="tickets.isPriority">check</mat-icon>
-            <mat-icon class="my-icon" *ngIf="!tickets.isPriority">close</mat-icon>
+            <mat-icon class="my-icon" *ngIf="tickets.is_priority">check</mat-icon>
+            <mat-icon class="my-icon" *ngIf="!tickets.is_priority">close</mat-icon>
           </mat-cell>
         </ng-container>
 

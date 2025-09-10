@@ -26,8 +26,6 @@ import { Modal } from './shared/modal/modal';
     BrowserAnimationsModule,
     FormsModule,
     SpinnerModule,
-
-
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
