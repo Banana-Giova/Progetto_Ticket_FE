@@ -4,8 +4,13 @@ import { Header } from './header/header';
 import { Footer } from './footer/footer';
 import { Layout } from './layout/layout';
 import { RouterModule } from '@angular/router';
-
-
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_MENU_DEFAULT_OPTIONS, MatMenuDefaultOptions, MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider'
 
 @NgModule({
   declarations: [
@@ -15,7 +20,25 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatDividerModule
+  ],
+    providers: [
+    {
+      provide: MAT_MENU_DEFAULT_OPTIONS,
+      useValue: <MatMenuDefaultOptions>{
+        overlapTrigger: false,
+        xPosition: 'before',
+        yPosition: 'below',
+        overlayPanelClass: 'my-menu-overlay-pane'
+      }
+    }
   ]
 })
 export class CoreModule {

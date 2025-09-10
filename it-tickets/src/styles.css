@@ -13,6 +13,7 @@
   --color-danger:     #dc3545;
   --color-light:      #f8f9fa;
   --color-dark:       #343a40;
+  --color-deBlue:     #2A467A;
 
   /* Typography */
   --font-family:      'Inter', sans-serif;
@@ -31,6 +32,7 @@
 html, body {
   height: 100%;
   margin: 0;
+  padding-top: 32px;
 }
 
 app-root {
@@ -101,12 +103,11 @@ a:hover {
 /* =============================================================================
    4. Utility Classes
    ============================================================================= */
-/* Margin / Padding */
+   
 .u-mt-1 { margin-top: 0.5rem !important; }
 .u-mb-1 { margin-bottom: 0.5rem !important; }
 .u-p-1  { padding: 0.5rem !important; }
 
-/* Text & Flex */
 .u-text-center     { text-align: center !important; }
 .u-flex            { display: flex !important; }
 .u-justify-between { justify-content: space-between !important; }
@@ -151,8 +152,38 @@ mat-toolbar {
   position: absolute;
   top: 0;
   right: 0;
-  transform: none !important;  /* rimuove eventuali trasformazioni di Material */
-  margin: 0 !important;         /* azzera eventuali margini predefiniti */
-  padding: 4px;                 /* aggiusta padding interno, se vuoi */
-  z-index: 1;                   /* per sicurezza, sopra la text */
+  transform: none !important;
+  margin: 0 !important;
+  padding: 4px;
+  z-index: 1;
+}
+
+.my-menu-overlay-pane {
+  margin-top: 12px !important;
+}
+
+.mat-mdc-menu-panel.user-menu-custom {
+  background-color: #E0E0E1 !important;
+  /*
+  Grigio Chiaro DE:
+    - #D6D6D6
+
+  Più chiari:
+    - #E0E0E1
+    - #EAEAEB
+    - #F5F5F5
+
+  Più scuri:
+    - #CCCCCC
+    - #B8B8B8
+
+  Grigio Scuro DE:
+    - #A7A9AC
+  */
+  color: #3E6BB4 !important;
+}
+
+.mat-button-text-label.link-class {
+  color: #3E6BB4 !important;
+  font-size: medium;
 }

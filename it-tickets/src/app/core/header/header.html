@@ -1,19 +1,51 @@
-<header class="header-container">
-  <a routerLink="/" class="logo">
+<mat-toolbar color="primary" class="header-container">
+  <a [routerLink]="reactiveLinks.baseUrl" class="logo">
     <img [src]="logoUrl" alt="IT Tickets" class="logo-class" />
     <span class="logo-class"> IT Tickets</span>
   </a>
-  <div *ngIf="!(isLoggedIn$ | async)">
-    <nav>
-      <a routerLink="/register" class="link-class">Registrati</a>
-      <a routerLink="/login" class="link-class">Login</a>
-    </nav>
-  </div>
-  <div *ngIf="isLoggedIn$ | async">
-    <nav>
-      <a routerLink="/profile" class="link-class">Profilo</a>
-      <a routerLink="/ticket/tickets" class="link-class">Tickets</a>
-      <a (click)="logout()" class="link-class">Logout</a>
-    </nav>
-  </div>
-</header>
+
+  <span class="spacer"></span>
+
+  <!-- Guest -->
+  <nav *ngIf="!(isLoggedIn$ | async)" class="nav-links">
+    <a mat-button [routerLink]="reactiveLinks.register" class="link-class">Registrati</a>
+    <a mat-button [routerLink]="reactiveLinks.login" class="link-class">Login</a>
+  </nav>
+
+  <!-- Authenticated User -->
+  <ng-container *ngIf="isLoggedIn$ | async">
+    <ng-container *ngIf="avatar$ | async as av">
+      <button mat-button [matMenuTriggerFor]="userMenu" class="avatar-button"
+              [attr.aria-label]="av.hasInitials ? (av.name || av.email || 'Utente') : 'avatar'">
+        <div class="avatar"
+            [ngStyle]="av.hasInitials
+              ? { 'background-image': av.bgGradient }
+              : { 'background-image': 'url(' + av.backupIcon + ')' }"
+            tabindex="0">
+          <span *ngIf="av.hasInitials" aria-hidden="true">{{ av.initials }}</span>
+          <img *ngIf="!av.hasInitials" [src]="av.backupIcon" alt="" />
+        </div>
+      </button>
+    </ng-container>
+
+    <mat-menu #userMenu="matMenu" class="user-menu-custom">
+      <button mat-menu-item [routerLink]="reactiveLinks.profile">
+        <mat-icon class="menu-link">person</mat-icon>
+        <span class="menu-link">Profilo</span>
+      </button>
+      <button mat-menu-item [routerLink]="reactiveLinks.yourTickets">
+        <mat-icon class="menu-link">confirmation_number</mat-icon>
+        <span class="menu-link">I tuoi ticket</span>
+      </button>
+      <button *ngIf="isOperator$ | async" mat-menu-item [routerLink]="reactiveLinks.operatorTickets">
+        <mat-icon class="menu-link">assignment</mat-icon>
+        <span class="menu-link">Gestione ticket</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon class="menu-link">logout</mat-icon>
+        <span class="menu-link">Logout</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+</mat-toolbar>

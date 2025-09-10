@@ -34,11 +34,11 @@ export class UserAvatarModel {
   }
 
   computeGradient(): string {
-    const center = '#A4B9E0';
-    const mid = '#3E6BB4';
-    const edge = '#1A2D4C';
+    const center = '#D1DDEF';
+    const mid = '#86A6D5';
+    const edge = '#3E6BB4';
 
-    this.bgGradient = `radial-gradient(circle at center, ${center} 40%, ${mid} 80%, ${edge} 100%)`;
+    this.bgGradient = `radial-gradient(circle at center, ${center} 50%, ${mid} 75%, ${edge} 100%)`;
     return this.bgGradient;
   }
 }

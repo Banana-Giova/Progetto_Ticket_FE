@@ -55,7 +55,7 @@
         <hr class="divider"/>
 
         <div class="action-list" aria-label="Azioni rapide">
-          <a href="/reset-password" class="action-link p-1 mb-3 mt-1"
+          <a [routerLink]="reactiveLinks.resetPassword" class="action-link p-1 mb-3 mt-1"
              role="button"
              tabindex="0"
              aria-label="Cambia password">
@@ -63,25 +63,32 @@
             <span class="action-text">Cambia password</span>
           </a>
 
-          <a href="/ticket/tickets" class="action-link p-1 mb-3 mt-1"
+          <a [routerLink]="reactiveLinks.yourTickets" class="action-link p-1 mb-3 mt-1"
              role="button"
              tabindex="0"
              aria-label="I tuoi tickets">
             <mat-icon class="action-icon" aria-hidden="true">confirmation_num</mat-icon>
-            <span class="action-text">I tuoi tickets</span>
+            <span class="action-text">I tuoi ticket</span>
+          </a>
+
+          <a *ngIf="isOperator$ | async" [routerLink]="reactiveLinks.operatorTickets" class="action-link p-1 mb-3 mt-1"
+             role="button"
+             tabindex="0"
+             aria-label="I tuoi tickets">
+            <mat-icon class="action-icon" aria-hidden="true">assignment</mat-icon>
+            <span class="action-text">Gestione ticket</span>
           </a>
         </div>
       </div>
     </div>
 
     <div class="footer-actions" aria-hidden="false">
-      <a href="#"
-         class="logout-link"
+      <a class="logout-link"
          (click)="logout()"
          role="button"
          tabindex="0"
          aria-label="Logout">
-        <mat-icon class="action-icon" aria-hidden="true">how_to_reg</mat-icon>
+        <mat-icon class="action-icon" aria-hidden="true">logout</mat-icon>
         <span class="logout-text">Logout</span>
       </a>
     </div>
