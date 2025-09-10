@@ -46,7 +46,7 @@ export class Login implements OnInit {
           this.userStorage.saveUser(resp);
           this.authService.markAsLoggedIn();
         }), finalize(() => {
-          this.router.navigateByUrl(reactiveLinks.login, {replaceUrl: true});
+          this.router.navigateByUrl(reactiveLinks.profile, {replaceUrl: true});
           this.loader.isLoading = false;
           if (no_error) {
             this.notify.success('Login effettuato con successo!');
