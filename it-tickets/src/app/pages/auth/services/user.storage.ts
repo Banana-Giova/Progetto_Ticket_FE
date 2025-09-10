@@ -8,6 +8,7 @@ export interface StoredUser {
   email: string
   name: string
   surname: string
+  roles: string[];
 }
 
 @Injectable({

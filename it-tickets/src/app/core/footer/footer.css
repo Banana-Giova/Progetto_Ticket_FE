@@ -9,3 +9,12 @@
   font-size: small;
   color: var(--color-dark);
 }
+
+.footer-link {
+  color: var(--color-dark);
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: var(--color-primary);
+}

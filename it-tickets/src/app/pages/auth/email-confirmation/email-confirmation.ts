@@ -4,6 +4,7 @@ import { UserAPIService } from '../services/user.api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY, tap, throwError } from 'rxjs';
 import { NotificationService } from '../../../shared/toasts/notification.service';
+import { reactiveLinks } from '../../../shared/router-links/router-links';
 
 @Component({
   selector: 'app-email-confirmation',
@@ -17,6 +18,7 @@ export class EmailConfirmation implements OnInit {
   success?: string;
   model: EmailConfirmationModel = new EmailConfirmationModel();
   private storageKey = 'confirmedToken';
+  public reactiveLinks = reactiveLinks;
   
   constructor(
     private service: UserAPIService,
@@ -29,7 +31,7 @@ export class EmailConfirmation implements OnInit {
     this.token = this.route.snapshot.queryParamMap.get('token') ?? undefined;
   
     if (!this.token) {
-      this.router.navigate(['/'])
+      this.router.navigate([reactiveLinks.baseUrl])
       return;
     }
     this.model.token = this.token;
@@ -63,10 +65,10 @@ export class EmailConfirmation implements OnInit {
   }
 
   loginRedirect = (): void => {
-    this.router.navigate(['/login']);
+    this.router.navigate([reactiveLinks.login]);
   }
 
   registerRedirect = (): void => {
-    this.router.navigate(['/register']);
+    this.router.navigate([reactiveLinks.register]);
   }
 }

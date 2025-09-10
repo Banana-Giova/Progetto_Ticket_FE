@@ -8,6 +8,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { CanComponentDeactivate } from '../../../core/guards/unsaved.guard';
+import { reactiveLinks } from '../../../shared/router-links/router-links';
 
 @Component({
   selector: 'app-reset-password',
@@ -17,11 +18,12 @@ import { CanComponentDeactivate } from '../../../core/guards/unsaved.guard';
 })
 
 export class ResetPassword implements OnInit, CanComponentDeactivate {
-  hideOld = true;
-  hideNew = true;
-  email = '';
-  token = '';
-  model = new ResetPasswordModel();
+  protected hideOld = true;
+  protected hideNew = true;
+  protected email = '';
+  protected token = '';
+  protected model = new ResetPasswordModel();
+  public reactiveLinks = reactiveLinks;
 
   constructor(
     private service: UserAPIService,
@@ -56,7 +58,7 @@ export class ResetPassword implements OnInit, CanComponentDeactivate {
     }
 
     this.notify.error('Inizializzazione reset password fallito.');
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl(reactiveLinks.login);
     return;
   }
 

@@ -7,9 +7,11 @@ import {
 } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { NotificationService } from '../../shared/toasts/notification.service';
+import { reactiveLinks } from '../../shared/router-links/router-links';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
+  public reactiveLinks = reactiveLinks;
 
   constructor(
     private auth: AuthService,
@@ -24,7 +26,7 @@ export class AuthGuard implements CanActivate {
     if (!this.auth.isLoggedIn) {
       console.log("[Auth Guard] Accesso negato alla route per gli utenti non autenticati.")
       this.notify.warning("Sessione scaduta. Effettuare login.")   
-      this.router.navigate(['/login']);
+      this.router.navigate([reactiveLinks.login]);
       return false;
     }
     return true;

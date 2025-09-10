@@ -1,33 +1,96 @@
-<mat-card class="card-class">
-  <div class="content">
-    <div class="card-header">
-      <img class="avatar" [src]="avatarUrl" alt="Avatar" />
+<div class="profile-wrapper">
+  <div class="profile-container mat-elevation-z4" role="region" aria-label="Dati utente principali">
+
+    <h2 class="title-sect">Profilo utente</h2>
+
+    <div class="top-row">
+      <ng-container *ngIf="avatar$ | async as av">
+        <div
+          class="avatar"
+          [ngStyle]=" av.hasInitials
+            ? { 'background-image': av.bgGradient }
+            : { 'background-image': 'url(' + av.backupIcon + ')' }"
+          [attr.aria-label]=" av.hasInitials ? (av.name || av.email || 'Utente') : 'avatar' "
+          tabindex="0">
+          <span *ngIf="av.hasInitials" aria-hidden="true">{{ av.initials }}</span>
+          <img *ngIf="!av.hasInitials" [src]="av.backupIcon" alt="" />
+        </div>
+      </ng-container>
+
       <div class="header-info">
         <h2 class="card-title">{{ profile.name }}</h2>
-        <p class="muted">{{ roleString }}</p>
       </div>
     </div>
 
-
     <hr class="divider"/>
 
+    <div class="main-content">
+      <div class="details">
+        <div class="info-row">
+          <div class="label">Nome</div>
+          <div class="value" tabindex="0">{{ profile.name }}</div>
+        </div>
 
-  <mat-card-content>
-    <div class="info-row">
-      <div class="label">Nome completo</div>
-      <div class="value" tabindex="0">{{ profile.name + ' ' + profile.surname }}</div>
-    </div>
-    <hr class="divider"/>
-    <div class="info-row">
-      <div class="label">Email</div>
-      <div class="value" tabindex="0">{{ profile.email }}</div>
-    </div>
-  </mat-card-content>
+        <hr class="divider"/>
 
-    <div class="actions">
-      <button mat-stroked-button (click)="profileTickets()">I tuoi tickets</button>
-      <button mat-stroked-button (click)="onChangePassword()">Cambia password</button>
-      <button mat-stroked-button class="logout-button" (click)="logout()">Logout</button>
+        <div class="info-row">
+          <div class="label">Cognome</div>
+          <div class="value" tabindex="1">{{ profile.surname }}</div>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="info-row">
+          <div class="label">Email</div>
+          <div class="value" tabindex="2">{{ profile.email }}</div>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="info-row">
+          <div class="label">Ruoli</div>
+          <div class="value" tabindex="3">{{ roleString }}</div>
+        </div>
+
+        <hr class="divider"/>
+
+        <div class="action-list" aria-label="Azioni rapide">
+          <a [routerLink]="reactiveLinks.resetPassword" class="action-link p-1 mb-3 mt-1"
+             role="button"
+             tabindex="0"
+             aria-label="Cambia password">
+            <mat-icon class="action-icon" aria-hidden="true">key</mat-icon>
+            <span class="action-text">Cambia password</span>
+          </a>
+
+          <a [routerLink]="reactiveLinks.yourTickets" class="action-link p-1 mb-3 mt-1"
+             role="button"
+             tabindex="0"
+             aria-label="I tuoi tickets">
+            <mat-icon class="action-icon" aria-hidden="true">confirmation_num</mat-icon>
+            <span class="action-text">I tuoi ticket</span>
+          </a>
+
+          <a *ngIf="isOperator$ | async" [routerLink]="reactiveLinks.operatorTickets" class="action-link p-1 mb-3 mt-1"
+             role="button"
+             tabindex="0"
+             aria-label="I tuoi tickets">
+            <mat-icon class="action-icon" aria-hidden="true">assignment</mat-icon>
+            <span class="action-text">Gestione ticket</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-actions" aria-hidden="false">
+      <a class="logout-link"
+         (click)="logout()"
+         role="button"
+         tabindex="0"
+         aria-label="Logout">
+        <mat-icon class="action-icon" aria-hidden="true">logout</mat-icon>
+        <span class="logout-text">Logout</span>
+      </a>
     </div>
   </div>
-</mat-card>
+</div>

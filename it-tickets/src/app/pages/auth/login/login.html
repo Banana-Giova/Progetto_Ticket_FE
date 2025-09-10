@@ -1,63 +1,63 @@
 <mat-card>
   <mat-card-title class="card-title">Accedi</mat-card-title>
-  <div class="email">
-    <mat-form-field appearance="outline" floatLabel="always" class="full-width">
-      <mat-label [class.has-error]="emailField.touched && !model.isValidEmail()"
-        >Email</mat-label
-      >
-      <input
-        matInput
-        type="email"
-        [(ngModel)]="model.email"
-        #emailField="ngModel"
-        name="email"
-        placeholder="Inserisci la tua email"
-        (keyup.enter)="login()"
-        required
-      />
-    </mat-form-field>
-
-    <div class="password">
-      <mat-form-field appearance="outline" floatLabel="always" class="full-width">
-        <mat-label [class.has-error]="passwordField.touched && !model.isValidPassword()">
-          Password</mat-label>
+  <form (ngSubmit)="login()" #form="ngForm">
+    <div class="email">
+      <mat-form-field  appearance="outline" floatLabel="always" class="full-width">
+        <mat-label [class.has-error]="emailField.touched && !model.isValidEmail()"
+          >Email</mat-label
+        >
         <input
           matInput
-          [type]="hide ? 'password' : 'text'"
-          [(ngModel)]="model.password"
-          #passwordField="ngModel"
-          name="password"
-          placeholder="Inserisci la tua password"
-          (keyup.enter)="login()"
+          type="email"
+          [(ngModel)]="model.email"
+          #emailField="ngModel"
+          name="email"
+          placeholder="Inserisci la tua email"
           required
         />
-        <button
-        class="buttonicon"
-          mat-icon-button
-          matSuffix
-          (click)="hide = !hide"
-        >
-          <mat-icon class="icon">{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-        </button>
       </mat-form-field>
-    </div>
-    <div class="row">
-      <div class="col-12 d-flex justify-content-center">
-        <button
-          class="mybutton"
-          (click)="login()"
-          mat-raised-button
-          type="button"
-          [disabled]="!(model.isValidEmail() && model.isValidPassword())"
-        >
-          Login
-        </button>
+
+      <div class="password">
+        <mat-form-field appearance="outline" floatLabel="always" class="full-width">
+          <mat-label [class.has-error]="passwordField.touched && !model.isValidPassword()">
+            Password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            [(ngModel)]="model.password"
+            #passwordField="ngModel"
+            name="password"
+            placeholder="Inserisci la tua password"
+            required
+          />
+          <button
+            type="button"
+            class="buttonicon"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+          >
+            <mat-icon class="icon">{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
       </div>
-      <a routerLink="/forgot-password" class="link-class">Password dimenticata?</a>
-      <div class="register-line">
-      <span>Non hai un account?</span> 
-      <a routerLink="/register" class= "link-class">Registrati</a>
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <button
+            class="mybutton"
+            (click)="login()"
+            mat-raised-button
+            type="button"
+            [disabled]="!(model.isValidEmail() && model.isValidPassword())"
+          >
+            Login
+          </button>
+        </div>
+        <a [routerLink]="reactiveLinks.forgotPassword" class="link-class">Password dimenticata?</a>
+        <div class="register-line">
+        <span>Non hai un account?</span> 
+        <a [routerLink]="reactiveLinks.register" class= "link-class">Registrati</a>
+        </div>
       </div>
-    </div>
-  </div></mat-card
->
+    </form>
+  </mat-card>
