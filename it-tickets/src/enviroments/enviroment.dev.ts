@@ -6,10 +6,10 @@ export const enviroments = {
     resetPassword: 'reset-password',
     forgotPassword: 'forgot-password',
     profileFetch: 'profile-fetch',
+    getCategories: 'categories',
 
         ticketUrl: 'tickets/',
         addTicket: 'add-ticket',
-        getCategories: 'categories',
         // getTickets: 'pagination'
         getTickets: '',
         getStatus: 'status',

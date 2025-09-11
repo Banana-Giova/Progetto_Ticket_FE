@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { TicketChartModule } from '../../ticket/components/ticket-chart/ticket-chart.module';
 
 @NgModule({
   declarations: [ Profile ],
@@ -20,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    TicketChartModule,
     RouterModule.forChild([
       { path: '', component: Profile }
     ])

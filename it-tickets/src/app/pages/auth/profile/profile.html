@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <hr class="divider"/>
+    <hr class="divider-avatar"/>
 
     <div class="main-content">
       <div class="details">
@@ -53,6 +53,9 @@
         </div>
 
         <hr class="divider"/>
+      </div>
+
+      <div class="action-chart-row">
 
         <div class="action-list" aria-label="Azioni rapide">
           <a [routerLink]="reactiveLinks.resetPassword" class="action-link p-1 mb-3 mt-1"
@@ -79,18 +82,20 @@
             <span class="action-text">Gestione ticket</span>
           </a>
         </div>
+      
+      <div class="chart-column">
+        <app-ticket-chart></app-ticket-chart>
       </div>
-    </div>
-
-    <div class="footer-actions" aria-hidden="false">
-      <a class="logout-link"
-         (click)="logout()"
-         role="button"
-         tabindex="0"
-         aria-label="Logout">
-        <mat-icon class="action-icon" aria-hidden="true">logout</mat-icon>
-        <span class="logout-text">Disconnettiti</span>
-      </a>
+      <div class="footer-actions" aria-hidden="false">
+        <a class="logout-link"
+          (click)="logout()"
+          role="button"
+          tabindex="0"
+          aria-label="Logout">
+          <mat-icon class="action-icon" aria-hidden="true">logout</mat-icon>
+          <span class="logout-text">Disconnettiti</span>
+        </a>
+      </div>
     </div>
   </div>
 </div>

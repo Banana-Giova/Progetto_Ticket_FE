@@ -11,8 +11,10 @@
   --color-success:    #28a745;
   --color-warning:    #ffc107;
   --color-danger:     #dc3545;
+  --color-progress:   #ffb950;
   --color-light:      #f8f9fa;
   --color-dark:       #343a40;
+  --color-muted:      #6b7280;
   --color-deBlue:     #2A467A;
 
   /* Typography */

@@ -1,5 +1,6 @@
 .profile-wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: var(--app-bg, #f6f8fb);
@@ -29,6 +30,11 @@
   display: flex;
   gap: 16px;
   align-items: center;
+}
+
+.divider-avatar {
+  align-content: flex-start;
+  max-width: 20%;
 }
 
 .avatar {
@@ -74,13 +80,13 @@
 
 .main-content {
   display: flex;
-  gap: 24px;
-  flex: 1 1 auto;
-  align-items: flex-start;
+  gap: 2rem;
+  flex-direction: column;
 }
 
 .details {
   flex: 1 1 60%;
+  margin-bottom: -2rem;
 }
 
 .info-row {
@@ -104,11 +110,8 @@
 }
 
 .action-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-top: 0.25rem;
-  width: fit-content;
+  flex: 1;
+  max-width: 150px;
 }
 
 .action-link {
@@ -119,7 +122,7 @@
   user-select: text;
   -webkit-user-select: text;
   cursor: pointer;
-  color: var(--color-muted, #6b7280);
+  color: var(--color-muted);
   font-weight: 600;
   transition: color 150ms ease, background 120ms ease;
   border-radius: 6px;
@@ -151,6 +154,7 @@
 .footer-actions {
   margin-top: auto;
   display: flex;
+  flex: 3;
   justify-content: flex-end;
   align-items: center;
   padding-top: 0.5rem;
@@ -184,6 +188,23 @@
   box-shadow: 0 0 0 3px rgba(62,104,182,0.12);
 }
 
+.action-chart-row {
+  display: flex;
+  align-items: flex-start; /* allinea i due contenuti in alto */
+  gap: 2rem;               /* lasci spazio tra le colonne */
+}
+
+.action-links {
+  flex: 1;                 /* occupa lo spazio disponibile */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;             /* se vuoi distanza tra i pulsanti */
+}
+
+.chart-column {
+  flex: 2;
+  min-width: 200px;        /* non si contrae troppo */
+}
 
 @media (max-width: 900px) {
   .profile-container {

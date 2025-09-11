@@ -44,7 +44,7 @@ export class UserAPIService {
   }
 
   getCategories$() {
-    return this.http.get<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.getCategories);
+    return this.http.get<any>(enviroments.baseUrl + enviroments.getCategories);
   }
 
   getStatus$() {
@@ -52,7 +52,7 @@ export class UserAPIService {
   }
 
   addTicket$(model: TicketModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.addTicket, model)
+    return this.http.post<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.addTicket, model)
   }
 
   getTickets$(pageIndex: number, pageSize: number, keyword?: string, categoryName?: string, status?: string): Observable<{content: TicketModel[]; totalElements: number }>  {
