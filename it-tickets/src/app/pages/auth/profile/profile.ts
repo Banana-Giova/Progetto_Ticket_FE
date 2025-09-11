@@ -22,6 +22,7 @@ export class Profile implements OnInit {
   public roleString: string = '';
   protected avatar$: Observable<UserAvatarModel>;
   protected isOperator$: Observable<boolean>;
+  protected isAdmin$: Observable<boolean>;
   public reactiveLinks = reactiveLinks;
 
   constructor (
@@ -33,6 +34,7 @@ export class Profile implements OnInit {
   ) {
     this.avatar$ = this.avatarService.userAvatar$;
     this.isOperator$ = this.profileService.operatorStatus$
+    this.isAdmin$ = this.profileService.adminStatus$
   }
 
   ngOnInit(): void {

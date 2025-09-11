@@ -7,7 +7,8 @@ export const reactiveLinks = {
     resetPassword: '/reset-password',
     forgotPassword: '/forgot-password',
     yourTickets: '/ticket/tickets',
-    operatorTickets: '/ticket/operator',
+    allTickets: '/ticket/get-all',
+    userList: '/admin/user-list',
     privacy: '/privacy',
     terms: '/terms'
 }

@@ -9,7 +9,7 @@ export const enviroments = {
     getCategories: 'categories',
 
         ticketUrl: 'tickets/',
-        addTicket: 'add-ticket',
+        addTicket: 'add',
         // getTickets: 'pagination'
         getTickets: '',
         getStatus: 'status',

@@ -74,12 +74,20 @@
             <span class="action-text">I tuoi ticket</span>
           </a>
 
-          <a *ngIf="isOperator$ | async" [routerLink]="reactiveLinks.operatorTickets" class="action-link p-1 mb-3 mt-1"
+          <a *ngIf="isOperator$ | async" [routerLink]="reactiveLinks.allTickets" class="action-link p-1 mb-3 mt-1"
              role="button"
              tabindex="0"
-             aria-label="I tuoi tickets">
+             aria-label="Gestione ticket">
             <mat-icon class="action-icon" aria-hidden="true">assignment</mat-icon>
             <span class="action-text">Gestione ticket</span>
+          </a>
+
+          <a *ngIf="isAdmin$ | async" [routerLink]="reactiveLinks.userList" class="action-link p-1 mb-3 mt-1"
+             role="button"
+             tabindex="0"
+             aria-label="Gestione utenti">
+            <mat-icon class="action-icon" aria-hidden="true">supervisor_account</mat-icon>
+            <span class="action-text">Gestione utenti</span>
           </a>
         </div>
       

@@ -37,9 +37,13 @@
         <mat-icon class="menu-link">confirmation_number</mat-icon>
         <span class="menu-link">I tuoi ticket</span>
       </button>
-      <button *ngIf="isOperator$ | async" mat-menu-item [routerLink]="reactiveLinks.operatorTickets">
+      <button *ngIf="isOperator$ | async" mat-menu-item [routerLink]="reactiveLinks.allTickets">
         <mat-icon class="menu-link">assignment</mat-icon>
         <span class="menu-link">Gestione ticket</span>
+      </button>
+      <button *ngIf="isAdmin$ | async" mat-menu-item [routerLink]="reactiveLinks.userList">
+        <mat-icon class="menu-link">supervisor_account</mat-icon>
+        <span class="menu-link">Gestione utenti</span>
       </button>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">

@@ -30,6 +30,7 @@ export class Header {
   public logoUrl = '/logo_de.png';
   public isLoggedIn$: Observable<boolean>;
   public isOperator$: Observable<boolean>;
+  public isAdmin$: Observable<boolean>;
   protected avatar$: Observable<UserAvatarModel>;
   public reactiveLinks = reactiveLinks;
 
@@ -42,6 +43,7 @@ export class Header {
   ) {
     this.isLoggedIn$ = this.authService.loggedIn$;
     this.isOperator$ = this.authService.operatorStatus$;
+    this.isAdmin$ = this.authService.adminStatus$
     this.avatar$ = this.avatarService.userAvatar$;
   }
 

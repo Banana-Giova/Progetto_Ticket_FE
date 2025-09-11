@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Layout } from './core/layout/layout';
+import { InvalidGuard } from './core/guards/invalid.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,11 @@ const routes: Routes = [
         }
     ]
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: '**',
+    canActivate: [InvalidGuard],
+    children: []
+  }
 ];
 
 

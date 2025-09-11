@@ -14,6 +14,9 @@ export class AuthService {
   private operatorSubject: BehaviorSubject<boolean>;
   public operatorStatus$: Observable<boolean>;
 
+  private adminSubject: BehaviorSubject<boolean>;
+  public adminStatus$: Observable<boolean>;
+
   public reactiveLinks = reactiveLinks;
 
   constructor(private storage: UserStorageService) {
@@ -24,12 +27,16 @@ export class AuthService {
     this.operatorSubject = new BehaviorSubject<boolean>((this.storage.getUser()?.roles)?.includes('Operatore') ?? false);
     this.operatorStatus$ = this.operatorSubject.asObservable();
 
+    this.adminSubject = new BehaviorSubject<boolean>((this.storage.getUser()?.roles)?.includes('Amministratore') ?? false);
+    this.adminStatus$ = this.adminSubject.asObservable();
+
     console.log("Logged in: " + this.isLoggedIn);
   }
 
   markAsLoggedIn() {
     this.loggedInSubject.next(true);
     this.operatorSubject.next((this.storage.getUser()?.roles)?.includes('Operatore') ?? false);
+    this.adminSubject.next((this.storage.getUser()?.roles)?.includes('Amministratore') ?? false);
     console.log("Logged in: " + this.isLoggedIn)
   }
 
@@ -41,6 +48,10 @@ export class AuthService {
     return this.operatorSubject.value;
   }
 
+  get isAdmin(): boolean {
+    return this.adminSubject.value;
+  }
+
   public logout = async (
     router: Router, 
     avatarService: UserAvatarService, 
@@ -49,6 +60,7 @@ export class AuthService {
     this.storage.clearAll();
     this.loggedInSubject.next(false);
     this.operatorSubject.next(false);
+    this.adminSubject.next(false);
 
     try {
       const res = await router.navigateByUrl(reactiveLinks.login, { replaceUrl: true });
