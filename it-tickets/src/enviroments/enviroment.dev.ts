@@ -10,5 +10,6 @@ export const enviroments = {
     getCategories: 'categories',
     // getTickets: 'pagination'
     getTickets: 'tickets',
-    gestStatus: 'tickets/status'
+    gestStatus: 'tickets/status',
+    getTicketById: 'ticket/${id}'
 }

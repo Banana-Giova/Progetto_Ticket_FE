@@ -55,8 +55,9 @@ export class Tickets implements OnInit{
     
     this.dialog.open(TicketDetail, {
       width: "600px",
-      height: "400px",
-      data: ticket  // qui passi i dati del ticket selezionato
+      height: "500px",
+      autoFocus: false,
+      data: {id: ticket.id  }// qui passi solo l'id
     });
   }
 

@@ -1,0 +1,69 @@
+.title {
+    color: var(--color-primary);
+}
+
+mat-card {
+    box-shadow: none;
+    /* margin: 2%; */
+}
+
+.ticket-section {
+  margin: 2%;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px; 
+           /* consente di andare a capo */
+  max-width: 100%;         /* occupa la larghezza della card */
+}
+
+.section-text {
+  flex: 1;
+  margin-left: 8px;
+  word-break: break-word;  /* forza l’andata a capo se una parola è troppo lunga */
+  white-space: normal;     /* assicura che il testo vada a capo */
+}
+
+.urgent-icon {
+  color: var(--color-danger);
+}
+.normal-icon {
+  color: var(--color-primary);
+  
+}
+.status-todo{
+    color: var(--color-warning);
+}
+
+.status-inprogress{
+    color: orange;
+}
+
+.status-completed{
+    color: var(--color-success);
+}
+
+.status-rejected{
+    color: var(--color-danger);
+}
+
+.section-text {
+    margin-left: 8px;
+}
+
+mat-icon{
+    color: var(--color-deBlue);
+}
+
+.close-button{
+position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  min-width: auto;
+   /* padding: 0;
+   margin: 0;
+   display: flex;
+   border:none;
+   background-color: white;
+   margin-left: auto; */
+}

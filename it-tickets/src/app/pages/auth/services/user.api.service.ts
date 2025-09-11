@@ -70,6 +70,13 @@ export class UserAPIService {
   // getUTickets$() {
   //   return this.http.get<any>(enviroments.baseUrl + enviroments.getTickets)
   // }
+  // getTicketById$(id: number): Observable<TicketModel> {
+  //   return this.http.get<TicketModel>(enviroments.baseUrl + enviroments.getTicketById)
+  // }
+  getTicketById$(id: number): Observable<TicketModel> {
+  return this.http.get<TicketModel>(`${enviroments.baseUrl}ticket/${id}`);
+}
+
 
   getStatus$() {
     return this.http.get<any>(enviroments.baseUrl+ enviroments.gestStatus)
