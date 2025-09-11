@@ -7,10 +7,7 @@ import { enviroments } from "../../../../enviroments/enviroment.dev";
 import { EmailConfirmationModel } from "../email-confirmation/models/email-confirmation.model";
 import { ResetPasswordModel } from "../reset-password/models/reset-password.model";
 import { ForgotPasswordModel } from "../forgot-password/models/forgot-password.model";
-import { OnlyEmailModel } from "../login/models/onlyEmail.model";
 import { TicketModel } from "../../ticket/models/ticket.model";
-import { CategoryModel } from "../../ticket/models/category.model";
-import { Tickets } from "../../ticket/components/tickets/tickets";
 
 @Injectable ({
     
@@ -27,52 +24,35 @@ export class UserAPIService {
   }
 
   register$(model: RegisterModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.register, model)
+    return this.http.post<any>(enviroments.baseUrl + enviroments.register, model);
   }
   
   confirmEmail$(model: EmailConfirmationModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.emailConfirmation, model)
+    return this.http.post<any>(enviroments.baseUrl + enviroments.emailConfirmation, model);
   }
 
   resetPassword$(model: ResetPasswordModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.resetPassword, model)
+    return this.http.post<any>(enviroments.baseUrl + enviroments.resetPassword, model);
   }
 
   forgotPassword$(model: ForgotPasswordModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.forgotPassword, model)
+    return this.http.post<any>(enviroments.baseUrl + enviroments.forgotPassword, model);
   }
 
   profileFetch$(): Observable<any> {
     return this.http.get<any>(enviroments.baseUrl + enviroments.profileFetch);
   }
-  
-  // Testing
-
-  test() {
-    return this.http.get<any>(enviroments.baseUrl+ "test")
-  }
-
-  add_operator_test() {
-    return this.http.get<any>(enviroments.baseUrl+ "roles/add_operator_test")
-  }
-
-  remove_operator_test() {
-    return this.http.get<any>(enviroments.baseUrl+ "roles/remove_operator_test")
-  }
-  addTicket$(model: TicketModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.addTicket, model)
-  }
 
   getCategories$() {
-    return this.http.get<any>(enviroments.baseUrl + enviroments.getCategories)
+    return this.http.get<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.getCategories);
   }
 
-  // getUTickets$() {
-  //   return this.http.get<any>(enviroments.baseUrl + enviroments.getTickets)
-  // }
-
   getStatus$() {
-    return this.http.get<any>(enviroments.baseUrl+ enviroments.gestStatus)
+    return this.http.get<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.getStatus);
+  }
+
+  addTicket$(model: TicketModel): Observable<any> {
+    return this.http.post<any>(enviroments.baseUrl + enviroments.addTicket, model)
   }
 
   getTickets$(pageIndex: number, pageSize: number, keyword?: string, categoryName?: string, status?: string): Observable<{content: TicketModel[]; totalElements: number }>  {
@@ -85,7 +65,11 @@ export class UserAPIService {
       if (status) params = params.set('status', status);
 
       
-    return this.http.get<{content: TicketModel[]; totalElements: number }>((enviroments.baseUrl + enviroments.getTickets), {params});
+    return this.http.get<{content: TicketModel[]; totalElements: number }>((enviroments.baseUrl + enviroments.ticketUrl + enviroments.getTickets), {params});
+  }
+
+  getChart$() {
+    return this.http.get<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.getChart);
   }
 
 }

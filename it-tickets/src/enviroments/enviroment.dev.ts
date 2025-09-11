@@ -6,9 +6,12 @@ export const enviroments = {
     resetPassword: 'reset-password',
     forgotPassword: 'forgot-password',
     profileFetch: 'profile-fetch',
-    addTicket: 'add-ticket',
-    getCategories: 'categories',
-    // getTickets: 'pagination'
-    getTickets: 'tickets',
-    gestStatus: 'tickets/status'
+
+        ticketUrl: 'tickets/',
+        addTicket: 'add-ticket',
+        getCategories: 'categories',
+        // getTickets: 'pagination'
+        getTickets: '',
+        getStatus: 'status',
+        getChart: 'chart'
 }

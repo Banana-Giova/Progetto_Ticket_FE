@@ -46,16 +46,16 @@ export class Login implements OnInit {
           this.userStorage.saveUser(resp);
           this.authService.markAsLoggedIn();
         }), finalize(() => {
-          this.router.navigateByUrl(reactiveLinks.profile, {replaceUrl: true});
-          this.loader.isLoading = false;
           if (no_error) {
+            this.router.navigateByUrl(reactiveLinks.profile, {replaceUrl: true});
             this.notify.success('Login effettuato con successo!');
           }
+          this.loader.isLoading = false;
         }),
         catchError(err => {
           no_error = false;
           const msg = err.error?.message || err.message || 'Errore sconosciuto';
-          this.notify.error('Login fallito: ' + msg);
+          this.notify.error('Login fallito: ' + this.notify.checkBackend(msg));
           return throwError(() => err);
         })
       ).subscribe();

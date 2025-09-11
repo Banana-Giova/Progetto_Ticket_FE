@@ -9,7 +9,7 @@
   <!-- Guest -->
   <nav *ngIf="!(isLoggedIn$ | async)" class="nav-links">
     <a mat-button [routerLink]="reactiveLinks.register" class="link-class">Registrati</a>
-    <a mat-button [routerLink]="reactiveLinks.login" class="link-class">Login</a>
+    <a mat-button [routerLink]="reactiveLinks.login" class="link-class">Accedi</a>
   </nav>
 
   <!-- Authenticated User -->
@@ -44,7 +44,7 @@
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">
         <mat-icon class="menu-link">logout</mat-icon>
-        <span class="menu-link">Logout</span>
+        <span class="menu-link">Disconnettiti</span>
       </button>
     </mat-menu>
   </ng-container>

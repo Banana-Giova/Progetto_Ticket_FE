@@ -36,4 +36,10 @@ export class NotificationService {
   error(m: string, d = 6000){ return this.showComponent(m,'error',d); }
   info(m: string, d = 4000){ return this.showComponent(m,'info',d); }
   warning(m: string, d = 5000){ return this.showComponent(m,'warning',d); }
+
+  checkBackend = (m: string): string => {
+    if (m.search("0 Unknown Error")) {
+      return "Hai scordato di accedere il backend!";
+    } return m;
+  }
 }

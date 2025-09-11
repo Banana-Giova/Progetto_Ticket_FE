@@ -7,7 +7,7 @@
 
 .profile-container {
   width: min(1080px, 94vw);
-  height: min(720px, 92vh);
+  height: auto;
   background: var(--mat-background, #fff);
   border-radius: 10px;
   padding: 2rem 6rem;

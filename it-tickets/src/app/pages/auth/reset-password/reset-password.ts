@@ -79,7 +79,7 @@ export class ResetPassword implements OnInit, CanComponentDeactivate {
       }),
       catchError(err => {
         const msg = err.error?.message || err.message || 'Errore sconosciuto';
-        this.notify.error('Reset password fallito: ' + msg);
+        this.notify.error('Reset password fallito: ' + this.notify.checkBackend(msg));
         return throwError(() => err);
       })
     ).subscribe();

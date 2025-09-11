@@ -27,7 +27,7 @@ export class ForgotPassword {
       }),
       catchError(err => {
         const msg = err.error?.message || err.message || 'Errore sconosciuto';
-        this.notify.error('Invio email di recupero fallito: ' + msg);
+        this.notify.error('Invio email di recupero fallito: ' + this.notify.checkBackend(msg));
         return throwError(() => err);
       })
     ).subscribe();

@@ -36,7 +36,7 @@ export class Register implements CanComponentDeactivate {
       }),
       catchError(err => {
         const msg = err.error?.message || err.message || 'Errore sconosciuto';
-        this.notify.error('Registrazione fallita: ' + msg);
+        this.notify.error('Registrazione fallita: ' + this.notify.checkBackend(msg));
         return throwError(() => err);
       })
     ).subscribe();
