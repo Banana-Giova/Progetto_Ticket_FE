@@ -1,5 +1,6 @@
 export const reactiveLinks = {
     baseUrl: '/',
+    home: '/home',
     register: '/register',
     login: '/login',
     profile: '/profile',
