@@ -1,5 +1,4 @@
 export class UserAvatarModel {
-  readonly backupIcon = '/profile_icon.png';
   initials: string = '';
   bgGradient = '';
   hasInitials: boolean = false;
@@ -16,16 +15,16 @@ export class UserAvatarModel {
     const s = (this.surname || '').trim();
 
     if (n && s) {
-      this.hasInitials = true;
       this.initials = (n[0] + s[0]).toUpperCase();
+      this.hasInitials = true;
       return;
     } else if (!n) {
-      this.hasInitials = true;
       this.initials = s[0].toUpperCase() + s[1];
+      this.hasInitials = true;
       return;
     } else if (!s) {
-      this.hasInitials = true;
       this.initials = n[0].toUpperCase() + n[1];
+      this.hasInitials = true;
       return;
     } else {
       this.hasInitials = false;

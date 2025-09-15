@@ -39,7 +39,7 @@ export class NotificationService {
 
   checkBackend = (m: string): string => {
     if (m.search("0 Unknown Error") >= 1) {
-      return "Hai scordato di accedere il backend!";
+      return "Hai scordato di accendere il backend!";
     } return m;
   }
 }

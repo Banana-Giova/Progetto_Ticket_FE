@@ -24,6 +24,7 @@ export class Profile implements OnInit {
   protected isOperator$: Observable<boolean>;
   protected isAdmin$: Observable<boolean>;
   public reactiveLinks = reactiveLinks;
+  public readonly backupIcon = '/unavailable_grey.png';
 
   constructor (
     private router: Router,

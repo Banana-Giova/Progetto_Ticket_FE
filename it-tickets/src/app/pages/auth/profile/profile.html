@@ -9,11 +9,11 @@
           class="avatar"
           [ngStyle]=" av.hasInitials
             ? { 'background-image': av.bgGradient }
-            : { 'background-image': 'url(' + av.backupIcon + ')' }"
+            : { 'background-image': 'url(' + backupIcon + ')' }"
           [attr.aria-label]=" av.hasInitials ? (av.name || av.email || 'Utente') : 'avatar' "
           tabindex="0">
           <span *ngIf="av.hasInitials" aria-hidden="true">{{ av.initials }}</span>
-          <img *ngIf="!av.hasInitials" [src]="av.backupIcon" alt="" />
+          <img *ngIf="!av.hasInitials" [src]="backupIcon" alt="" />
         </div>
       </ng-container>
 

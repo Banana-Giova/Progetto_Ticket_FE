@@ -33,8 +33,8 @@ export class Header {
   public isAdmin$: Observable<boolean>;
   protected avatar$: Observable<UserAvatarModel>;
   public reactiveLinks = reactiveLinks;
+  public readonly backupIcon = '/unavailable_grey.png';
 
-  public avatarPlaceholder = '/profile_icon.png'
   constructor(
     private authService: AuthService,
     private avatarService: UserAvatarService,
