@@ -44,10 +44,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./ticket/ticket.module').then(m => m.TicketModule)
   },
-    {
+  {
     path: 'admin',
     canActivate: [AdminGuard],
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  {
+    path: 'terms',
+    loadChildren: () => import('./other/terms/terms.module').then(m => m.TermsModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./other/privacy/privacy.module').then(m => m.PrivacyModule)
   },
   {
     path: '**',
