@@ -23,74 +23,77 @@
     </div>
 
     <div class="main-content">
-      <div class="details">
-        <div class="info-row">
-          <div class="label">Nome</div>
-          <div class="value" tabindex="0">{{ profile.name }}</div>
+        <div class="details">
+          <div class="info-row">
+            <div class="label">Nome</div>
+            <div class="value" tabindex="0">{{ profile.name }}</div>
+          </div>
+
+          <hr class="divider"/>
+
+          <div class="info-row">
+            <div class="label">Cognome</div>
+            <div class="value" tabindex="1">{{ profile.surname }}</div>
+          </div>
+
+          <hr class="divider"/>
+
+          <div class="info-row">
+            <div class="label">Email</div>
+            <div class="value" tabindex="2">{{ profile.email }}</div>
+          </div>
+
+          <hr class="divider"/>
+
+          <div class="info-row">
+            <div class="label">Ruoli</div>
+            <div class="value" tabindex="3">{{ roleString }}</div>
+          </div>
+
+          <hr class="divider"/>
         </div>
 
-        <hr class="divider"/>
 
-        <div class="info-row">
-          <div class="label">Cognome</div>
-          <div class="value" tabindex="1">{{ profile.surname }}</div>
+      <div class="main-grid">
+        <div class="left-column">
+          <div class="action-list" aria-label="Azioni rapide">
+            <a [routerLink]="reactiveLinks.resetPassword" class="action-link p-1 mb-3 mt-1"
+              role="button"
+              tabindex="0"
+              aria-label="Cambia password">
+              <mat-icon class="action-icon" aria-hidden="true">key</mat-icon>
+              <span class="action-text">Cambia password</span>
+            </a>
+
+            <a [routerLink]="reactiveLinks.yourTickets" class="action-link p-1 mb-3 mt-1"
+              role="button"
+              tabindex="0"
+              aria-label="I tuoi tickets">
+              <mat-icon class="action-icon" aria-hidden="true">confirmation_num</mat-icon>
+              <span class="action-text">I tuoi ticket</span>
+            </a>
+
+            <a *ngIf="isOperator$ | async" [routerLink]="reactiveLinks.allTickets" class="action-link p-1 mb-3 mt-1"
+              role="button"
+              tabindex="0"
+              aria-label="Gestione ticket">
+              <mat-icon class="action-icon" aria-hidden="true">assignment</mat-icon>
+              <span class="action-text">Gestione ticket</span>
+            </a>
+
+            <a *ngIf="isAdmin$ | async" [routerLink]="reactiveLinks.userList" class="action-link p-1 mb-3 mt-1"
+              role="button"
+              tabindex="0"
+              aria-label="Gestione utenti">
+              <mat-icon class="action-icon" aria-hidden="true">supervisor_account</mat-icon>
+              <span class="action-text">Gestione utenti</span>
+            </a>
+          </div>
         </div>
 
-        <hr class="divider"/>
-
-        <div class="info-row">
-          <div class="label">Email</div>
-          <div class="value" tabindex="2">{{ profile.email }}</div>
+        <div class="chart-column">
+          <app-ticket-chart></app-ticket-chart>
         </div>
-
-        <hr class="divider"/>
-
-        <div class="info-row">
-          <div class="label">Ruoli</div>
-          <div class="value" tabindex="3">{{ roleString }}</div>
-        </div>
-
-        <hr class="divider"/>
-      </div>
-
-      <div class="action-chart-row">
-
-        <div class="action-list" aria-label="Azioni rapide">
-          <a [routerLink]="reactiveLinks.resetPassword" class="action-link p-1 mb-3 mt-1"
-             role="button"
-             tabindex="0"
-             aria-label="Cambia password">
-            <mat-icon class="action-icon" aria-hidden="true">key</mat-icon>
-            <span class="action-text">Cambia password</span>
-          </a>
-
-          <a [routerLink]="reactiveLinks.yourTickets" class="action-link p-1 mb-3 mt-1"
-             role="button"
-             tabindex="0"
-             aria-label="I tuoi tickets">
-            <mat-icon class="action-icon" aria-hidden="true">confirmation_num</mat-icon>
-            <span class="action-text">I tuoi ticket</span>
-          </a>
-
-          <a *ngIf="isOperator$ | async" [routerLink]="reactiveLinks.allTickets" class="action-link p-1 mb-3 mt-1"
-             role="button"
-             tabindex="0"
-             aria-label="Gestione ticket">
-            <mat-icon class="action-icon" aria-hidden="true">assignment</mat-icon>
-            <span class="action-text">Gestione ticket</span>
-          </a>
-
-          <a *ngIf="isAdmin$ | async" [routerLink]="reactiveLinks.userList" class="action-link p-1 mb-3 mt-1"
-             role="button"
-             tabindex="0"
-             aria-label="Gestione utenti">
-            <mat-icon class="action-icon" aria-hidden="true">supervisor_account</mat-icon>
-            <span class="action-text">Gestione utenti</span>
-          </a>
-        </div>
-      
-      <div class="chart-column">
-        <app-ticket-chart></app-ticket-chart>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="header-container">
   <a [routerLink]="reactiveLinks.home" class="logo">
     <img [src]="logoUrl" alt="IT Tickets" class="logo-class" />
-    <span class="logo-class"> IT Tickets</span>
+    <span class="brand-text"> IT Tickets</span>
   </a>
 
   <span class="spacer"></span>
@@ -52,12 +52,3 @@
       </button>
     </mat-menu>
   </ng-container>
-
-  <ng-container *ngIf="canGoBack$ | async">
-    <div class="back_container">
-      <button mat-button class="back-button" (click)="goBack()" title="Indietro">
-        <mat-icon class="back_icon" aria-hidden="true">arrow_back</mat-icon>
-      </button>
-    </div>
-  </ng-container>
-</mat-toolbar>

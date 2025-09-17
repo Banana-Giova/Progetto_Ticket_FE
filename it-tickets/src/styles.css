@@ -17,6 +17,8 @@
   --color-muted:      #6b7280;
   --color-deBlue:     #2A467A;
   --color-darkGray:   #474747;
+  --header-height: 64px;
+  --footer-height: 30px;
 
   --color-chart-red: #F44336;
   --color-chart-green:  #4CAF50;
@@ -27,6 +29,17 @@
   --font-family:      'Inter', sans-serif;
   --font-size:        16px;
   --line-height:      1.5;
+
+  --card-max-width: 1080px;
+  --card-max-height: 720px; /* non forzare l'altezza, è solo riferimento */
+  --profile-padding-x: clamp(1rem, 3vw, 3.5rem);
+  --profile-padding-y: clamp(1rem, 2vw, 2rem);
+
+  --header-bg: #E0E0E1;
+  --primary-color: hsl(217, 49%, 47%);
+  --link-color: #3E6BB4;
+  --header-z: 1000;
+  --max-width-narrow: 900px;
 }
 
 [data-theme="dark"] {
@@ -46,6 +59,13 @@ html, body {
 app-root {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  html, body {
+    /* overflow-x: hidden; */
+    box-sizing: border-box;
+  }
 }
 
 /* =============================================================================
@@ -86,26 +106,6 @@ a {
 }
 a:hover {
   text-decoration: underline;
-}
-
-/* =============================================================================
-   3. Layout Container & Grid
-   ============================================================================= */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -0.5rem;
-}
-
-.col {
-  flex: 1;
-  padding: 0.5rem;
 }
 
 /* =============================================================================

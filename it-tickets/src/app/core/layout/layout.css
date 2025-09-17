@@ -1,10 +1,17 @@
 .layout-container {
-  flex: 1 0 auto;
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 10rem;
-  margin: 0 auto;
-  min-height: 70vh;
-  height: calc(100vh - 120px);
+}
+
+@media (max-width: 600px) {
+  .layout-container {
+    flex-direction: column;
+    justify-content: flex-start; /* non centro verticalmente */
+    align-items: stretch;
+    padding: 0.5rem;
+    margin-bottom: 0;
+  }
 }
