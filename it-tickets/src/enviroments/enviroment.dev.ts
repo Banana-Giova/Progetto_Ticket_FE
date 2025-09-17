@@ -1,17 +1,26 @@
 export const enviroments = {
     baseUrl: 'http://localhost:8080/',
-    register: 'register',
-    login: 'login',
-    emailConfirmation: 'email-confirmation',
-    resetPassword: 'reset-password',
-    forgotPassword: 'forgot-password',
-    profileFetch: 'profile-fetch',
-    getCategories: 'categories',
+        register: 'register',
+        login: 'login',
+        emailConfirmation: 'email-confirmation',
+        resetPassword: 'reset-password',
+        forgotPassword: 'forgot-password',
+        profileFetch: 'profile-fetch',
+    
+        getCategories: 'categories',
 
-        ticketUrl: 'tickets/',
+    ticketUrl: 'tickets/',
         addTicket: 'add',
         // getTickets: 'pagination'
         getTickets: '',
         getStatus: 'status',
-        getChart: 'chart'
+        getChart: 'chart',
+
+        adminUrl: 'admin/',
+        getUsersList: 'get-users-list',
+
+    rolesUrl: 'roles/',
+        getAllRoles: 'get-all',
+        assignRole: 'assign',
+        removeRole: 'remove'
 }

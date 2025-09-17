@@ -15,17 +15,40 @@ interface ChartItem { name: string; value: number; }
 export class TicketChart {
   pieData$!: Observable<ChartItem[]>;
 
-  view: [number, number] = [500, 300];
-  showLegend = true;
+  view: [number, number] = [1060, 225];
+  showLegend = false;
   showLabels = true;
   animations = true;
   legTitle = "";
   customColors = [
-  { name: 'Da fare', value: '#ffc107' }, // #007bff per varietà azzurra qui, e giallo sotto
-  { name: 'In lavorazione', value: 'orange' },
-  { name: 'Respinti', value: '#dc3545' },
-  { name: 'Completati', value: '#28a745' }
-];
+  { name: 'Da fare', value: '#D6D6D6' }, // #007bff per varietà azzurra qui, e giallo sotto
+  { name: 'In lavorazione', value: '#007bff' },
+  { name: 'Respinti', value: '#F65C51' },
+  { name: 'Completati', value: '#5CD65C' }
+  ];
+  
+  myTooltipText = (d: any) => {
+    // nome può trovarsi in d.data.name (come nel tuo log)
+    const nome = d.data?.name ?? d.name ?? '—';
+    let total;
+    
+    let perc: number | null = null;
+
+    // se ci sono start/end angle, usali (preciso)
+    if (typeof d.startAngle === 'number' && typeof d.endAngle === 'number') {
+      perc = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
+    } 
+    // fallback: se preferisci usare value/total, vedi opzione 2 più sotto
+    if (perc == null && typeof d.value === 'number' && typeof (total) === 'number') {
+      perc = (d.value / total) * 100;
+    }
+
+    if (perc != null) {
+      return `Stato: ${nome}<br>${perc.toFixed(1)} %`;
+    }
+
+    return `Stato: ${nome}`;
+  };
 
 
   constructor(private ticketApi: UserAPIService) {

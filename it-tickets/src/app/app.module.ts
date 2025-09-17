@@ -14,6 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Modal } from './shared/modal/modal';
 import { NotificationComponent } from './shared/toasts/notification.component';
 import { MatIconModule } from '@angular/material/icon';
+import { LocationService } from './core/services/location.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatIconModule } from '@angular/material/icon';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptorsFromDi()),
+    LocationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationInterceptor,

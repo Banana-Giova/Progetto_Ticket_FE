@@ -33,4 +33,12 @@ export class RegisterModel {
         ) {return true;}
         return false;
     }
+
+    clear = () => {
+        this.name = "";
+        this.surname = "";
+        this.email = "";
+        this.newPassword = "";
+        this.confirmPassword = "";
+    }
 }

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { GuestGuard } from '../core/guards/guest.guard';
 import { InvalidGuard } from '../core/guards/invalid.guard';
-// import { AuthLoadGuard } from '../core/guards/auth-load.guard';
+import { AdminGuard } from '../core/guards/admin.guard';
 
 const routes: Routes = [
   {    
@@ -39,10 +39,15 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./auth/profile/profile.module').then(m => m.ProfileModule)
   },
-    {
+  {
     path: 'ticket',
     canActivate: [AuthGuard],
     loadChildren: () => import('./ticket/ticket.module').then(m => m.TicketModule)
+  },
+    {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: '**',

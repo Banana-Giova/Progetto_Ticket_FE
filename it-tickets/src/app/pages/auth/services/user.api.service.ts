@@ -8,6 +8,8 @@ import { EmailConfirmationModel } from "../email-confirmation/models/email-confi
 import { ResetPasswordModel } from "../reset-password/models/reset-password.model";
 import { ForgotPasswordModel } from "../forgot-password/models/forgot-password.model";
 import { TicketModel } from "../../ticket/models/ticket.model";
+import { UserInListModel } from "../../admin/models/user.model";
+import { ModifyRoleModel } from "../../admin/models/modify-role.model";
 
 @Injectable ({
     
@@ -72,4 +74,27 @@ export class UserAPIService {
     return this.http.get<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.getChart);
   }
 
+  getUsersList$(pageIndex: number, pageSize: number, keyword?: string, roleName?: string): Observable<{content: UserInListModel[]; totalElements: number }>  {
+    let params = new HttpParams()
+      .set('page', pageIndex.toString())
+      .set('size', pageSize.toString());
+
+      if (keyword) params = params.set('keyword', keyword);
+      if (roleName) params = params.set('roleName', roleName);
+
+      
+    return this.http.get<{content: UserInListModel[]; totalElements: number }>((enviroments.baseUrl + enviroments.adminUrl + enviroments.getUsersList), {params});
+  }
+
+  getRoles$() {
+    return this.http.get<any>(enviroments.baseUrl + enviroments.rolesUrl + enviroments.getAllRoles);
+  }
+
+  assignRole$(model: ModifyRoleModel) {
+    return this.http.post<any>(enviroments.baseUrl + enviroments.rolesUrl + enviroments.assignRole, model);
+  }
+
+  removeRole$(model: ModifyRoleModel) {
+    return this.http.post<any>(enviroments.baseUrl + enviroments.rolesUrl + enviroments.removeRole, model);
+  }
 }

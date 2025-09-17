@@ -9,7 +9,7 @@ export const reactiveLinks = {
     forgotPassword: '/forgot-password',
     yourTickets: '/ticket/tickets',
     allTickets: '/ticket/get-all',
-    userList: '/admin/user-list',
+    userList: '/admin/users-list',
     privacy: '/privacy',
     terms: '/terms'
 }

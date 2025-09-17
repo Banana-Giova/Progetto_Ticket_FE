@@ -30,6 +30,7 @@
   display: flex;
   gap: 16px;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .divider-avatar {
@@ -151,59 +152,25 @@
   box-shadow: 0 0 0 3px rgba(62,104,182,0.12);
 }
 
-.footer-actions {
-  margin-top: auto;
-  display: flex;
-  flex: 3;
-  justify-content: flex-end;
-  align-items: center;
-  padding-top: 17.5%;
-}
-
-.logout-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  user-select: text;
-  -webkit-user-select: text;
-  cursor: pointer;
-  color: var(--color-muted, #6b7280);
-  font-weight: 600;
-  transition: color 150ms ease, background 120ms ease;
-  padding: 6px 10px;
-  margin-bottom: 3rem;
-  background-color: rgba(247, 246, 246, 0.9);
-  border-radius: 0.5rem;
-  outline: none;
-}
-
-.logout-link:hover,
-.logout-link:focus {
-  color: var(--color-primary, #3E68B6);
-  background-color:rgba(186, 205, 255, 0.3);
-}
-
-.logout-link:focus {
-  box-shadow: 0 0 0 3px rgba(62,104,182,0.12);
-}
-
 .action-chart-row {
   display: flex;
-  align-items: flex-start; /* allinea i due contenuti in alto */
-  gap: 2rem;               /* lasci spazio tra le colonne */
+  align-items: flex-start;
+  gap: 2rem;
 }
 
 .action-links {
-  flex: 1;                 /* occupa lo spazio disponibile */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;             /* se vuoi distanza tra i pulsanti */
+  gap: 0.5rem;
 }
 
 .chart-column {
+  margin-top: -2.5rem;
   flex: 2;
-  min-width: 200px;        /* non si contrae troppo */
+  min-width: 200px;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 @media (max-width: 900px) {

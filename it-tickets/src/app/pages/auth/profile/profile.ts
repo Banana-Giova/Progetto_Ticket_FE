@@ -44,13 +44,12 @@ export class Profile implements OnInit {
       this.profile = user as ProfileModel;
       this.roleString = this.profile.roles.join(', ');
 
-
       this.avatarService.createAvatar();
 
     } else {
       this.storage.clearAll();
       this.avatarService.clear();
-      this.notify.error('Ruoli utenti non trovati: utente illegale!');
+      this.notify.error('Richiesta malformata, autenticazione revocata.');
       this.router.navigateByUrl(reactiveLinks.login);
     }
   }

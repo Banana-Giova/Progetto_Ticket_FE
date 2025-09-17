@@ -30,26 +30,34 @@
 
     <mat-menu #userMenu="matMenu" class="user-menu-custom">
       <button mat-menu-item [routerLink]="reactiveLinks.profile">
-        <mat-icon class="menu-link">person</mat-icon>
+        <mat-icon >person</mat-icon>
         <span class="menu-link">Profilo</span>
       </button>
       <button mat-menu-item [routerLink]="reactiveLinks.yourTickets">
-        <mat-icon class="menu-link">confirmation_number</mat-icon>
+        <mat-icon>confirmation_number</mat-icon>
         <span class="menu-link">I tuoi ticket</span>
       </button>
       <button *ngIf="isOperator$ | async" mat-menu-item [routerLink]="reactiveLinks.allTickets">
-        <mat-icon class="menu-link">assignment</mat-icon>
+        <mat-icon>assignment</mat-icon>
         <span class="menu-link">Gestione ticket</span>
       </button>
       <button *ngIf="isAdmin$ | async" mat-menu-item [routerLink]="reactiveLinks.userList">
-        <mat-icon class="menu-link">supervisor_account</mat-icon>
+        <mat-icon>supervisor_account</mat-icon>
         <span class="menu-link">Gestione utenti</span>
       </button>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">
-        <mat-icon class="menu-link">logout</mat-icon>
+        <mat-icon>logout</mat-icon>
         <span class="menu-link">Disconnettiti</span>
       </button>
     </mat-menu>
+  </ng-container>
+
+  <ng-container *ngIf="canGoBack$ | async">
+    <div class="back_container">
+      <button mat-button class="back-button" (click)="goBack()" title="Indietro">
+        <mat-icon class="back_icon" aria-hidden="true">arrow_back</mat-icon>
+      </button>
+    </div>
   </ng-container>
 </mat-toolbar>
