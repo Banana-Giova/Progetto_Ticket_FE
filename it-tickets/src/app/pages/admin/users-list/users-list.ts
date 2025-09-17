@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { catchError, filter, finalize, of, tap, throwError } from 'rxjs';
-import { UserAPIService } from '../../auth/services/user.api.service';
+import { AdminAPIService } from '../admin.api.service';
 import { UserDetail } from '../user-detail/user-detail';
 import { UserInListModel } from '../models/user.model';
 import { RoleModel } from '../models/role.model';
@@ -31,7 +31,7 @@ export class UsersList implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(
     private dialog: MatDialog, 
-    private service: UserAPIService,
+    private service: AdminAPIService,
     private notify: NotificationService
   ) {}
 
@@ -102,6 +102,5 @@ export class UsersList implements OnInit{
       this.loadUsers();
       this.searched = true;
     }, 500);
-
   }
 }

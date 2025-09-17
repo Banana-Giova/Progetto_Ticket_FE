@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserInListModel } from '../models/user.model';
-import { UserAPIService } from '../../auth/services/user.api.service';
+import { AdminAPIService } from '../admin.api.service';
 import { forkJoin, of, throwError } from 'rxjs';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { ModifyRoleModel } from '../models/modify-role.model';
@@ -29,7 +29,7 @@ export class UserDetail {
   constructor(
     @Inject(MAT_DIALOG_DATA) rawData: any,
     private dialogRef: MatDialogRef<UserDetail>,
-    private roleApi: UserAPIService,
+    private roleApi: AdminAPIService,
     private notify: NotificationService
   ) {
     this.data = new UserInListModel(rawData);
@@ -46,15 +46,6 @@ export class UserDetail {
            this.isAdmin !== this.originalIsAdmin;
   }
 
-  // // handler opzionali per logica al toggle
-  // onOperatorToggle(): void {
-  //   this.errorMsg = null;
-  // }
-
-  // onAdminToggle(): void {
-  //   this.errorMsg = null;
-  // }
-
   dismiss(): void {
     this.dialogRef.close(false);
   }
@@ -67,7 +58,6 @@ export class UserDetail {
       return;
     }
 
-    // Costruisco le operazioni necessarie
     const ops = [];
 
     // Operatore

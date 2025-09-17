@@ -6,7 +6,6 @@ mat-card {
   border-radius: 8px;
 }
 
-
 mat-form-field.full-width {
   width: 100%;
   margin-bottom: 16px;
@@ -15,6 +14,8 @@ mat-form-field.full-width {
 .card-title {
   margin-bottom: 24px;
   color: var(--color-primary);
+  font-size: x-large;
+  margin-bottom: 1.75rem;
 }
 
 .register-line {
@@ -41,4 +42,3 @@ mat-icon{
   font-size: 20px;
   align-content: center;  
 }
-

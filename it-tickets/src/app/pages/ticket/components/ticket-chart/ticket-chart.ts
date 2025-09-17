@@ -28,17 +28,14 @@ export class TicketChart {
   ];
   
   myTooltipText = (d: any) => {
-    // nome può trovarsi in d.data.name (come nel tuo log)
     const nome = d.data?.name ?? d.name ?? '—';
     let total;
     
     let perc: number | null = null;
 
-    // se ci sono start/end angle, usali (preciso)
     if (typeof d.startAngle === 'number' && typeof d.endAngle === 'number') {
       perc = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
     } 
-    // fallback: se preferisci usare value/total, vedi opzione 2 più sotto
     if (perc == null && typeof d.value === 'number' && typeof (total) === 'number') {
       perc = (d.value / total) * 100;
     }
