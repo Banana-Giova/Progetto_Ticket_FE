@@ -13,8 +13,7 @@
             required
             [(ngModel)] = "model.email"
             #emailField="ngModel"
-            type="email"
-            placeholder="Inserisci la tua email">
+            type="email">
         </mat-form-field>
 
         <mat-form-field appearance="outline" floatLabel="always" class="multi-field">
@@ -22,8 +21,7 @@
           <input 
             matInput 
             required 
-            [(ngModel)] = "model.name"
-            placeholder="Inserisci il nome">
+            [(ngModel)] = "model.name">
         </mat-form-field>
 
         <mat-form-field appearance="outline" floatLabel="always" class="multi-field">
@@ -31,8 +29,7 @@
           <input 
             matInput 
             required
-            [(ngModel)] = "model.surname"
-            placeholder="Inserisci il cognome">
+            [(ngModel)] = "model.surname">
         </mat-form-field>
 
         <mat-form-field appearance="outline" floatLabel="always" class="single-field">
@@ -42,8 +39,7 @@
             required
             [(ngModel)] = "model.newPassword"
             #newPasswordField="ngModel"
-            [type]="hide ? 'password' : 'text'" 
-            placeholder="Inserisci la tua password">
+            [type]="hide ? 'password' : 'text'">
             <button 
               mat-icon-button 
               matSuffix
@@ -60,8 +56,7 @@
             required
             [(ngModel)] = "model.confirmPassword"
             #confirmField="ngModel"
-            [type]="hide ? 'password' : 'text'"
-            placeholder="Conferma la tua password">
+            [type]="hide ? 'password' : 'text'">
             <button 
               mat-icon-button 
               matSuffix

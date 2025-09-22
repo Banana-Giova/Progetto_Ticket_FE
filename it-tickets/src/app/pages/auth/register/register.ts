@@ -4,6 +4,8 @@ import { UserAPIService } from '../services/user.api.service';
 import { tap, catchError, finalize, Observable, throwError } from 'rxjs';
 import { CanComponentDeactivate } from '../../../core/guards/unsaved.guard';
 import { NotificationService } from '../../../shared/toasts/notification.service';
+import { Router } from '@angular/router';
+import { reactiveLinks } from '../../../shared/router-links/router-links';
 
 @Component({
   selector: 'app-register',
@@ -16,10 +18,12 @@ export class Register implements CanComponentDeactivate {
 
   model: RegisterModel = new RegisterModel();
   hide: boolean = true;
+  public reactiveLinks = reactiveLinks;
 
   constructor(
     private service: UserAPIService,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private router: Router
   ) { }
 
   canDeactivate(): boolean {
@@ -33,10 +37,12 @@ export class Register implements CanComponentDeactivate {
     this.service.register$(this.model).pipe(
       tap(() => {
         this.notify.success('Registrazione completata. Verifica la tua email per attivare l\'account.')
+        this.model.clear();
+        this.router.navigateByUrl(reactiveLinks.login, {replaceUrl: true});
       }),
       catchError(err => {
         const msg = err.error?.message || err.message || 'Errore sconosciuto';
-        this.notify.error('Registrazione fallita: ' + msg);
+        this.notify.error('Registrazione fallita: ' + this.notify.checkBackend(msg));
         return throwError(() => err);
       })
     ).subscribe();

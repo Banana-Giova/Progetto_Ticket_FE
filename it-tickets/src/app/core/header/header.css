@@ -2,14 +2,14 @@
   display: flex;
   align-items: center;
   padding: 0 1rem;
-  height: 64px;
   font-size: large;
   background-color: #E0E0E1;
-  color: #3E6BB4;
+  color: hsl(217, 49%, 47%);
+  position: fixed;
+  height: var(--header-height);
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
   z-index: 1000;
 }
 
@@ -50,6 +50,7 @@
   padding: 0;
   min-width: auto;
   border-radius: 50%;
+  outline: none;
 }
 
 .avatar {
@@ -69,6 +70,7 @@
   font-size: 1rem;
   color: #2A467A;
   border: 0;
+  border-radius: 50%;
   box-shadow: 0 1px 2px rgba(0,0,0,0.06);
 }
 
@@ -77,23 +79,116 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 50%;
+  border: 0;
 }
 
 .avatar span {
   line-height: 1;
 }
 
-.avatar-button:hover .avatar,
-.avatar-button:focus .avatar {
+.avatar-button:hover .avatar {
   transform: scale(1.01);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.menu-link {
-  color: #243E6A !important;
+.avatar-button:focus .avatar {
+  outline: none;
+  box-shadow: none;
 }
+
+.back_container {
+  position: absolute;
+  margin-top: 7.5rem;
+  left: 16px;
+  z-index: 20;
+}
+
+.back-button {
+  border-radius: 25px;
+  border: 2px solid #E0E0E1;
+  background-color: #E0E0E1;
+  color: #3E6BB4;
+  min-width: auto;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: none;
+}
+
+.back-icon,
+.back_icon,
+.back_text {
+  color: black;
+  margin-right: -0.5rem !important;
+}
+
+.back-button .mat-ripple-element,
+::ng-deep .back-button .mat-ripple-element {
+  border-radius: 25px;
+}
+
+.back-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(62,107,180,0.12);
+  border-radius: 25px;
+}
+
+
+/* -------- Responsive behaviour -------- */
 
 @media (max-width: 600px) {
   .brand-text { display: none; }
   .logo-class { height: 30px; }
+
+  .nav-links { display: none; }
+
+  .avatar { 
+    width: 36px; 
+    height: 36px; 
+    font-size: 0.95rem;
+  }
+
+  .header-container {
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .brand-text { font-size: 1rem; }
+  .logo-class { height: 32px; }
+  .avatar { width: 36px; height: 36px; }
+  .nav-links a { font-size: 0.95rem; }
+}
+
+@media (min-width: 901px) {
+  .nav-links { display: flex !important; }
+  .menu-toggle { display: none; }
+}
+
+@media (max-width: 420px) {
+  .header-container {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0.5rem;
+    align-items: center;
+  }
+  .logo { 
+    order: 1;
+  }
+  .avatar-button { 
+    order: 2;
+  }
+  .spacer { 
+    order: 3;
+  }
+}
+
+.header-container a:focus,
+.header-container button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(62,107,180,0.12);
+  border-radius: 6px;
 }

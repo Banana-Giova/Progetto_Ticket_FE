@@ -7,7 +7,7 @@ export class LoginModel {
     }
 
     isValidPassword(){
-        return  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,24}$/.test(this.password);
+        return  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,24}$/.test(this.password);
     }
 
     isValidEmail(){

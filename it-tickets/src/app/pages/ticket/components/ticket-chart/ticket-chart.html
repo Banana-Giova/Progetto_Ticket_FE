@@ -1,0 +1,21 @@
+<div class="ticket-chart-wrapper">
+  <ng-container *ngIf="pieData$ | async as data">
+    <ngx-charts-pie-chart
+      *ngIf="data?.length"
+      [view]="view"
+      [results]="data"
+      [legend]="showLegend"
+      [legendTitle]="legTitle"
+      [trimLabels]="false"
+      [labels]="showLabels"
+      [doughnut]="true"
+      [animations]="animations"
+      [customColors]="customColors"
+      [tooltipText]="myTooltipText">
+    </ngx-charts-pie-chart>
+
+    <div *ngIf="!data?.length" class="no-data">
+      Nessun dato disponibile per il grafico.
+    </div>
+  </ng-container>
+</div>

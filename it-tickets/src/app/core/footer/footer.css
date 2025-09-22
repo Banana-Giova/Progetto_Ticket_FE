@@ -1,17 +1,17 @@
 .footer-container {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: var(--color-light);
+  height: var(--footer-height);
+  flex: 0 0 var(--footer-height);
+  background-color: var(--header-bg);
   text-align: center;
-  padding: 1rem;
-  font-size: small;
-  color: var(--color-dark);
+  padding: 0.25rem 0;
 }
 
-.footer-link {
+.footer-text {
   color: var(--color-dark);
+  font-size: small;
+}
+
+.footer-text.link {
   text-decoration: none;
 }
 

@@ -11,14 +11,35 @@
   --color-success:    #28a745;
   --color-warning:    #ffc107;
   --color-danger:     #dc3545;
+  --color-progress:   #ffb950;
   --color-light:      #f8f9fa;
   --color-dark:       #343a40;
+  --color-muted:      #6b7280;
   --color-deBlue:     #2A467A;
+  --color-darkGray:   #474747;
+  --header-height: 64px;
+  --footer-height: 30px;
+
+  --color-chart-red: #F44336;
+  --color-chart-green:  #4CAF50;
+  --color-chart-blue: #2196F3;
+  --color-chart-gray: #9E9E9E;
 
   /* Typography */
   --font-family:      'Inter', sans-serif;
   --font-size:        16px;
   --line-height:      1.5;
+
+  --card-max-width: 1080px;
+  --card-max-height: 720px; /* non forzare l'altezza, è solo riferimento */
+  --profile-padding-x: clamp(1rem, 3vw, 3.5rem);
+  --profile-padding-y: clamp(1rem, 2vw, 2rem);
+
+  --header-bg: #E0E0E1;
+  --primary-color: hsl(217, 49%, 47%);
+  --link-color: #3E6BB4;
+  --header-z: 1000;
+  --max-width-narrow: 900px;
 }
 
 [data-theme="dark"] {
@@ -31,13 +52,20 @@
 
 html, body {
   height: 100%;
-  margin: 0;
-  padding-top: 32px;
+  margin: 0 auto;
+  padding: 0;
 }
 
 app-root {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  html, body {
+    /* overflow-x: hidden; */
+    box-sizing: border-box;
+  }
 }
 
 /* =============================================================================
@@ -78,26 +106,6 @@ a {
 }
 a:hover {
   text-decoration: underline;
-}
-
-/* =============================================================================
-   3. Layout Container & Grid
-   ============================================================================= */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: -0.5rem;
-}
-
-.col {
-  flex: 1;
-  padding: 0.5rem;
 }
 
 /* =============================================================================
@@ -162,28 +170,94 @@ mat-toolbar {
   margin-top: 12px !important;
 }
 
-.mat-mdc-menu-panel.user-menu-custom {
-  background-color: #E0E0E1 !important;
-  /*
-  Grigio Chiaro DE:
-    - #D6D6D6
-
-  Più chiari:
-    - #E0E0E1
-    - #EAEAEB
-    - #F5F5F5
-
-  Più scuri:
-    - #CCCCCC
-    - #B8B8B8
-
-  Grigio Scuro DE:
-    - #A7A9AC
-  */
-  color: #3E6BB4 !important;
-}
-
 .mat-button-text-label.link-class {
   color: #3E6BB4 !important;
   font-size: medium;
+}
+
+.mat-mdc-menu-item .mat-icon {
+  color: var(--color-darkGray) !important;
+}
+
+.mat-mdc-menu-item {
+  color: var(--color-darkGray) !important;
+}
+
+.menu-link {
+  font-size: 14px !important;
+}
+
+ngx-charts-pie-chart text {
+  font-size: 0.75vw !important;
+  fill: #333 !important;
+}
+
+.mat-mdc-checkbox .mat-ripple,
+.mat-checkbox .mat-ripple,
+.mat-mdc-checkbox .mdc-checkbox__ripple {
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+/* ===============================
+   Aggressive overrides per snack
+   =============================== */
+
+/* CONTAINER SNACKBAR */
+.cdk-overlay-container mat-snack-bar-container.small-panel,
+.cdk-overlay-container .mat-mdc-snack-bar-container.small-panel,
+.cdk-overlay-container .mat-snack-bar-container.small-panel {
+  max-width: 360px !important;
+  min-width: 0 !important;
+  width: auto !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* ALTRO PADDING SNACKBAR */
+.cdk-overlay-container mat-snack-bar-container.small-panel .mdc-snackbar__surface,
+.cdk-overlay-container .mat-mdc-snack-bar-container.small-panel .mdc-snackbar__surface,
+.cdk-overlay-container .mat-snack-bar-container.small-panel .mat-simple-snackbar {
+  padding: 2px 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-sizing: border-box !important;
+}
+
+/* PADDING SNACKBAR */
+.cdk-overlay-container mat-snack-bar-container.small-panel .mat-mdc-snack-bar-label.mdc-snackbar__label,
+.cdk-overlay-container .mat-mdc-snack-bar-container.small-panel .mat-mdc-snack-bar-label.mdc-snackbar__label,
+.cdk-overlay-container mat-snack-bar-container.small-panel .mdc-snackbar__label,
+.cdk-overlay-container .mat-mdc-snack-bar-container.small-panel .mdc-snackbar__label {
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  line-height: 1.35 !important;
+  box-sizing: border-box !important;
+}
+
+/* TESTO SNACKBAR NELLA */
+.cdk-overlay-container mat-snack-bar-container.small-panel my-snackbar .snack-container,
+.cdk-overlay-container .mat-mdc-snack-bar-container.small-panel my-snackbar .snack-container {
+  padding: 0.5rem 0.5rem !important;
+  gap: 6px !important;
+  align-items: center !important;
+}
+
+.cdk-overlay-container mat-snack-bar-container.small-panel .icon-close,
+.cdk-overlay-container .mat-mdc-snack-bar-container.small-panel .icon-close {
+  padding: 2px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.cdk-overlay-container mat-snack-bar-container.small-panel .icon-close mat-icon {
+  transform: scale(0.6) !important;
+  transform-origin: center center !important;
+  right: 0 !important;
+  top: 0 !important;
 }

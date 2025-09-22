@@ -20,6 +20,8 @@
 .card-title {
   margin-bottom: 24px;
   color: var(--color-primary);
+  font-size: x-large;
+  margin-bottom: 1.75rem;
 }
 
 .form-row {

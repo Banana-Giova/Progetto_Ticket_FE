@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LocationService } from '../services/location.service';
 import { UserAvatarService } from '../../shared/user-avatar/user-avatar.service';
 import { UserAvatarModel } from '../../shared/user-avatar/models/user-avatar.model';
 import { NotificationService } from '../../shared/toasts/notification.service';
 import { MAT_MENU_DEFAULT_OPTIONS } from '@angular/material/menu';
 import { reactiveLinks } from '../../shared/router-links/router-links';
+import { UserStorageService } from '../../pages/auth/services/user.storage';
 
 @Component({
   selector: 'app-header',
@@ -26,23 +28,45 @@ import { reactiveLinks } from '../../shared/router-links/router-links';
   ]
 })
 
-export class Header {
+export class Header implements OnInit {
   public logoUrl = '/logo_de.png';
   public isLoggedIn$: Observable<boolean>;
   public isOperator$: Observable<boolean>;
+  public isAdmin$: Observable<boolean>;
+  public canGoBack$: Observable<boolean>;
   protected avatar$: Observable<UserAvatarModel>;
   public reactiveLinks = reactiveLinks;
+  public readonly backupIcon = '/unavailable_grey.png';
 
-  public avatarPlaceholder = '/profile_icon.png'
   constructor(
     private authService: AuthService,
     private avatarService: UserAvatarService,
+    private storage: UserStorageService,
     private notify: NotificationService,
-    private router: Router
+    private router: Router,
+    private location: LocationService
   ) {
     this.isLoggedIn$ = this.authService.loggedIn$;
     this.isOperator$ = this.authService.operatorStatus$;
+    this.isAdmin$ = this.authService.adminStatus$
+    this.canGoBack$ = this.location.canGoBack$;
     this.avatar$ = this.avatarService.userAvatar$;
+  }
+
+  ngOnInit() {
+    const user = this.storage.getUser();
+    if (user && user.id !== -1) {
+      this.avatarService.createAvatar();
+
+    } else {
+      this.storage.clearAll();
+      this.avatarService.clear();
+      this.router.navigateByUrl(reactiveLinks.login);
+    }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   logout = () => {

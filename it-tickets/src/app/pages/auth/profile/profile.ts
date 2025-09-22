@@ -22,7 +22,9 @@ export class Profile implements OnInit {
   public roleString: string = '';
   protected avatar$: Observable<UserAvatarModel>;
   protected isOperator$: Observable<boolean>;
+  protected isAdmin$: Observable<boolean>;
   public reactiveLinks = reactiveLinks;
+  public readonly backupIcon = '/unavailable_grey.png';
 
   constructor (
     private router: Router,
@@ -33,6 +35,7 @@ export class Profile implements OnInit {
   ) {
     this.avatar$ = this.avatarService.userAvatar$;
     this.isOperator$ = this.profileService.operatorStatus$
+    this.isAdmin$ = this.profileService.adminStatus$
   }
 
   ngOnInit(): void {
@@ -41,13 +44,12 @@ export class Profile implements OnInit {
       this.profile = user as ProfileModel;
       this.roleString = this.profile.roles.join(', ');
 
-
       this.avatarService.createAvatar();
 
     } else {
       this.storage.clearAll();
       this.avatarService.clear();
-      this.notify.error('Ruoli utenti non trovati: utente illegale!');
+      this.notify.error('Richiesta malformata, autenticazione revocata.');
       this.router.navigateByUrl(reactiveLinks.login);
     }
   }

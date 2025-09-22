@@ -9,11 +9,11 @@
           class="avatar"
           [ngStyle]=" av.hasInitials
             ? { 'background-image': av.bgGradient }
-            : { 'background-image': 'url(' + av.backupIcon + ')' }"
+            : { 'background-image': 'url(' + backupIcon + ')' }"
           [attr.aria-label]=" av.hasInitials ? (av.name || av.email || 'Utente') : 'avatar' "
           tabindex="0">
           <span *ngIf="av.hasInitials" aria-hidden="true">{{ av.initials }}</span>
-          <img *ngIf="!av.hasInitials" [src]="av.backupIcon" alt="" />
+          <img *ngIf="!av.hasInitials" [src]="backupIcon" alt="" />
         </div>
       </ng-container>
 
@@ -22,75 +22,79 @@
       </div>
     </div>
 
-    <hr class="divider"/>
-
     <div class="main-content">
-      <div class="details">
-        <div class="info-row">
-          <div class="label">Nome</div>
-          <div class="value" tabindex="0">{{ profile.name }}</div>
+        <div class="details">
+          <div class="info-row">
+            <div class="label">Nome</div>
+            <div class="value" tabindex="0">{{ profile.name }}</div>
+          </div>
+
+          <hr class="divider"/>
+
+          <div class="info-row">
+            <div class="label">Cognome</div>
+            <div class="value" tabindex="1">{{ profile.surname }}</div>
+          </div>
+
+          <hr class="divider"/>
+
+          <div class="info-row">
+            <div class="label">Email</div>
+            <div class="value" tabindex="2">{{ profile.email }}</div>
+          </div>
+
+          <hr class="divider"/>
+
+          <div class="info-row">
+            <div class="label">Ruoli</div>
+            <div class="value" tabindex="3">{{ roleString }}</div>
+          </div>
+
+          <hr class="divider"/>
         </div>
 
-        <hr class="divider"/>
 
-        <div class="info-row">
-          <div class="label">Cognome</div>
-          <div class="value" tabindex="1">{{ profile.surname }}</div>
+      <div class="main-grid">
+        <div class="left-column">
+          <div class="action-list" aria-label="Azioni rapide">
+            <a [routerLink]="reactiveLinks.resetPassword" class="action-link p-1 mb-3 mt-1"
+              role="button"
+              tabindex="0"
+              aria-label="Cambia password">
+              <mat-icon class="action-icon" aria-hidden="true">key</mat-icon>
+              <span class="action-text">Cambia password</span>
+            </a>
+
+            <a [routerLink]="reactiveLinks.yourTickets" class="action-link p-1 mb-3 mt-1"
+              role="button"
+              tabindex="0"
+              aria-label="I tuoi tickets">
+              <mat-icon class="action-icon" aria-hidden="true">confirmation_num</mat-icon>
+              <span class="action-text">I tuoi ticket</span>
+            </a>
+
+            <a *ngIf="isOperator$ | async" [routerLink]="reactiveLinks.allTickets" class="action-link p-1 mb-3 mt-1"
+              role="button"
+              tabindex="0"
+              aria-label="Gestione ticket">
+              <mat-icon class="action-icon" aria-hidden="true">assignment</mat-icon>
+              <span class="action-text">Gestione ticket</span>
+            </a>
+
+            <a *ngIf="isAdmin$ | async" [routerLink]="reactiveLinks.userList" class="action-link p-1 mb-3 mt-1"
+              role="button"
+              tabindex="0"
+              aria-label="Gestione utenti">
+              <mat-icon class="action-icon" aria-hidden="true">supervisor_account</mat-icon>
+              <span class="action-text">Gestione utenti</span>
+            </a>
+          </div>
         </div>
 
-        <hr class="divider"/>
-
-        <div class="info-row">
-          <div class="label">Email</div>
-          <div class="value" tabindex="2">{{ profile.email }}</div>
-        </div>
-
-        <hr class="divider"/>
-
-        <div class="info-row">
-          <div class="label">Ruoli</div>
-          <div class="value" tabindex="3">{{ roleString }}</div>
-        </div>
-
-        <hr class="divider"/>
-
-        <div class="action-list" aria-label="Azioni rapide">
-          <a [routerLink]="reactiveLinks.resetPassword" class="action-link p-1 mb-3 mt-1"
-             role="button"
-             tabindex="0"
-             aria-label="Cambia password">
-            <mat-icon class="action-icon" aria-hidden="true">key</mat-icon>
-            <span class="action-text">Cambia password</span>
-          </a>
-
-          <a [routerLink]="reactiveLinks.yourTickets" class="action-link p-1 mb-3 mt-1"
-             role="button"
-             tabindex="0"
-             aria-label="I tuoi tickets">
-            <mat-icon class="action-icon" aria-hidden="true">confirmation_num</mat-icon>
-            <span class="action-text">I tuoi ticket</span>
-          </a>
-
-          <a *ngIf="isOperator$ | async" [routerLink]="reactiveLinks.operatorTickets" class="action-link p-1 mb-3 mt-1"
-             role="button"
-             tabindex="0"
-             aria-label="I tuoi tickets">
-            <mat-icon class="action-icon" aria-hidden="true">assignment</mat-icon>
-            <span class="action-text">Gestione ticket</span>
-          </a>
+        <div class="chart-column">
+          <app-ticket-chart></app-ticket-chart>
         </div>
       </div>
-    </div>
-
-    <div class="footer-actions" aria-hidden="false">
-      <a class="logout-link"
-         (click)="logout()"
-         role="button"
-         tabindex="0"
-         aria-label="Logout">
-        <mat-icon class="action-icon" aria-hidden="true">logout</mat-icon>
-        <span class="logout-text">Logout</span>
-      </a>
     </div>
   </div>
 </div>

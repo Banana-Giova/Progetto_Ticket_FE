@@ -8,12 +8,12 @@ export type ToastType = 'success'|'error'|'info'|'warning';
 export class NotificationService {
   private snackBar = inject(MatSnackBar);
 
-  private cfg(duration = 4000, panelClass: string[] = []): MatSnackBarConfig {
+  private cfg(duration = 4000): MatSnackBarConfig {
     return {
       duration,
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      panelClass
+      panelClass: 'small-panel'
     };
   }
 
@@ -23,11 +23,10 @@ export class NotificationService {
 
   showComponent(message: string, type: ToastType = 'info', duration = 4000): MatSnackBarRef<NotificationComponent> {
     const snackType = this.mapType(type);
-    const panel = [`toast-${type}`];
     this.snackBar.dismiss();
     const ref = this.snackBar.openFromComponent(NotificationComponent, {
       data: { message, snackType },
-      ...this.cfg(duration, panel)
+      ...this.cfg(duration)
     });
     return ref as MatSnackBarRef<NotificationComponent>;
   }
@@ -36,4 +35,10 @@ export class NotificationService {
   error(m: string, d = 6000){ return this.showComponent(m,'error',d); }
   info(m: string, d = 4000){ return this.showComponent(m,'info',d); }
   warning(m: string, d = 5000){ return this.showComponent(m,'warning',d); }
+
+  checkBackend = (m: string): string => {
+    if (m.search("0 Unknown Error") >= 1) {
+      return "Hai scordato di accendere il backend!";
+    } return m;
+  }
 }

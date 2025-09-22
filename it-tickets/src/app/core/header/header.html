@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="header-container">
-  <a [routerLink]="reactiveLinks.baseUrl" class="logo">
+  <a [routerLink]="reactiveLinks.home" class="logo">
     <img [src]="logoUrl" alt="IT Tickets" class="logo-class" />
-    <span class="logo-class"> IT Tickets</span>
+    <span class="brand-text"> IT Tickets</span>
   </a>
 
   <span class="spacer"></span>
@@ -9,7 +9,7 @@
   <!-- Guest -->
   <nav *ngIf="!(isLoggedIn$ | async)" class="nav-links">
     <a mat-button [routerLink]="reactiveLinks.register" class="link-class">Registrati</a>
-    <a mat-button [routerLink]="reactiveLinks.login" class="link-class">Login</a>
+    <a mat-button [routerLink]="reactiveLinks.login" class="link-class">Accedi</a>
   </nav>
 
   <!-- Authenticated User -->
@@ -20,32 +20,35 @@
         <div class="avatar"
             [ngStyle]="av.hasInitials
               ? { 'background-image': av.bgGradient }
-              : { 'background-image': 'url(' + av.backupIcon + ')' }"
+              : { 'background-image': 'url(' + backupIcon + ')' }"
             tabindex="0">
           <span *ngIf="av.hasInitials" aria-hidden="true">{{ av.initials }}</span>
-          <img *ngIf="!av.hasInitials" [src]="av.backupIcon" alt="" />
+          <img *ngIf="!av.hasInitials" [src]="backupIcon" alt="" />
         </div>
       </button>
     </ng-container>
 
     <mat-menu #userMenu="matMenu" class="user-menu-custom">
       <button mat-menu-item [routerLink]="reactiveLinks.profile">
-        <mat-icon class="menu-link">person</mat-icon>
+        <mat-icon >person</mat-icon>
         <span class="menu-link">Profilo</span>
       </button>
       <button mat-menu-item [routerLink]="reactiveLinks.yourTickets">
-        <mat-icon class="menu-link">confirmation_number</mat-icon>
+        <mat-icon>confirmation_number</mat-icon>
         <span class="menu-link">I tuoi ticket</span>
       </button>
-      <button *ngIf="isOperator$ | async" mat-menu-item [routerLink]="reactiveLinks.operatorTickets">
-        <mat-icon class="menu-link">assignment</mat-icon>
+      <button *ngIf="isOperator$ | async" mat-menu-item [routerLink]="reactiveLinks.allTickets">
+        <mat-icon>assignment</mat-icon>
         <span class="menu-link">Gestione ticket</span>
+      </button>
+      <button *ngIf="isAdmin$ | async" mat-menu-item [routerLink]="reactiveLinks.userList">
+        <mat-icon>supervisor_account</mat-icon>
+        <span class="menu-link">Gestione utenti</span>
       </button>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">
-        <mat-icon class="menu-link">logout</mat-icon>
-        <span class="menu-link">Logout</span>
+        <mat-icon>logout</mat-icon>
+        <span class="menu-link">Disconnettiti</span>
       </button>
     </mat-menu>
   </ng-container>
-</mat-toolbar>

@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { GuestGuard } from '../core/guards/guest.guard';
-// import { AuthLoadGuard } from '../core/guards/auth-load.guard';
+import { InvalidGuard } from '../core/guards/invalid.guard';
+import { AdminGuard } from '../core/guards/admin.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'profile', pathMatch: 'full' },
+  {    
+    path: '',
+    canActivate: [InvalidGuard],
+    children: []
+  },
   {
     path: 'register',
     canActivate: [GuestGuard],
@@ -34,12 +39,29 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./auth/profile/profile.module').then(m => m.ProfileModule)
   },
-    {
+  {
     path: 'ticket',
     canActivate: [AuthGuard],
     loadChildren: () => import('./ticket/ticket.module').then(m => m.TicketModule)
   },
-  { path: '**', redirectTo: 'profile' }
+  {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  {
+    path: 'terms',
+    loadChildren: () => import('./other/terms/terms.module').then(m => m.TermsModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./other/privacy/privacy.module').then(m => m.PrivacyModule)
+  },
+  {
+    path: '**',
+    canActivate: [InvalidGuard],
+    children: []
+  }
 ];
 
 

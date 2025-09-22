@@ -59,7 +59,7 @@ export class EmailConfirmation implements OnInit {
     catchError(err => {
       this.success = 'false';
         const msg = err.error?.message || err.message || 'Errore sconosciuto';
-        this.notify.error('Conferma email fallita: ' + msg);
+        this.notify.error('Conferma email fallita: ' + this.notify.checkBackend(msg));
         return throwError(() => err);
       })).subscribe();
   }

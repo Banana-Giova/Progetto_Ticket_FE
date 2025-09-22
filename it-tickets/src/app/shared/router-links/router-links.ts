@@ -1,5 +1,6 @@
 export const reactiveLinks = {
     baseUrl: '/',
+    home: '/home',
     register: '/register',
     login: '/login',
     profile: '/profile',
@@ -7,7 +8,8 @@ export const reactiveLinks = {
     resetPassword: '/reset-password',
     forgotPassword: '/forgot-password',
     yourTickets: '/ticket/tickets',
-    operatorTickets: '/ticket/operator',
+    allTickets: '/ticket/get-all',
+    userList: '/admin/users-list',
     privacy: '/privacy',
     terms: '/terms'
 }

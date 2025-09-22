@@ -1,0 +1,78 @@
+<mat-card class="user-card">
+  <button class="icon-close" (click)="dismiss()" aria-label="Chiudi">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-card-header>
+    <mat-card-title>Dettaglio utente</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-list role="list">
+      <mat-list-item>
+        <mat-icon matListItemIcon class="list-icon">person</mat-icon>
+        <span><strong>Nome:</strong> {{ data.name }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListItemIcon class="list-icon">people</mat-icon>
+        <span><strong>Cognome:</strong> {{ data.surname }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListItemIcon class="list-icon">email</mat-icon>
+        <span><strong>Email:</strong> {{ data.email }}</span>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListItemIcon class="list-icon">verified</mat-icon>
+        <span><strong>Email Confermata:</strong> {{ data.emailConfirmed ? 'Sì' : 'No' }}</span>
+      </mat-list-item>
+    </mat-list>
+
+    <div class="roles">
+
+      <!-- Utente: sempre checked e disabled -->
+      <mat-checkbox class="role-checkbox" [checked]="true" disabled>
+        Utente (obbligatorio)
+      </mat-checkbox>
+
+      <!-- Operatore: editabile -->
+      <mat-checkbox
+        class="role-checkbox"
+        [(ngModel)]="isOperator"
+        [disabled]="saving || !data.emailConfirmed"
+      >
+        Operatore
+      </mat-checkbox>
+
+      <!-- Amministratore: editabile solo se non è già admin; se è già admin lo disabilitiamo (non si può rimuovere) -->
+      <mat-checkbox
+        class="role-checkbox"
+        [(ngModel)]="isAdmin"
+        [disabled]="saving || !data.emailConfirmed || originalIsAdmin"
+        [title]="originalIsAdmin ? 'Amministratore non rimovibile da qui' : ''"
+      >
+        Amministratore
+      </mat-checkbox>
+    </div>
+
+    <div class="button-group">
+      <button 
+        class="mybutton cancel" 
+        mat-raised-button 
+        type="button"
+        (click)="dismiss()">
+        Annulla
+      </button>
+      <button 
+        class="mybutton save" 
+        mat-raised-button 
+        type="button"
+        (click)="save()"
+        [disabled]="!changed || saving">
+        Salva
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
