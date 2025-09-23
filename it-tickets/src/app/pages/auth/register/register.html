@@ -5,7 +5,7 @@
     </mat-card-header>
     <mat-card-content class="content">
       <div class="form-row">
-        <mat-form-field appearance="outline" floatLabel="always" class="single-field">
+        <mat-form-field appearance="outline" floatLabel="always" class="custom-input single-field">
           <mat-label [class.has-error]="emailField.touched && !model.isValidEmail()">Email</mat-label>
           <input 
             id="email-field"
@@ -16,7 +16,7 @@
             type="email">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" floatLabel="always" class="multi-field">
+        <mat-form-field appearance="outline" floatLabel="always" class="custom-input multi-field">
           <mat-label>Nome</mat-label>
           <input 
             matInput 
@@ -24,7 +24,7 @@
             [(ngModel)] = "model.name">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" floatLabel="always" class="multi-field">
+        <mat-form-field appearance="outline" floatLabel="always" class="custom-input multi-field">
           <mat-label>Cognome</mat-label>
           <input 
             matInput 
@@ -32,7 +32,7 @@
             [(ngModel)] = "model.surname">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" floatLabel="always" class="single-field">
+        <mat-form-field appearance="outline" floatLabel="always" class=" custom-input single-field">
           <mat-label [class.has-error]="newPasswordField.touched && !model.isValidPassword()">Password</mat-label>
           <input
             matInput 
@@ -49,7 +49,7 @@
             </button>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" floatLabel="always" class="single-field">
+        <mat-form-field appearance="outline" floatLabel="always" class="custom-input single-field">
           <mat-label [class.has-error]="confirmField.touched && !model.isValidPassword()">Conferma password</mat-label>
           <input
             matInput 

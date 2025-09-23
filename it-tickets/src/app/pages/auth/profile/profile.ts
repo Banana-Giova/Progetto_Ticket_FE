@@ -58,6 +58,10 @@ export class Profile implements OnInit {
     this.router.navigateByUrl(reactiveLinks.yourTickets);
   }
 
+  allTickets(): void {
+    this.router.navigateByUrl(reactiveLinks.allTickets)
+  }
+
   onChangePassword(): void {
     this.router.navigateByUrl(reactiveLinks.resetPassword);
   }

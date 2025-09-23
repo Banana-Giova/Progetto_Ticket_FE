@@ -6,12 +6,12 @@
    ============================================================================= */
 :root {
   /* Light theme (default) */
-  --color-primary:    #007bff;
+  --color-primary:    rgb(62 107 180 / var(--tw-bg-opacity, 1));
   --color-secondary:  #6c757d;
-  --color-success:    #28a745;
+  --color-success:    #4CAF50;
   --color-warning:    #ffc107;
-  --color-danger:     #dc3545;
-  --color-progress:   #ffb950;
+  --color-danger:     #F44336;
+  --color-todo:       #9E9E9E;
   --color-light:      #f8f9fa;
   --color-dark:       #343a40;
   --color-muted:      #6b7280;
@@ -19,11 +19,6 @@
   --color-darkGray:   #474747;
   --header-height: 64px;
   --footer-height: 30px;
-
-  --color-chart-red: #F44336;
-  --color-chart-green:  #4CAF50;
-  --color-chart-blue: #2196F3;
-  --color-chart-gray: #9E9E9E;
 
   /* Typography */
   --font-family:      'Inter', sans-serif;

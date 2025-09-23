@@ -3,7 +3,7 @@
     <mat-card-title class="card-title">Accedi</mat-card-title>
 
     <div class="email">
-      <mat-form-field appearance="outline" floatLabel="always" class="full-width">
+      <mat-form-field appearance="outline" floatLabel="always" class="custom-input full-width">
         <mat-label [class.has-error]="emailField.touched && !model.isValidEmail()">Email</mat-label>
         <input
           matInput
@@ -17,7 +17,7 @@
     </div>
 
     <div class="password">
-      <mat-form-field appearance="outline" floatLabel="always" class="full-width">
+      <mat-form-field appearance="outline" floatLabel="always" class="custom-input full-width">
         <mat-label [class.has-error]="passwordField.touched && !model.isValidPassword()">Password</mat-label>
         <input
           matInput

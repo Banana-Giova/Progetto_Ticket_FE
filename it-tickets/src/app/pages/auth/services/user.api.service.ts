@@ -47,12 +47,12 @@ export class UserAPIService {
   // getUTickets$() {
   //   return this.http.get<any>(enviroments.baseUrl + enviroments.getTickets)
   // }
-  // getTicketById$(id: number): Observable<TicketModel> {
-  //   return this.http.get<TicketModel>(enviroments.baseUrl + enviroments.getTicketById)
-  // }
   getTicketById$(id: number): Observable<TicketModel> {
-    return this.http.get<TicketModel>(`${enviroments.baseUrl}ticket/${id}`);
+    return this.http.get<TicketModel>(enviroments.baseUrl + enviroments.ticketUrl + id)
   }
+  // getTicketById$(id: number): Observable<TicketModel> {
+  //   return this.http.get<TicketModel>(`${enviroments.baseUrl}ticket/${id}`);
+  // }
 
 
   getStatus$() {
@@ -60,8 +60,18 @@ export class UserAPIService {
   }
 
   addTicket$(model: TicketModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.addTicket, model)
+    return this.http.post<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.addTicket, model);
   }
+
+  updateDescription$(id: number, newDescription: string): Observable<any> {
+    return this.http.patch<any>(enviroments.baseUrl + enviroments.ticketUrl + id + enviroments.updateDescrpition, {newDescription});
+  }
+
+  updateStatus$(id: number, newStatus: string): Observable<any> {
+    return this.http.patch<any>(enviroments.baseUrl + enviroments.ticketUrl + id + enviroments.updateStatus, {newStatus});
+  }
+
+
 
   getTickets$(pageIndex: number, pageSize: number, keyword?: string, categoryName?: string, status?: string): Observable<{ content: TicketModel[]; totalElements: number }> {
     let params = new HttpParams()

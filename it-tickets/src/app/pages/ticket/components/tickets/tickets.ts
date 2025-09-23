@@ -57,8 +57,11 @@ export class Tickets implements OnInit{
       width: "600px",
       height: "500px",
       autoFocus: false,
-      data: {id: ticket.id  }// qui passi solo l'id
-    });
+      data: {id: ticket.id  }
+    }).afterClosed().pipe(
+       tap(() => this.loadTickets())
+    )
+    .subscribe();
   }
 
   

@@ -3,7 +3,7 @@ export class TicketModel {
     description: string = "";
     categoryName?: string;
     is_priority?: boolean;
-    status?: string = "";
+    status?: string;
     id? : number;
     created_at?: Date;
     modified_at?: Date;

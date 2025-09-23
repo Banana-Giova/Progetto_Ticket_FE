@@ -7,7 +7,6 @@ export const enviroments = {
     forgotPassword: 'forgot-password',
     profileFetch: 'profile-fetch',
     getCategories: 'categories',
-    getTicketById: 'ticket/${id}',
     ticketUrl: 'tickets/',
     addTicket: 'add',
     getTickets: '',
@@ -18,5 +17,7 @@ export const enviroments = {
     rolesUrl: 'roles/',
     getAllRoles: 'get-all',
     assignRole: 'assign',
-    removeRole: 'remove'
+    removeRole: 'remove',
+    updateDescrpition: '/description',
+    updateStatus: '/statuschange'
 }
