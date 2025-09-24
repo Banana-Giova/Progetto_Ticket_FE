@@ -73,10 +73,11 @@ export class UserAPIService {
 
 
 
-  getTickets$(pageIndex: number, pageSize: number, keyword?: string, categoryName?: string, status?: string): Observable<{ content: TicketModel[]; totalElements: number }> {
+  getTickets$(pageIndex: number, pageSize: number, isAllTickets: boolean, keyword?: string, categoryName?: string, status?: string): Observable<{ content: TicketModel[]; totalElements: number }> {
     let params = new HttpParams()
       .set('page', pageIndex.toString())
-      .set('size', pageSize.toString());
+      .set('size', pageSize.toString())
+      .set('isAllTickets', isAllTickets.toString());
 
     if (keyword) params = params.set('keyword', keyword);
     if (categoryName) params = params.set('categoryName', categoryName);

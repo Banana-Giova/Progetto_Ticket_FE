@@ -8,6 +8,7 @@ import { UserAvatarService } from '../../../shared/user-avatar/user-avatar.servi
 import { Observable } from 'rxjs';
 import { UserAvatarModel } from '../../../shared/user-avatar/models/user-avatar.model';
 import { reactiveLinks } from '../../../shared/router-links/router-links';
+import { TicketService } from '../../ticket/services/ticket.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +32,8 @@ export class Profile implements OnInit {
     private notify: NotificationService,
     private storage: UserStorageService,
     private avatarService: UserAvatarService,
-    private profileService: AuthService
+    private profileService: AuthService,
+    private ticketService: TicketService,
   ) {
     this.avatar$ = this.avatarService.userAvatar$;
     this.isOperator$ = this.profileService.operatorStatus$
@@ -55,11 +57,13 @@ export class Profile implements OnInit {
   }
 
   profileTickets(): void {
+    this.ticketService.setIsGestione(false);
     this.router.navigateByUrl(reactiveLinks.yourTickets);
   }
 
   allTickets(): void {
-    this.router.navigateByUrl(reactiveLinks.allTickets)
+    this.ticketService.setIsGestione(true);
+    this.router.navigateByUrl(reactiveLinks.allTickets);
   }
 
   onChangePassword(): void {
@@ -69,4 +73,4 @@ export class Profile implements OnInit {
   logout(): void {
     this.profileService.logout(this.router, this.avatarService, this.notify);
   }
-}
+} 

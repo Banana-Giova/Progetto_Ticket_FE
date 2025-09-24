@@ -6,8 +6,9 @@ import { UserAPIService } from '../../../auth/services/user.api.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { CategoryModel } from '../../models/category.model';
-import { catchError, forkJoin, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, forkJoin, of, tap } from 'rxjs';
 import { TicketDetail } from '../ticket-detail/ticket-detail';
+import { TicketService } from '../../services/ticket.service';
 
 @Component({
   selector: 'app-tickets',
@@ -22,6 +23,7 @@ export class Tickets implements OnInit{
   totalTickets = 0;
   pageSize = 10;
   pageIndex = 0;
+  isAllTickets: boolean = false;
 
   searchKeyword: string = '';
   selectedCategory: string = '';
@@ -32,7 +34,7 @@ export class Tickets implements OnInit{
   
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(private dialog: MatDialog, private service: UserAPIService, 
+  constructor(private dialog: MatDialog, private service: UserAPIService, private ticketService: TicketService
   ) {}
 
   ngOnInit(): void {
@@ -59,14 +61,14 @@ export class Tickets implements OnInit{
       autoFocus: false,
       data: {id: ticket.id  }
     }).afterClosed().pipe(
-       tap(() => this.loadTickets())
-    )
-    .subscribe();
+      tap(() => this.loadTickets())
+    ).subscribe();
   }
 
   
   loadTickets() {
-    this.service.getTickets$(this.pageIndex, this.pageSize, this.searchKeyword, this.selectedCategory, this.selectedStatus
+    const isAllTickets =  this.ticketService.getIsGestione();
+    this.service.getTickets$(this.pageIndex, this.pageSize, isAllTickets, this.searchKeyword, this.selectedCategory, this.selectedStatus
    ).pipe(
       tap(data => {
         this.tickets = data.content;

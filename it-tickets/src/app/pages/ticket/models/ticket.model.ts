@@ -7,6 +7,7 @@ export class TicketModel {
     id? : number;
     created_at?: Date;
     modified_at?: Date;
+    isAllTickets?: boolean;
 
      constructor(data?:any) {
         Object.assign(this, data)
