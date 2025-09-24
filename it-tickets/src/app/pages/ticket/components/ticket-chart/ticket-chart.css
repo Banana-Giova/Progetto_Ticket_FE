@@ -1,5 +1,11 @@
+.ticket-chart-wrapper {
+    margin-left: 12vh;
+    margin-right: -1rem;
+    margin-top: 2vh;
+}
+
 .no-data {
-    margin-left: 6rem;
-    margin-top: 3rem;
+    margin-top: 10vh;
+    margin-right: 10vh;
     color: #666;
 }

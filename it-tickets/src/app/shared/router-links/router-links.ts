@@ -10,6 +10,6 @@ export const reactiveLinks = {
     yourTickets: '/ticket/tickets',
     allTickets: '/ticket/get-all',
     userList: '/admin/users-list',
-    privacy: '/privacy',
-    terms: '/terms'
+    privacy: '/info/privacy',
+    terms: '/info/terms'
 }

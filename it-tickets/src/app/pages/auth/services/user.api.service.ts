@@ -3,11 +3,12 @@ import { Injectable } from "@angular/core";
 import { LoginModel } from "../login/models/login.model";
 import { Observable } from "rxjs";
 import { RegisterModel } from "../register/models/register.model";
-import { enviroments } from "../../../../enviroments/enviroment.dev";
+import { environments } from "../../../../environments/environment.dev";
 import { EmailConfirmationModel } from "../email-confirmation/models/email-confirmation.model";
 import { ResetPasswordModel } from "../reset-password/models/reset-password.model";
 import { ForgotPasswordModel } from "../forgot-password/models/forgot-password.model";
 import { TicketModel } from "../../ticket/models/ticket.model";
+import { LogoutModel } from "../../../core/services/models/logout.model";
 
 @Injectable ({
     providedIn: "root"
@@ -17,39 +18,55 @@ export class UserAPIService {
   constructor(private http: HttpClient){}
 
   login$(model: LoginModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.login, model);
+    return this.http.post<any>(environments.baseUrl + environments.login, model);
+  }
+
+  logout$(model: LogoutModel): Observable<any> {
+    return this.http.post<any>(environments.baseUrl + environments.logout, model);
   }
 
   register$(model: RegisterModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.register, model);
+    return this.http.post<any>(environments.baseUrl + environments.register, model);
   }
   
   confirmEmail$(model: EmailConfirmationModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.emailConfirmation, model);
+    return this.http.post<any>(environments.baseUrl + environments.emailConfirmation, model);
   }
 
   resetPassword$(model: ResetPasswordModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.resetPassword, model);
+    return this.http.post<any>(environments.baseUrl + environments.resetPassword, model);
   }
 
   forgotPassword$(model: ForgotPasswordModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.forgotPassword, model);
+    return this.http.post<any>(environments.baseUrl + environments.forgotPassword, model);
   }
 
   profileFetch$(): Observable<any> {
-    return this.http.get<any>(enviroments.baseUrl + enviroments.profileFetch);
+    return this.http.get<any>(environments.baseUrl + environments.profileFetch);
+  }
+
+  markAsRead$(notifId: number): Observable<any> {
+    return this.http.patch<any>(environments.baseUrl + environments.notificationUrl + environments.markAsRead, notifId)
+  }
+
+  getPending$(userEmail: String): Observable<any> {
+    return this.http.get<any>(environments.baseUrl + environments.notificationUrl + userEmail + environments.getPending);
+  }
+
+  getAlreadyRead$(userEmail: String): Observable<any> {
+    return this.http.get<any>(environments.baseUrl + environments.notificationUrl + userEmail + environments.getAlreadyRead);
   }
 
   getCategories$() {
-    return this.http.get<any>(enviroments.baseUrl + enviroments.getCategories);
+    return this.http.get<any>(environments.baseUrl + environments.getCategories);
   }
 
   getStatus$() {
-    return this.http.get<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.getStatus);
+    return this.http.get<any>(environments.baseUrl + environments.ticketUrl + environments.getStatus);
   }
 
   addTicket$(model: TicketModel): Observable<any> {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.addTicket, model)
+    return this.http.post<any>(environments.baseUrl + environments.ticketUrl + environments.addTicket, model)
   }
 
   getTickets$(pageIndex: number, pageSize: number, keyword?: string, categoryName?: string, status?: string): Observable<{content: TicketModel[]; totalElements: number }>  {
@@ -61,10 +78,10 @@ export class UserAPIService {
       if (categoryName) params = params.set('categoryName', categoryName);
       if (status) params = params.set('status', status);
 
-    return this.http.get<{content: TicketModel[]; totalElements: number }>((enviroments.baseUrl + enviroments.ticketUrl + enviroments.getTickets), {params});
+    return this.http.get<{content: TicketModel[]; totalElements: number }>((environments.baseUrl + environments.ticketUrl + environments.getTickets), {params});
   }
 
   getChart$() {
-    return this.http.get<any>(enviroments.baseUrl + enviroments.ticketUrl + enviroments.getChart);
+    return this.http.get<any>(environments.baseUrl + environments.ticketUrl + environments.getChart);
   }
 }

@@ -1,0 +1,54 @@
+.notif-menu {
+    min-width: 300px;
+    max-width: 420px;
+}
+
+.menu-title {
+    padding: 8px 12px;
+    font-weight: 600;
+}
+
+.list {
+    max-height: 320px;
+    overflow: auto;
+    padding: 0;
+}
+
+.notif-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.message {
+    font-size: 0.95rem;
+}
+
+.time {
+    font-size: 0.78rem;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.right {
+    margin-left: 12px;
+}
+
+.empty {
+    padding: 12px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.menu-footer {
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.6);
+}

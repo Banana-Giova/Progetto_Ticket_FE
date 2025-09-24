@@ -21,7 +21,7 @@ import { UsersList } from "./users-list/users-list";
 @NgModule({
   declarations: [
     UsersList,
-    UserDetail,
+    UserDetail
   ],
   imports: [
     CommonModule,

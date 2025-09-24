@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { UserAvatarService } from '../../shared/user-avatar/user-avatar.service';
 import { NotificationService } from '../../shared/toasts/notification.service';
 import { reactiveLinks } from '../../shared/router-links/router-links';
+import { UserAPIService } from '../../pages/auth/services/user.api.service';
+import { LogoutModel } from './models/logout.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -19,7 +21,10 @@ export class AuthService {
 
   public reactiveLinks = reactiveLinks;
 
-  constructor(private storage: UserStorageService) {
+  constructor(
+    private storage: UserStorageService,
+    private userService: UserAPIService
+  ) {
 
     this.loggedInSubject = new BehaviorSubject<boolean>(!!this.storage.getToken());
     this.loggedIn$ = this.loggedInSubject.asObservable();
@@ -57,6 +62,13 @@ export class AuthService {
     avatarService: UserAvatarService, 
     notify: NotificationService): Promise<boolean>  => 
   {
+    const user = this.storage.getUser();
+    if (!user) { return false; }
+
+    this.userService.logout$(
+      {'userEmail': user.email} as LogoutModel
+    ).subscribe();
+
     this.storage.clearAll();
     this.loggedInSubject.next(false);
     this.operatorSubject.next(false);

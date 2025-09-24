@@ -46,7 +46,8 @@ export class UsersList implements OnInit{
 
   openUserDetails(selected_user: UserInListModel): void {
     const dialogRef = this.dialog.open(UserDetail, {
-      data: selected_user
+      data: selected_user,
+      autoFocus: false
     });
 
     dialogRef.afterClosed().pipe(

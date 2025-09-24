@@ -1,0 +1,40 @@
+<button mat-icon-button
+        #menuTrigger="matMenuTrigger"
+        [matMenuTriggerFor]="menu"
+        [matBadge]="(userNotif.unread$ | async)?.length"
+        matBadgeColor="warn"
+        [matBadgeHidden]="(userNotif.unread$ | async)?.length === 0"
+        aria-label="Notifiche non lette">
+  <mat-icon>notifications</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu" class="notif-menu">
+  <div class="menu-title">Notifiche non lette</div>
+  <mat-divider></mat-divider>
+
+  <ng-container *ngIf="(userNotif.unread$ | async) as unreadList">
+    <div *ngIf="unreadList.length === 0" class="empty">
+      Nessuna notifica non letta!
+    </div>
+
+    <mat-nav-list *ngIf="unreadList.length > 0" class="list">
+      <mat-list-item *ngFor="let n of unreadList; trackBy: trackById" class="notif-item">
+        <div class="left">
+          <div class="message">{{ n.message }}</div>
+          <div class="time">{{ n.createdAt | date:'short' }}</div>
+        </div>
+
+        <div class="right">
+          <button mat-button
+                  color="primary"
+                  (click)="onMarkAsRead(n.id, menuTrigger); $event.stopPropagation()">
+            Segna come letto
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-nav-list>
+  </ng-container>
+
+  <mat-divider></mat-divider>
+  <div class="menu-footer">Le nuove notifiche arrivano in tempo reale</div>
+</mat-menu>

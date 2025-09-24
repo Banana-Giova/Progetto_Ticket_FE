@@ -122,19 +122,24 @@
 .back_text {
   color: black;
   margin-right: -0.5rem !important;
+  border-radius: 25px;
 }
+
+/* Useless
 
 .back-button .mat-ripple-element,
 ::ng-deep .back-button .mat-ripple-element {
   border-radius: 25px;
+  outline: none;
+  color: red;
 }
 
 .back-button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 4px rgba(62,107,180,0.12);
   border-radius: 25px;
-}
-
+} 
+*/
 
 /* -------- Responsive behaviour -------- */
 

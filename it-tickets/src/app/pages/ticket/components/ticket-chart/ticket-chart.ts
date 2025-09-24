@@ -3,7 +3,12 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
 import { UserAPIService } from '../../../auth/services/user.api.service';
 
-interface ChartItem { name: string; value: number; }
+interface ChartItem {
+  name: string;
+  value: number;
+  extra?: { percent: number };
+  tooltipText?: string;
+}
 
 @Component({
   selector: 'app-ticket-chart',
@@ -13,47 +18,47 @@ interface ChartItem { name: string; value: number; }
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TicketChart {
-  pieData$!: Observable<ChartItem[]>;
+  chartData$!: Observable<ChartItem[]>;
 
-  view: [number, number] = [1060, 225];
+  // view ottimizzato per grafico verticale (aggiusta se vuoi dimensioni diverse)
+  view: [number, number] = [500, 250];
+
   showLegend = false;
   showLabels = true;
   animations = true;
   legTitle = "";
   customColors = [
-  { name: 'Da fare', value: '#D6D6D6' }, // #007bff per varietà azzurra qui, e giallo sotto
-  { name: 'In lavorazione', value: '#007bff' },
-  { name: 'Respinti', value: '#F65C51' },
-  { name: 'Completati', value: '#5CD65C' }
+    { name: 'Da fare', value: '#D6D6D6' },
+    { name: 'In lavorazione', value: 'rgb(62, 107, 180)' },
+    { name: 'Respinti', value: '#F65C51' },
+    { name: 'Completati', value: '#5CD65C' }
   ];
-  
-  myTooltipText = (d: any) => {
-    const nome = d.data?.name ?? d.name ?? '—';
-    let total;
-    
-    let perc: number | null = null;
 
-    if (typeof d.startAngle === 'number' && typeof d.endAngle === 'number') {
-      perc = ((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100;
-    } 
-    if (perc == null && typeof d.value === 'number' && typeof (total) === 'number') {
-      perc = (d.value / total) * 100;
-    }
-
-    if (perc != null) {
-      return `Stato: ${nome}<br>${perc.toFixed(1)} %`;
-    }
-
-    return `Stato: ${nome}`;
+  // -------------------------------------------------------
+  // Formattazione tick asse Y: mostra solo interi (es. "6" invece di "6.0")
+  // Usa toFixed(0) -> arrotonda al numero intero più vicino.
+  // Se preferisci troncare invece di arrotondare, sostituisci con Math.trunc(v).toString()
+  // -------------------------------------------------------
+  yAxisTickFormatting = (v: number) => {
+    if (v == null || isNaN(v)) { return ''; }
+    return Number(v).toFixed(0);
   };
 
-
   constructor(private ticketApi: UserAPIService) {
-    this.pieData$ = this.ticketApi.getChart$().pipe(
+    this.chartData$ = this.ticketApi.getChart$().pipe(
       map((resp: any) => {
         const stats: Record<string, number> = resp?.ticketStats ?? resp ?? {};
+        const total = Object.values(stats).reduce((s, v) => s + (Number(v) || 0), 0);
+
         return Object.entries(stats || {})
-          .map(([k, v]) => ({ name: this.humanLabel(k), value: Number(v) || 0 }))
+          .map(([k, v]) => {
+            const val = Number(v) || 0;
+            return {
+              name: this.humanLabel(k),
+              value: val,
+              extra: { percent: total > 0 ? (val / total) * 100 : 0 }
+            } as ChartItem;
+          })
           .sort((a, b) => b.value - a.value);
       }),
       shareReplay({ bufferSize: 1, refCount: true }),

@@ -14,6 +14,7 @@
 
   <!-- Authenticated User -->
   <ng-container *ngIf="isLoggedIn$ | async">
+    <app-unread-notifications></app-unread-notifications>
     <ng-container *ngIf="avatar$ | async as av">
       <button mat-button [matMenuTriggerFor]="userMenu" class="avatar-button"
               [attr.aria-label]="av.hasInitials ? (av.name || av.email || 'Utente') : 'avatar'">
@@ -52,3 +53,13 @@
       </button>
     </mat-menu>
   </ng-container>
+
+  <!-- Go Back Button -->
+  <ng-container *ngIf="canGoBack$ | async">
+    <div class="back_container">
+      <button mat-button class="back-button" (click)="goBack()" title="Indietro">
+        <mat-icon class="back_icon" aria-hidden="true">arrow_back</mat-icon>
+      </button>
+    </div>
+  </ng-container>
+</mat-toolbar>

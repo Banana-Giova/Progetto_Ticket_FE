@@ -24,7 +24,7 @@ export class InvalidGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     
-    if (state.url !== "/home") {
+    if (state.url !== "/home" || "/" || "") {
       this.notify.warning("Percorso invalido.");
       console.log("[Invalid Guard] Accesso negato alla route: route invalida.");
     } else {

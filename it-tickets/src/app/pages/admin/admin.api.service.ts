@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { enviroments } from "../../../enviroments/enviroment.dev";
+import { environments } from "../../../environments/environment.dev";
 import { ModifyRoleModel } from "./models/modify-role.model";
 import { UserInListModel } from "./models/user.model";
 
@@ -20,18 +20,18 @@ export class AdminAPIService {
       if (keyword) params = params.set('keyword', keyword);
       if (roleName) params = params.set('roleName', roleName);
       
-    return this.http.get<{content: UserInListModel[]; totalElements: number }>((enviroments.baseUrl + enviroments.adminUrl + enviroments.getUsersList), {params});
+    return this.http.get<{content: UserInListModel[]; totalElements: number }>((environments.baseUrl + environments.adminUrl + environments.getUsersList), {params});
   }
 
   getRoles$() {
-    return this.http.get<any>(enviroments.baseUrl + enviroments.rolesUrl + enviroments.getAllRoles);
+    return this.http.get<any>(environments.baseUrl + environments.rolesUrl + environments.getAllRoles);
   }
 
   assignRole$(model: ModifyRoleModel) {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.rolesUrl + enviroments.assignRole, model);
+    return this.http.post<any>(environments.baseUrl + environments.rolesUrl + environments.assignRole, model);
   }
 
   removeRole$(model: ModifyRoleModel) {
-    return this.http.post<any>(enviroments.baseUrl + enviroments.rolesUrl + enviroments.removeRole, model);
+    return this.http.post<any>(environments.baseUrl + environments.rolesUrl + environments.removeRole, model);
   }
 }

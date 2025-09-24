@@ -1,18 +1,31 @@
 <div class="ticket-chart-wrapper">
-  <ng-container *ngIf="pieData$ | async as data">
-    <ngx-charts-pie-chart
+  <ng-container *ngIf="chartData$ | async as data">
+    <ngx-charts-bar-vertical
       *ngIf="data?.length"
       [view]="view"
       [results]="data"
       [legend]="showLegend"
       [legendTitle]="legTitle"
-      [trimLabels]="false"
-      [labels]="showLabels"
-      [doughnut]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [showGridLines]="true"
       [animations]="animations"
       [customColors]="customColors"
-      [tooltipText]="myTooltipText">
-    </ngx-charts-pie-chart>
+      [barPadding]="8"
+      [roundDomains]="true"
+      [showDataLabel]="false"
+      [yAxisTickFormatting]="yAxisTickFormatting">
+      <ng-template #tooltipTemplate let-model="model">
+        <div class="ngx-tooltip">
+          <div><strong>Stato:</strong> {{ model?.name ?? '—' }}</div>
+          <div *ngIf="model?.value != null">
+            <strong>№ di ticket:</strong> {{ model.value }} <br>
+            <strong>Percentuale:</strong>
+            {{ (model.extra?.percent ?? 0) | number:'1.1-1' }} %
+          </div>
+        </div>
+      </ng-template>
+    </ngx-charts-bar-vertical>
 
     <div *ngIf="!data?.length" class="no-data">
       Nessun dato disponibile per il grafico.

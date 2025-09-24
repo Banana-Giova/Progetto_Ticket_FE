@@ -1,7 +1,8 @@
-export const enviroments = {
+export const environments = {
     baseUrl: 'http://localhost:8080/',
         register: 'register',
         login: 'login',
+        logout: 'auth/logout',
         emailConfirmation: 'email-confirmation',
         resetPassword: 'reset-password',
         forgotPassword: 'forgot-password',
@@ -22,5 +23,12 @@ export const enviroments = {
     rolesUrl: 'roles/',
         getAllRoles: 'get-all',
         assignRole: 'assign',
-        removeRole: 'remove'
+        removeRole: 'remove',
+
+    notificationUrl: 'notifications/',
+        markAsRead: '/read',
+        getPending: '/pending',
+        getAlreadyRead: '/already-read',
+
+    wsUrl: ''
 }

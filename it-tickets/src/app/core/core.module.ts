@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_MENU_DEFAULT_OPTIONS, MatMenuDefaultOptions, MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider'
+import { UserNotificationModule } from './notifications/user-notification.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatDividerModule } from '@angular/material/divider'
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    UserNotificationModule
   ],
     providers: [
     {

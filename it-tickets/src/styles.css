@@ -6,7 +6,7 @@
    ============================================================================= */
 :root {
   /* Light theme (default) */
-  --color-primary:    #007bff;
+  --color-primary:    rgb(62, 107, 180);
   --color-secondary:  #6c757d;
   --color-success:    #28a745;
   --color-warning:    #ffc107;
@@ -75,6 +75,7 @@ app-root {
 *::before,
 *::after {
   box-sizing: border-box;
+  /* border: 1px red; */
 }
 
 body {
@@ -187,7 +188,7 @@ mat-toolbar {
   font-size: 14px !important;
 }
 
-ngx-charts-pie-chart text {
+ngx-charts-bar-horizontal text {
   font-size: 0.75vw !important;
   fill: #333 !important;
 }
