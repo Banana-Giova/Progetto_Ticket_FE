@@ -1,6 +1,6 @@
-.notif-menu {
-    min-width: 300px;
-    max-width: 420px;
+mat-menu .notif-menu{
+    max-height: 4rem;
+    overflow: scroll;
 }
 
 .menu-title {
@@ -19,6 +19,11 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 12px;
+    min-height: 8rem;
+}
+
+.markAsRead {
+    color: var(--color-primary);
 }
 
 .left {
@@ -50,5 +55,10 @@
     padding: 8px 12px;
     text-align: center;
     font-size: 0.8rem;
-    color: rgba(0, 0, 0, 0.6);
+}
+
+.all-notif-link {
+    text-decoration: none;
+    color: var(--color-primary);
+    font-size: 15px;
 }

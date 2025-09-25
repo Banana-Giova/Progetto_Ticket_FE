@@ -23,7 +23,7 @@ export const environments = {
     updateStatus: '/statuschange',
 
     notificationUrl: 'notifications/',
-        markAsRead: '/read',
+        markAsRead: 'read',
         getPending: '/pending',
         getAlreadyRead: '/already-read',
 

@@ -3,8 +3,10 @@
         [matMenuTriggerFor]="menu"
         [matBadge]="(userNotif.unread$ | async)?.length"
         matBadgeColor="warn"
+        matBadgeSize="small"
         [matBadgeHidden]="(userNotif.unread$ | async)?.length === 0"
-        aria-label="Notifiche non lette">
+        aria-label="Notifiche non lette"
+        class="badge-notification">
   <mat-icon>notifications</mat-icon>
 </button>
 
@@ -18,23 +20,28 @@
     </div>
 
     <mat-nav-list *ngIf="unreadList.length > 0" class="list">
-      <mat-list-item *ngFor="let n of unreadList; trackBy: trackById" class="notif-item">
-        <div class="left">
-          <div class="message">{{ n.message }}</div>
-          <div class="time">{{ n.createdAt | date:'short' }}</div>
-        </div>
+      <div *ngFor="let n of unreadList; trackBy: trackById">
+        <mat-list-item class="notif-item">
+          <div class="left">
+            <div class="message">{{ n.message }}</div>
+            <div class="time">{{ n.createdAt | date:'short' }}</div>
+          </div>
 
-        <div class="right">
-          <button mat-button
-                  color="primary"
-                  (click)="onMarkAsRead(n.id, menuTrigger); $event.stopPropagation()">
-            Segna come letto
-          </button>
-        </div>
-      </mat-list-item>
+          <div class="right">
+            <button mat-button
+                    class="markAsRead"
+                    (click)="onMarkAsRead(n.id, menuTrigger); $event.stopPropagation()">
+              Segna come letto
+            </button>
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </div>
     </mat-nav-list>
   </ng-container>
 
   <mat-divider></mat-divider>
-  <div class="menu-footer">Le nuove notifiche arrivano in tempo reale</div>
+  <div class="menu-footer">
+    <a class="all-notif-link" [routerLink]="reactiveLinks.notifications">Visualizza tutte le notifiche</a>
+  </div>
 </mat-menu>

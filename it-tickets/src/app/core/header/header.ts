@@ -9,6 +9,7 @@ import { NotificationService } from '../../shared/toasts/notification.service';
 import { MAT_MENU_DEFAULT_OPTIONS } from '@angular/material/menu';
 import { reactiveLinks } from '../../shared/router-links/router-links';
 import { UserStorageService } from '../../pages/auth/services/user.storage';
+import { UserNotificationService } from '../notifications/user-notification.service';
 
 @Component({
   selector: 'app-header',
@@ -44,7 +45,8 @@ export class Header implements OnInit {
     private storage: UserStorageService,
     private notify: NotificationService,
     private router: Router,
-    private location: LocationService
+    private location: LocationService,
+    private userNotification: UserNotificationService
   ) {
     this.isLoggedIn$ = this.authService.loggedIn$;
     this.isOperator$ = this.authService.operatorStatus$;
@@ -57,6 +59,7 @@ export class Header implements OnInit {
     const user = this.storage.getUser();
     if (user && user.id !== -1) {
       this.avatarService.createAvatar();
+      this.userNotification.start();
 
     } else {
       this.storage.clearAll();

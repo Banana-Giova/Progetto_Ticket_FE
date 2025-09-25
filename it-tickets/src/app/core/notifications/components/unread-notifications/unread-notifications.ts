@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserNotificationService } from '../../user-notification.service';
 import { UserNotification } from '../../models/notification.model';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { reactiveLinks } from '../../../../shared/router-links/router-links';
 
 @Component({
   selector: 'app-unread-notifications',
@@ -12,8 +13,9 @@ import { MatMenuTrigger } from '@angular/material/menu';
 export class UnreadNotifications {
 
   expandedId: number | null = null;
+  protected reactiveLinks = reactiveLinks;
 
-  constructor(public userNotif: UserNotificationService) {}
+  constructor(protected userNotif: UserNotificationService) {}
 
   toggleExpand(id: number) {
     this.expandedId = this.expandedId === id ? null : id;

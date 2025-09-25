@@ -9,12 +9,14 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [ UnreadNotifications ],
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     MatCardModule,
     MatIconModule,
     MatButtonModule,

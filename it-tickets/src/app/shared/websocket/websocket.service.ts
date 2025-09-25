@@ -15,6 +15,7 @@ export class WebsocketService implements OnDestroy {
 
   // mappa destination -> Subject per multicast delle notifiche
   private subscriptions = new Map<string, Subject<UserNotification>>();
+  private stompSubscriptions = new Map<string, StompSubscription>();
 
   // base url (senza /ws)
   // es. setta in environment: environment.apiBase = 'http://localhost:8080'
@@ -30,34 +31,67 @@ export class WebsocketService implements OnDestroy {
    */
 
 
-  private createStompSubscription(destination: string, subject: Subject<UserNotification>) {
-    if (!this.client) return;
+  private createStompSubscription = (destination: string, subject: Subject<UserNotification>) => {
+    console.log('[WS] createStompSubscription for', destination);
 
-    // Preferisci usare la proprietà 'connected' del client se disponibile,
-    // altrimenti usa il BehaviorSubject che imposti in onConnect/onDisconnect.
-    const clientConnected = (this.client as any).connected ?? this.connected$.getValue();
+    const clientConnected = (this.client as any)?.connected ?? this.connected$.getValue();
     if (!clientConnected) {
-      console.warn('createStompSubscription: client non ancora connesso, skip subscribe for', destination);
+      console.warn('[WS] client non connesso -> skip subscribe for', destination);
       return;
     }
 
     try {
-      const stompSub: StompSubscription = this.client.subscribe(destination, (msg: IMessage) => {
-        try {
-          const body = msg.body && msg.body.length ? JSON.parse(msg.body) : null;
-          subject.next(body as UserNotification);
-        } catch (e) {
-          console.error('Errore parsing body STOMP', e, msg.body);
+      // Rimuove la subscription precedente se esiste
+      this.unsubscribeStompDestination(destination);
+
+      const headers = { 
+        id: `sub-${Math.random().toString(36).slice(2)}`, 
+        ack: 'auto' 
+      } as any;
+
+      console.log('[WS] subscribing with headers', headers);
+      
+      const stompSub: StompSubscription = this.client.subscribe(
+        destination, 
+        (msg: IMessage) => {
+          console.log('[WS] STOMP MESSAGE received', { destination, raw: msg });
+          try {
+            const body = msg.body && msg.body.length ? JSON.parse(msg.body) : null;
+            console.log('[WS] parsed message body', body);
+            subject.next(body as UserNotification);
+          } catch (e) {
+            console.error('[WS] parsing error', e, msg.body);
+          }
+        }, 
+        headers
+      );
+
+      // Salva la nuova subscription
+      this.stompSubscriptions.set(destination, stompSub);
+
+      // completa la subscription se il subject termina
+      subject.pipe(takeUntil(this.destroy$)).subscribe({
+        complete: () => {
+          this.unsubscribeStompDestination(destination);
         }
       });
 
-      subject.pipe(takeUntil(this.destroy$)).subscribe({
-        complete: () => {
-          try { stompSub.unsubscribe(); } catch {}
-        }
-      });
     } catch (err) {
-      console.error('Errore durante client.subscribe()', err);
+      console.error('[WS] errore durante client.subscribe()', err);
+    }
+  }
+
+    // Metodo per unsubscribe STOMP
+  private unsubscribeStompDestination = (destination: string) => {
+    const stompSub = this.stompSubscriptions.get(destination);
+    if (stompSub) {
+      try {
+        stompSub.unsubscribe();
+        console.log('[WS] stomp unsubscribed', destination);
+      } catch (e) {
+        console.error('[WS] errore durante unsubscribe stomp', e);
+      }
+      this.stompSubscriptions.delete(destination);
     }
   }
 
@@ -157,6 +191,10 @@ export class WebsocketService implements OnDestroy {
 
   /** Unsubscribe interno e rimuove subject */
   unsubscribeDestination(destination: string) {
+    // Prima unsubscribe dalla subscription STOMP
+    this.unsubscribeStompDestination(destination);
+    
+    // Poi completa il subject
     const subj = this.subscriptions.get(destination);
     if (subj) {
       subj.complete();
@@ -169,7 +207,16 @@ export class WebsocketService implements OnDestroy {
       this.client.deactivate();
     }
     this.connected$.next(false);
-    // completa tutti i subject locali
+    
+    // Pulisce tutte le subscriptions STOMP
+    this.stompSubscriptions.forEach((sub, dest) => {
+      try {
+        sub.unsubscribe();
+      } catch (e) {}
+    });
+    this.stompSubscriptions.clear();
+    
+    // Completa tutti i subject locali
     this.subscriptions.forEach(s => s.complete());
     this.subscriptions.clear();
   }

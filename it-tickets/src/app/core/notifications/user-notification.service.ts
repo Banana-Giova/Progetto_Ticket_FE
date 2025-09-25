@@ -11,7 +11,7 @@ export class UserNotificationService {
   baseUrl = 'http://localhost:8080';
   token = '';
   userEmail = '';
-  transport: TokenTransport = 'header';
+  transport: TokenTransport = 'query';
   connected = false;
   started = false;
   
@@ -32,28 +32,27 @@ export class UserNotificationService {
     private userService: UserAPIService,
     private notify: NotificationService
   ) {
-  this.token = this.userStorage.getToken()!!;
-  const user = this.userStorage.getUser();
-  if (user && user.id !== -1) {
-    this.userEmail = user.email;
-  }
-  this.subs.push(this.websocket.connectionState().subscribe(s => this.connected = s));
+    this.token = this.userStorage.getToken() ?? '';
+    const user = this.userStorage.getUser();
+    if (user && user.id !== -1) {
+      this.userEmail = user.email;
+    }
   }
 
   start() {
     if (this.started) return;
     this.started = true;
 
-    // aggiorna token / useremail nel momento in cui si fa start (utile dopo login)
+    // aggiorna token / useremail
     this.token = this.userStorage.getToken() ?? '';
     const user = this.userStorage.getUser();
     this.userEmail = user && user.id !== -1 ? user.email : '';
 
-    // subscribe per stato di connessione (opzionale, per debug o UI)
+    // subscribe per stato di connessione (solo qui)
     const connSub = this.websocket.connectionState().subscribe(s => this.connected = s);
     this.subs.push(connSub);
 
-    // carica pending/read e connetti only se abbiamo userEmail (opzionale)
+    // carica pending/read e connetti only se abbiamo userEmail
     this.getPending();
     this.getAlreadyRead();
     this.connect();
@@ -85,6 +84,7 @@ export class UserNotificationService {
   }
 
   getPending = () => {
+    if (!this.userEmail) return;
     this.userService.getPending$(this.userEmail).pipe(
       tap(data => {
         const item = data?.content ?? data;
@@ -92,8 +92,7 @@ export class UserNotificationService {
         const arr = Array.isArray(item) ? item : [item];
         this._unread$.next([...arr, ...this._unread$.getValue()]);
         this.listEmpty = this._unread$.getValue().length === 0;
-        console.log("Notifiche in arrivo!");
-        console.log(data);
+        console.log("Notifiche in arrivo!", arr);
       }),
       catchError(err => {
         const msg = err?.error?.message || err?.message || 'Errore sconosciuto';
@@ -104,6 +103,7 @@ export class UserNotificationService {
   }
 
   getAlreadyRead = () => {
+    if (!this.userEmail) return;
     this.userService.getAlreadyRead$(this.userEmail).pipe(
       tap(data => {
         const item = data?.content ?? data;
@@ -113,7 +113,7 @@ export class UserNotificationService {
       }),
       catchError(err => {
         const msg = err?.error?.message || err?.message || 'Errore sconosciuto';
-        this.notify.error('Errore nel caricamento delle notifiche in arrivo: ' + this.notify.checkBackend(msg));
+        this.notify.error('Errore nel caricamento delle notifiche già lette: ' + this.notify.checkBackend(msg));
         return throwError(() => err);
       })
     ).subscribe();
@@ -126,19 +126,20 @@ export class UserNotificationService {
       console.log("No token found for websocket connection!")
     }
   }
-
+  
   subscribeToUserUserNotifications = () => {
+    // usa la destinazione /user/queue/notifications (non /<email>/...)
     if (!this.userEmail) return;
-    const sub = this.websocket.subscribeTo<UserNotification>(`/${this.userEmail}/queue/notifications`)
+    const sub = this.websocket.subscribeTo<UserNotification>('/user/queue/notifications')
       .subscribe(msg => {
-        // inserisci in testa alle unread
+        if (!msg) return;
         this._unread$.next([msg, ...this._unread$.getValue()]);
         this.listEmpty = this._unread$.getValue().length === 0;
-        console.log("Nuova notifica!");
-        console.log(msg);
+        console.log("Nuova notifica!", msg);
       });
     this.subs.push(sub);
   }
+
 
   markAsRead = (notifId: number) => {
     this.userService.markAsRead$(notifId).pipe(
@@ -162,10 +163,6 @@ export class UserNotificationService {
       })
     ).subscribe();
   }
-
-  // sendTestMessage = () => {
-  //   this.websocket.send('/app/echo', { message: 'Ciao dal client' });
-  // }
 
   ngOnDestroy() {
     this.subs.forEach(s => s.unsubscribe());

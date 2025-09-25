@@ -4,6 +4,7 @@ export const reactiveLinks = {
     register: '/register',
     login: '/login',
     profile: '/profile',
+    notifications: '/notifications',
     emailConfirmation: '/email-confirmation',
     resetPassword: '/reset-password',
     forgotPassword: '/forgot-password',

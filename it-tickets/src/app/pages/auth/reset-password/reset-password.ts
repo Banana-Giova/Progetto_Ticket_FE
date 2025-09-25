@@ -4,7 +4,7 @@ import { UserAPIService } from '../services/user.api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserStorageService } from '../services/user.storage';
 import { NotificationService } from '../../../shared/toasts/notification.service';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { CanComponentDeactivate } from '../../../core/guards/unsaved.guard';
@@ -77,6 +77,9 @@ export class ResetPassword implements OnInit, CanComponentDeactivate {
       tap(() => {
         this.notify.success('Reset password completato!')
       }),
+      finalize(() => 
+        this.router.navigateByUrl(reactiveLinks.login)
+      ),
       catchError(err => {
         const msg = err.error?.message || err.message || 'Errore sconosciuto';
         this.notify.error('Reset password fallito: ' + this.notify.checkBackend(msg));

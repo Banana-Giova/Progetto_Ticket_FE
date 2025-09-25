@@ -257,3 +257,7 @@ ngx-charts-bar-horizontal text {
   right: 0 !important;
   top: 0 !important;
 }
+
+button.badge-notification.mat-badge.mat-badge-small .mat-badge-content {
+  transform: translateX(-75%) translateY(75%);
+}
