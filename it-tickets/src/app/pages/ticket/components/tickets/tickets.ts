@@ -23,7 +23,7 @@ export class Tickets implements OnInit{
   totalTickets = 0;
   pageSize = 10;
   pageIndex = 0;
-  isAllTickets: boolean = false;
+  // isAllTickets: boolean = false;
 
   searchKeyword: string = '';
   selectedCategory: string = '';
@@ -38,7 +38,11 @@ export class Tickets implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.loadTickets();
+    this.ticketService.isGestione$.subscribe(isAllTickets => {
+      this.pageIndex = 0; 
+      this.loadTickets(isAllTickets);
+    });
+
     this.loadFilters();
   }
 
@@ -46,7 +50,7 @@ export class Tickets implements OnInit{
     this.dialog.open(CreateTicket)
      .afterClosed()
      .pipe(
-       tap(() => this.loadTickets())
+       tap(() => this.loadTickets(this.ticketService.getIsGestione()))
     )
     .subscribe();
  }
@@ -61,13 +65,12 @@ export class Tickets implements OnInit{
       autoFocus: false,
       data: {id: ticket.id  }
     }).afterClosed().pipe(
-      tap(() => this.loadTickets())
+      tap(() => this.loadTickets(this.ticketService.getIsGestione()))
     ).subscribe();
   }
 
   
-  loadTickets() {
-    const isAllTickets =  this.ticketService.getIsGestione();
+  loadTickets(isAllTickets:boolean) {
     this.service.getTickets$(this.pageIndex, this.pageSize, isAllTickets, this.searchKeyword, this.selectedCategory, this.selectedStatus
    ).pipe(
       tap(data => {
@@ -97,7 +100,7 @@ export class Tickets implements OnInit{
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadTickets();
+    this.loadTickets(this.ticketService.getIsGestione());
   }
 
   private searchTimeout: any;
@@ -107,7 +110,7 @@ export class Tickets implements OnInit{
     clearTimeout(this.searchTimeout);
     this.searchTimeout= setTimeout(() => {
       this.pageIndex = 0; // resetta la pagina quando cambia un filtro
-      this.loadTickets();
+      this.loadTickets(this.ticketService.getIsGestione());
       this.searched = true;
     }, 500);
 

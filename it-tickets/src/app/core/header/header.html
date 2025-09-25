@@ -33,11 +33,11 @@
         <mat-icon >person</mat-icon>
         <span class="menu-link">Profilo</span>
       </button>
-      <button mat-menu-item [routerLink]="reactiveLinks.yourTickets">
+      <button mat-menu-item (click)="profileTickets()">
         <mat-icon>confirmation_number</mat-icon>
         <span class="menu-link">I tuoi ticket</span>
       </button>
-      <button *ngIf="isOperator$ | async" mat-menu-item [routerLink]="reactiveLinks.allTickets">
+      <button *ngIf="isOperator$ | async" mat-menu-item (click)="allTickets()">
         <mat-icon>assignment</mat-icon>
         <span class="menu-link">Gestione ticket</span>
       </button>

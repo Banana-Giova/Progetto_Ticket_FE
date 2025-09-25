@@ -6,6 +6,7 @@ import { TicketModel } from '../../models/ticket.model';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, of, tap } from 'rxjs';
 import { NotificationService } from '../../../../shared/toasts/notification.service';
+import { TicketService } from '../../services/ticket.service';
 
 @Component({
   selector: 'app-create-ticket',
@@ -17,12 +18,14 @@ export class CreateTicket implements OnInit{
   model: TicketModel = new TicketModel;
   ticketform: FormGroup; //è il modulo per creare il ticket
   categories: CategoryModel[] = [];
+  isGestione?: boolean;
 
   constructor(
     private service: UserAPIService, 
     private fb: FormBuilder, 
     private dialogRef: MatDialog,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private ticketService: TicketService
   ) 
   { //form builder è per creare formgroup
      this.ticketform = this.fb.group({
@@ -46,7 +49,8 @@ export class CreateTicket implements OnInit{
          console.error('Errore nel caricamento categorie:', err);
          return of({ content: [], totalElements: 0 });
       })
-    ).subscribe()  
+    ).subscribe() 
+    
   }
     
   onSubmit(): void {

@@ -19,5 +19,6 @@ export const enviroments = {
     assignRole: 'assign',
     removeRole: 'remove',
     updateDescrpition: '/description',
-    updateStatus: '/statuschange'
+    updateStatus: '/statuschange',
+    updateStatusDeleted: '/delete-status'
 }
