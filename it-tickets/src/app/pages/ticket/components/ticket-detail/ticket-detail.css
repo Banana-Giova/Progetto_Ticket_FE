@@ -1,0 +1,99 @@
+.title {
+  display: flex;
+  align-content: center;
+  align-self: center;
+  color: var(--color-primary);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+mat-card {
+  box-shadow: none;
+}
+
+/* .description-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+} */
+
+
+.description-row {
+  display: flex;
+  align-items: center;
+}
+
+.description-textarea{
+  align-items: center;
+}
+.ticket-section {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  max-width: 100%;
+}
+
+::ng-deep .custom-select .mat-mdc-text-field-wrapper {
+  height: 35px !important;
+  align-items: center!important;
+  margin-top: 18px;
+  
+}
+
+.section-text {
+  max-width: 100%;
+  flex: 1;
+  margin-left: 8px;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.urgent-icon {
+  color: var(--color-danger);
+}
+
+.status-todo {
+  color: var(--color-todo);
+
+}
+
+.status-inprogress {
+  color: var(--color-primary);
+}
+
+.status-completed {
+  color: var(--color-success);
+
+}
+
+.col-6 {
+  display: flex;
+  align-items: center; 
+  gap: 8px;            
+}
+
+
+.status-rejected {
+  color: var(--color-danger);
+}
+
+.section-text {
+  margin-left: 8px;
+}
+
+.detail-icons {
+  color: var(--color-deBlue);
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  min-width: auto;
+}

@@ -18,6 +18,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { TicketService } from "./services/ticket.service";
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { MatListModule } from '@angular/material/list';
     MatTableModule,
     MatInputModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatGridListModule,
   ]
 })
 export class TicketModule {}

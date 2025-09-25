@@ -1,34 +1,127 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title> Ticket: {{ data.title }} </mat-card-title>
+  <mat-card-header class="header">
+    <mat-card-title class="title">Ticket: {{ ticket.title }}</mat-card-title>
+    <button mat-icon-button class="close-button" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-card-header>
 
   <mat-card-content>
-    <mat-list role="list">
-      
-      <mat-list-item>
-        <mat-icon matListIcon>description</mat-icon>
-        <span><strong>Descrizione:</strong> {{ data.description}}</span>
-      </mat-list-item>
+    <!-- <div class="ticket-section mx-2">
+      <mat-icon [ngClass]="ticket.is_priority ? 'urgent-icon' : 'normal-icon'"
+        >priority_high</mat-icon
+      >
+      <span class="section-text">
+        <ng-container *ngIf="ticket.is_priority; else normal"
+          >Priorità</ng-container
+        >
+        <ng-template #normal>Nessuna Priorità</ng-template>
+      </span>
+    </div> -->
+    <div class="ticket-section mx-2" *ngIf="ticket.is_priority">
+      <mat-icon class="urgent-icon">priority_high</mat-icon
+      >
+      <span class="section-text">
+        <ng-container 
+          >Priorità</ng-container
+        >
+        <ng-template #normal>Nessuna Priorità</ng-template>
+      </span>
+    </div>
+    <hr class="divider mb-0" [hidden]="!ticket.is_priority" />
 
-      <mat-list-item>
-        <mat-icon matListIcon>category</mat-icon>
-        <span><strong>Categoria:</strong> {{ data.categoryName}}</span>
-      </mat-list-item>
-
-      <mat-list-item>
-        <mat-icon matListIcon>info</mat-icon>
-        <span><strong>Stato:</strong> {{ data.status}}</span>
-      </mat-list-item>
-
-      <mat-list-item>
-        <mat-icon matListIcon>priority_high</mat-icon>
-        <span>
-          <strong>Priorità:</strong>
-          <ng-container *ngIf="data.is_priority; else normal">Urgente</ng-container>
-          <ng-template #normal>Normale</ng-template>
+    <div class="row mx-2" [class.my-3]="!userIsOperator" >
+      <div class="col-6 px-0">
+        <ng-container class="icon-container">
+          <mat-icon
+            [ngClass]="{
+              'status-todo': ticket.status == 'TO_DO',
+              'status-inprogress': ticket.status == 'IN_PROGRESS',
+              'status-completed': ticket.status == 'COMPLETED',
+              'status-rejected': ticket.status == 'REJECTED'
+            }"
+          >
+            info</mat-icon
+          >
+        </ng-container>
+        <span class="section-text">
+          Stato:
+          <ng-container [ngSwitch]="ticket.status">
+            <span *ngSwitchCase="'TO_DO'">In attesa di lavorazione</span>
+            <span *ngSwitchCase="'IN_PROGRESS'">In lavorazione</span>
+            <span *ngSwitchCase="'COMPLETED'">Completato</span>
+            <span *ngSwitchCase="'REJECTED'">Rifiutato</span>
+            <span *ngSwitchDefault>Nessuno stato presente</span>
+          </ng-container>
         </span>
-      </mat-list-item>
-    </mat-list>
+      </div>
+
+      <div *ngIf="userIsOperator" class="col-6 px-0 d-flex justify-content-end">
+        <mat-form-field
+          appearance="outline"
+          floatLabel="always"
+          class="custom-select"
+        >
+          <mat-label>Nuovo stato</mat-label>
+          <mat-select
+            [(ngModel)]="newStatus"
+            (selectionChange)="updateStatus()"
+          >
+            <mat-option *ngFor="let s of status" [value]="s">
+              {{ s }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <hr class="divider mt-0" />
+
+    <div class="ticket-section mx-2">
+      <mat-icon class="detail-icons">category</mat-icon>
+      <span class="section-text">Categoria: {{ ticket.categoryName }}</span>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="ticket-section mx-2">
+      <mat-icon class="detail-icons">calendar_today</mat-icon>
+      <span class="section-text"
+        >Creato il: {{ ticket.created_at | date : "dd/MM/yyyy HH:mm" }}</span
+      >
+    </div>
+
+    <hr class="divider" [hidden]="!ticket.modified_at" />
+
+    <div class="ticket-section mx-2" *ngIf="ticket.modified_at">
+      <mat-icon class="detail-icons">edit</mat-icon>
+      <span class="section-text">
+        <ng-container *ngIf="ticket.modified_at">
+          Modificato il: {{ ticket.modified_at | date : "dd/MM/yyyy HH:mm" }}
+        </ng-container>
+      </span>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="ticket-section mx-2">
+      <div class="description-row">
+        <mat-icon class="detail-icons">description</mat-icon>
+        <span class="section-text">Descrizione: </span>
+      </div>
+    </div>
+    <div class="description-textarea mx-2">
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100">
+        <textarea
+          class="w-100"
+          [readonly]="userIsOperator"
+          matInput
+          [ngModelOptions]="{ standalone: true }"
+          [(ngModel)]="ticket.description"
+          (blur)="updateDescription()"
+          (keyup.enter)="updateDescription()"
+        ></textarea>
+      </mat-form-field>
+    </div>
   </mat-card-content>
 </mat-card>

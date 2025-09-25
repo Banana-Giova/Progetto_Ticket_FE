@@ -5,6 +5,7 @@ import { CategoryModel } from '../../models/category.model';
 import { TicketModel } from '../../models/ticket.model';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, of, tap } from 'rxjs';
+import { NotificationService } from '../../../../shared/toasts/notification.service';
 
 @Component({
   selector: 'app-create-ticket',
@@ -20,7 +21,8 @@ export class CreateTicket implements OnInit{
   constructor(
     private service: UserAPIService, 
     private fb: FormBuilder, 
-    private dialogRef: MatDialog
+    private dialogRef: MatDialog,
+    private notify: NotificationService
   ) 
   { //form builder è per creare formgroup
      this.ticketform = this.fb.group({
@@ -47,33 +49,18 @@ export class CreateTicket implements OnInit{
     ).subscribe()  
   }
     
-  //   subscribe({
-  //     next: data => {
-  //       this.categories = data;    //Se va bene (next:), salva le categorie nell'array categories altrimenti lancia l'errore
-  //       // console.log('Categorie caricate:', data);
-  //     },
-  //     error: err => {
-  //       console.error('Errore nel caricamento categorie:', err);
-  //     }
-  //   });
-  // }
-
- 
-
   onSubmit(): void {
     if (this.ticketform.valid) {
       const ticket = new TicketModel(this.ticketform.value); //se tutti i campi nel form sono validi, crea un oggetto ticket model
       // console.log('Ticket inviato:', ticket);
       this.service.addTicket$(ticket).subscribe({
         next: response => {
-          console.log('Ticket creato:', response);
-          alert('Ticket creato con successo!'); //se la creazione è avvenuta stampa il messaggio
           this.ticketform.reset(); //riporta il form allo stato iniziale
           this.dialogRef.closeAll(); //chiude il modale alla fine dell'aggiunta
+          this.notify.success("Ticket creato con successo")
         },
         error: err => {
-          console.error('Errore durante la creazione del ticket:', err);  //altrimenti lancia l'errore
-          alert('Errore nella creazione del ticket');
+          this.notify.error('Errore nella creazione del ticket');
         }
       });
     }
