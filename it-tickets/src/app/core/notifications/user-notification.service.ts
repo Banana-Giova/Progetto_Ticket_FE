@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { TokenTransport, WebsocketService } from "../../shared/websocket/websocket.service";
 import { UserStorageService } from "../../pages/auth/services/user.storage";
 import { BehaviorSubject, catchError, Subscription, tap, throwError } from "rxjs";
@@ -7,12 +7,13 @@ import { NotificationService } from "../../shared/toasts/notification.service";
 import { UserNotification } from "./models/notification.model";
 
 @Injectable({ providedIn: 'root' })
-export class UserNotificationService implements OnInit {
+export class UserNotificationService {
   baseUrl = 'http://localhost:8080';
   token = '';
   userEmail = '';
   transport: TokenTransport = 'header';
   connected = false;
+  started = false;
   
   // Subjects interni
   private _unread$ = new BehaviorSubject<UserNotification[]>([]);
@@ -39,11 +40,48 @@ export class UserNotificationService implements OnInit {
   this.subs.push(this.websocket.connectionState().subscribe(s => this.connected = s));
   }
 
-  ngOnInit(): void {
+  start() {
+    if (this.started) return;
+    this.started = true;
+
+    // aggiorna token / useremail nel momento in cui si fa start (utile dopo login)
+    this.token = this.userStorage.getToken() ?? '';
+    const user = this.userStorage.getUser();
+    this.userEmail = user && user.id !== -1 ? user.email : '';
+
+    // subscribe per stato di connessione (opzionale, per debug o UI)
+    const connSub = this.websocket.connectionState().subscribe(s => this.connected = s);
+    this.subs.push(connSub);
+
+    // carica pending/read e connetti only se abbiamo userEmail (opzionale)
     this.getPending();
     this.getAlreadyRead();
     this.connect();
     this.subscribeToUserUserNotifications();
+  }
+
+  stop() {
+    // se non era iniziato, nulla da fare
+    if (!this.started) return;
+    this.started = false;
+
+    // annulla tutte le sottoscrizioni interne
+    this.subs.forEach(s => {
+      try { s.unsubscribe(); } catch { /* no-op */ }
+    });
+    this.subs = [];
+
+    // svuota gli stato locali
+    this._unread$.next([]);
+    this._read$.next([]);
+    this.listEmpty = true;
+
+    // disconnetti websocket e pulisci sottoscrizioni lato websocket
+    try { this.websocket.disconnect(); } catch (e) { /* no-op */ }
+
+    // pulisci token/email locali (opzionale)
+    this.token = '';
+    this.userEmail = '';
   }
 
   getPending = () => {
@@ -54,6 +92,8 @@ export class UserNotificationService implements OnInit {
         const arr = Array.isArray(item) ? item : [item];
         this._unread$.next([...arr, ...this._unread$.getValue()]);
         this.listEmpty = this._unread$.getValue().length === 0;
+        console.log("Notifiche in arrivo!");
+        console.log(data);
       }),
       catchError(err => {
         const msg = err?.error?.message || err?.message || 'Errore sconosciuto';
@@ -89,11 +129,13 @@ export class UserNotificationService implements OnInit {
 
   subscribeToUserUserNotifications = () => {
     if (!this.userEmail) return;
-    const sub = this.websocket.subscribeTo<UserNotification>(`${this.userEmail}/queue/notifications`)
+    const sub = this.websocket.subscribeTo<UserNotification>(`/${this.userEmail}/queue/notifications`)
       .subscribe(msg => {
         // inserisci in testa alle unread
         this._unread$.next([msg, ...this._unread$.getValue()]);
         this.listEmpty = this._unread$.getValue().length === 0;
+        console.log("Nuova notifica!");
+        console.log(msg);
       });
     this.subs.push(sub);
   }

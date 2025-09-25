@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserNotificationService } from '../../user-notification.service';
 import { UserNotification } from '../../models/notification.model';
 import { MatMenuTrigger } from '@angular/material/menu';

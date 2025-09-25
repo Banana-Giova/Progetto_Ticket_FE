@@ -7,6 +7,7 @@ import { NotificationService } from '../../shared/toasts/notification.service';
 import { reactiveLinks } from '../../shared/router-links/router-links';
 import { UserAPIService } from '../../pages/auth/services/user.api.service';
 import { LogoutModel } from './models/logout.model';
+import { UserNotificationService } from '../notifications/user-notification.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -23,7 +24,8 @@ export class AuthService {
 
   constructor(
     private storage: UserStorageService,
-    private userService: UserAPIService
+    private userService: UserAPIService,
+    private notificationService: UserNotificationService
   ) {
 
     this.loggedInSubject = new BehaviorSubject<boolean>(!!this.storage.getToken());
@@ -42,6 +44,7 @@ export class AuthService {
     this.loggedInSubject.next(true);
     this.operatorSubject.next((this.storage.getUser()?.roles)?.includes('Operatore') ?? false);
     this.adminSubject.next((this.storage.getUser()?.roles)?.includes('Amministratore') ?? false);
+    this.notificationService.start();
     console.log("Logged in: " + this.isLoggedIn)
   }
 
@@ -73,6 +76,8 @@ export class AuthService {
     this.loggedInSubject.next(false);
     this.operatorSubject.next(false);
     this.adminSubject.next(false);
+
+    this.notificationService.stop();
 
     try {
       const res = await router.navigateByUrl(reactiveLinks.login, { replaceUrl: true });

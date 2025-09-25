@@ -12,6 +12,7 @@ import { reactiveLinks } from '../../shared/router-links/router-links';
 @Injectable({ providedIn: 'root' })
 export class InvalidGuard implements CanActivate {
   public reactiveLinks = reactiveLinks;
+  private noToastRoutes = ["", "/", "/home"]
 
   constructor(
     private auth: AuthService,
@@ -24,7 +25,7 @@ export class InvalidGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     
-    if (state.url !== "/home" || "/" || "") {
+    if (!this.noToastRoutes.includes(state.url)) {
       this.notify.warning("Percorso invalido.");
       console.log("[Invalid Guard] Accesso negato alla route: route invalida.");
     } else {

@@ -2,7 +2,7 @@ import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { Client, IMessage, StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, share, takeUntil } from 'rxjs/operators';
+import { filter, share, take, takeUntil } from 'rxjs/operators';
 import { UserNotification } from '../../core/notifications/models/notification.model';
 
 export type TokenTransport = 'header' | 'query' | 'none';
@@ -28,6 +28,39 @@ export class WebsocketService implements OnDestroy {
    * @param token opzionale JWT token
    * @param tokenTransport 'header' | 'query' | 'none'
    */
+
+
+  private createStompSubscription(destination: string, subject: Subject<UserNotification>) {
+    if (!this.client) return;
+
+    // Preferisci usare la proprietà 'connected' del client se disponibile,
+    // altrimenti usa il BehaviorSubject che imposti in onConnect/onDisconnect.
+    const clientConnected = (this.client as any).connected ?? this.connected$.getValue();
+    if (!clientConnected) {
+      console.warn('createStompSubscription: client non ancora connesso, skip subscribe for', destination);
+      return;
+    }
+
+    try {
+      const stompSub: StompSubscription = this.client.subscribe(destination, (msg: IMessage) => {
+        try {
+          const body = msg.body && msg.body.length ? JSON.parse(msg.body) : null;
+          subject.next(body as UserNotification);
+        } catch (e) {
+          console.error('Errore parsing body STOMP', e, msg.body);
+        }
+      });
+
+      subject.pipe(takeUntil(this.destroy$)).subscribe({
+        complete: () => {
+          try { stompSub.unsubscribe(); } catch {}
+        }
+      });
+    } catch (err) {
+      console.error('Errore durante client.subscribe()', err);
+    }
+  }
+
   connect(baseUrl: string, token?: string, tokenTransport: TokenTransport = 'header'): void {
     if (this.client && this.client.active) {
       console.warn('STOMP client già attivo');
@@ -45,9 +78,14 @@ export class WebsocketService implements OnDestroy {
       // use SockJS factory for the client
       webSocketFactory: () => new (SockJS as any)(sockUrl),
       onConnect: frame => {
-        // STOMP callbacks vengono eseguiti fuori Angular zone -> rimettiamo in zone per change detection sicura
         this.ngZone.run(() => {
           this.connected$.next(true);
+          // ri-sottoscrivi tutte le destinazioni registrate
+          this.subscriptions.forEach((subject, dest) => {
+            // se non c'è già una sottoscrizione attiva lato STOMP la (ri)creiamo
+            // normalizziamo la dest
+            this.createStompSubscription(dest, subject);
+          });
         });
       },
       onDisconnect: () => {
@@ -89,7 +127,6 @@ export class WebsocketService implements OnDestroy {
   /** Subscribe tipizzato ad una destination STOMP (es. /queue/gart).
    *  Restituisce un Observable multicast (riusa soggetto interno). */
   subscribeTo<T = UserNotification>(destination: string): Observable<T> {
-    // se esiste già il subject lo ritorniamo
     if (this.subscriptions.has(destination)) {
       return this.subscriptions.get(destination)!.asObservable() as Observable<T>;
     }
@@ -97,35 +134,19 @@ export class WebsocketService implements OnDestroy {
     const subject = new Subject<UserNotification>();
     this.subscriptions.set(destination, subject);
 
-    // se connessi, sottoscriviamo subito; altrimenti aspettiamo onConnect.
-    const subscribeFn = () => {
-      if (!this.client || !this.client.active) return;
-      const stompSub: StompSubscription = this.client.subscribe(destination, (msg: IMessage) => {
-        try {
-          const body = msg.body && msg.body.length ? JSON.parse(msg.body) : null;
-          subject.next(body as UserNotification);
-        } catch (e) {
-          console.error('Errore parsing body STOMP', e, msg.body);
-        }
-      });
-      // quando il subject completa o viene rimosso, cancelliamo la sottoscrizione STOMP
-      subject.pipe(takeUntil(this.destroy$)).subscribe({ complete: () => stompSub.unsubscribe() });
-    };
-
-    // se la connessione è già attiva sottoscriviamo subito, altrimenti ascoltiamo onConnect
-    if (this.client && this.client.active) {
-      subscribeFn();
+    // Se siamo già CONNESSI, creiamo la sottoscrizione; altrimenti attendiamo il prossimo onConnect
+    const alreadyConnected = (this.client as any)?.connected ?? this.connected$.getValue();
+    if (alreadyConnected) {
+      this.createStompSubscription(destination, subject);
     } else {
-      // ascolta next=true di connected$ e quando true chiama subscribeFn (solo la prima volta)
-      const sub = this.connected$.pipe(filter(v => v === true)).subscribe(() => {
-        subscribeFn();
-        sub.unsubscribe();
+      // attendi il prossimo true (solo 1 volta)
+      this.connected$.pipe(filter(v => v === true), take(1)).subscribe(() => {
+        this.createStompSubscription(destination, subject);
       });
     }
 
     return subject.asObservable() as Observable<T>;
   }
-
   /** send a message to destination (payload sarà serializzato in JSON) */
   send(destination: string, payload: any): void {
     if (!this.client || !this.client.active) {
