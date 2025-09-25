@@ -15,8 +15,6 @@ import { Modal } from './shared/modal/modal';
 import { NotificationComponent } from './shared/toasts/notification.component';
 import { MatIconModule } from '@angular/material/icon';
 import { LocationService } from './core/services/location.service';
-import { Terms } from './pages/other/terms/terms';
-import { Privacy } from './pages/other/privacy/privacy';
 
 @NgModule({
   declarations: [
