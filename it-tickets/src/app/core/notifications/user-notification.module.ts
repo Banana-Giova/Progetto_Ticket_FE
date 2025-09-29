@@ -10,9 +10,20 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { RouterModule } from '@angular/router';
+import { AllNotifications } from './components/all-notifications/all-notifications';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
-  declarations: [ UnreadNotifications ],
+  declarations: [ 
+    UnreadNotifications,
+    AllNotifications 
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -23,8 +34,21 @@ import { RouterModule } from '@angular/router';
     MatDividerModule,
     MatMenuModule,
     MatListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    ReactiveFormsModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatToolbarModule,
+    RouterModule.forChild([
+      { path: 'notifications', component: AllNotifications }
+    ])
   ],
-  exports: [ UnreadNotifications ]
+  exports: [ 
+    UnreadNotifications,
+    AllNotifications
+  ]
 })
 export class UserNotificationModule { }

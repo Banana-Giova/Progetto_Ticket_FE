@@ -1,0 +1,7 @@
+.notifications-simple { padding: 12px; }
+.header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:8px; }
+.search-field { width: 260px; }
+.item-left .msg { font-weight:500; }
+.item-left .meta { font-size: 0.85rem; color: rgba(0,0,0,0.6); }
+.item-actions { margin-left:auto; display:flex; gap:8px; align-items:center; }
+.empty { padding: 16px; color: rgba(0,0,0,0.6); }

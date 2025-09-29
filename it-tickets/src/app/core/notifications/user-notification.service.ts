@@ -83,6 +83,11 @@ export class UserNotificationService {
     this.userEmail = '';
   }
 
+  restart = () => {
+    this.stop();
+    this.start();
+  }
+
   getPending = () => {
     if (!this.userEmail) return;
     this.userService.getPending$(this.userEmail).pipe(
