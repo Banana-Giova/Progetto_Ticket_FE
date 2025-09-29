@@ -4,6 +4,7 @@
   justify-content: space-between; /* titolo a sx, bottone a dx */
   align-items: center;
   margin-bottom: 1rem;
+  color: var(--color-primary);
 }
 
 /* Contenitore generale pagina (se lo usi) */

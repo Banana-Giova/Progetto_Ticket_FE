@@ -50,6 +50,10 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
+    path: 'notifications',
+    loadChildren: () => import('./notifications/local-notifications.module').then(m => m.SessionNotificationModule)
+  },
+  {
     path: 'info',
     loadChildren: () => import('./other/info.module').then(m => m.InfoModule)
   },

@@ -1,20 +1,23 @@
 <div class="ticket-chart-wrapper">
   <ng-container *ngIf="chartData$ | async as data">
-    <ngx-charts-bar-vertical
-      *ngIf="data?.length"
-      [view]="view"
-      [results]="data"
-      [legend]="showLegend"
-      [legendTitle]="legTitle"
-      [xAxis]="true"
-      [yAxis]="true"
-      [showGridLines]="true"
-      [animations]="animations"
-      [customColors]="customColors"
-      [barPadding]="8"
-      [roundDomains]="true"
-      [showDataLabel]="false"
-      [yAxisTickFormatting]="yAxisTickFormatting">
+      <ngx-charts-bar-vertical
+        *ngIf="data?.length"
+        [view]="view"
+        [results]="data"
+        [legend]="showLegend"
+        [legendTitle]="legTitle"
+        [xAxis]="true"
+        [yAxis]="true"
+        [showGridLines]="true"
+        [animations]="animations"
+        [customColors]="customColors"
+        [barPadding]="8"
+        [roundDomains]="roundDomains"
+        [showDataLabel]="false"
+        [yAxisTickFormatting]="yAxisTickFormatting"
+        [yAxisTicks]="yAxisTicks"
+        [yScaleMin]="yScaleMin"
+        [yScaleMax]="yScaleMax">
       <ng-template #tooltipTemplate let-model="model">
         <div class="ngx-tooltip">
           <div><strong>Stato:</strong> {{ model?.name ?? '—' }}</div>

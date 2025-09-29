@@ -1,0 +1,29 @@
+.icon-close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  min-width: 36px;
+  background: transparent;
+  border: none;
+}
+
+.section {
+  margin-bottom: 12px;
+}
+
+.message {
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 6px 0 0 0;
+}
+
+.destination-link {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+}

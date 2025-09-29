@@ -4,7 +4,6 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { UnreadNotifications } from './components/unread-notifications/unread-notifications';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
@@ -17,10 +16,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AllNotifications } from './component/all-notifications/all-notifications';
+import { NotificationDetail } from './component/notification-detail/notification-detail';
 
 @NgModule({
   declarations: [ 
-    UnreadNotifications  ],
+    AllNotifications,
+    NotificationDetail  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -38,9 +40,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatInputModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatToolbarModule
-  ],
-  exports: [ 
-    UnreadNotifications  ]
+    MatToolbarModule,
+    RouterModule.forChild([
+        { path: "", component: AllNotifications },
+        { path: "detail", component: NotificationDetail }
+    ])
+  ]
 })
-export class UserNotificationModule { }
+export class SessionNotificationModule { }

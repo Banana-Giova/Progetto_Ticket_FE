@@ -1,0 +1,112 @@
+<div class="page-header pt-3">
+  <h2 class="title-class">Utenti</h2>
+</div>
+
+<mat-card class="notifications-class pb-3 mat-elevation-z4">
+  <div class="header">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Ricerca</mat-label>
+      <input matInput (input)="search$.next($any($event.target).value)" placeholder="Cerca per testo o destinazione...">
+      <button mat-icon-button matSuffix (click)="search$.next('')" aria-label="clear search">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <mat-tab-group>
+
+    <!-- TUTTE -->
+    <mat-tab label="Tutte">
+      <ng-container *ngIf="filteredAll$ | async as list">
+        <div *ngIf="list.length === 0" class="empty">Nessuna notifica</div>
+
+        <mat-nav-list *ngIf="list.length > 0" aria-label="lista notifiche">
+          <ng-container *ngFor="let n of list; let last = last; trackBy: trackById">
+            <mat-list-item (click)="openNotificationDetail(n)">
+              <button
+                mat-icon-button
+                matListItemIcon
+                class="icon-read-toggle"
+                (click)="markAsRead(n, $event)"
+                [disabled]="n.read"
+                aria-label="Segna come letto"
+                title="Segna come letto"
+              >
+                <mat-icon *ngIf="!n.read">email_unread</mat-icon>
+                <mat-icon *ngIf="n.read">drafts</mat-icon>
+              </button>
+
+              <div class="item-left">
+                <div class="msg" matLine>{{ n.message }}</div>
+                <div class="meta" matLine>{{ n.createdAt | date:'short' }}</div>
+              </div>
+
+              <div class="item-actions">
+                <a *ngIf="n.destination" [routerLink]="n.destination" (click)="$event.stopPropagation()" class="link-more">Apri</a>
+              </div>
+            </mat-list-item>
+
+            <mat-divider *ngIf="!last"></mat-divider>
+          </ng-container>
+        </mat-nav-list>
+      </ng-container>
+    </mat-tab>
+
+    <!-- NON LETTE -->
+    <mat-tab label="Non lette">
+      <ng-container *ngIf="filteredUnread$ | async as unread">
+        <div *ngIf="unread.length === 0" class="empty">Nessuna notifica non letta</div>
+
+        <mat-nav-list *ngIf="unread.length > 0" aria-label="notifiche non lette">
+          <ng-container *ngFor="let n of unread; let last = last; trackBy: trackById">
+            <mat-list-item (click)="openNotificationDetail(n)">
+              <button
+                mat-icon-button
+                matListItemIcon
+                class="icon-read-toggle"
+                (click)="markAsRead(n, $event)"
+                aria-label="Segna come letto"
+                title="Segna come letto"
+              >
+                <mat-icon>email_unread</mat-icon>
+              </button>
+
+              <div class="item-left">
+                <div class="msg" matLine>{{ n.message }}</div>
+                <div class="meta" matLine>{{ n.createdAt | date:'short' }}</div>
+              </div>
+            </mat-list-item>
+
+            <mat-divider *ngIf="!last"></mat-divider>
+          </ng-container>
+        </mat-nav-list>
+      </ng-container>
+    </mat-tab>
+
+    <!-- LETTE -->
+    <mat-tab label="Lette">
+      <ng-container *ngIf="filteredRead$ | async as read">
+        <div *ngIf="read.length === 0" class="empty">Nessuna notifica letta</div>
+
+        <mat-nav-list *ngIf="read.length > 0" aria-label="notifiche lette">
+          <ng-container *ngFor="let n of read; let last = last; trackBy: trackById">
+            <mat-list-item (click)="openNotificationDetail(n)">
+              <mat-icon matListItemIcon class="icon-read-static" aria-hidden="true">drafts</mat-icon>
+
+              <div class="item-left">
+                <div class="msg" matLine>{{ n.message }}</div>
+                <div class="meta" matLine>{{ n.createdAt | date:'short' }}</div>
+              </div>
+              <div class="item-actions">
+                <a *ngIf="n.destination" [routerLink]="n.destination" (click)="$event.stopPropagation()" class="link-more">Apri</a>
+              </div>
+            </mat-list-item>
+
+            <mat-divider *ngIf="!last"></mat-divider>
+          </ng-container>
+        </mat-nav-list>
+      </ng-container>
+    </mat-tab>
+
+  </mat-tab-group>
+</mat-card>

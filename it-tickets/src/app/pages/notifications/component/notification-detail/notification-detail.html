@@ -1,0 +1,43 @@
+<mat-card class="notification-card">
+  <button class="icon-close" (click)="close()" aria-label="Chiudi">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-card-header>
+    <mat-card-title>Dettaglio notifica</mat-card-title>
+    <mat-card-subtitle>{{ notification.createdAt | date:'short' }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="section">
+      <h4>Messaggio</h4>
+      <p class="message">{{ notification.message }}</p>
+    </div>
+
+    <div class="section" *ngIf="notification.destination">
+      <h4>Destinazione</h4>
+      <!-- uso routerLink se la destinazione è una rotta interna; altrimenti renderizza come href -->
+      <a [routerLink]="notification.destination" (click)="$event.stopPropagation()" class="destination-link">
+        Apri destinazione
+      </a>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions align="end" class="actions">
+    <button mat-stroked-button (click)="close()">Chiudi</button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="!notification.read"
+      (click)="markAsRead()"
+      [disabled]="marking"
+    >
+      Segna come letto
+    </button>
+
+    <button mat-raised-button color="primary" disabled *ngIf="notification.read">
+      Letta
+    </button>
+  </mat-card-actions>
+</mat-card>
