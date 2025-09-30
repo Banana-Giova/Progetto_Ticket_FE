@@ -2,18 +2,21 @@
   <h2 class="title-class">Utenti</h2>
 </div>
 
-<mat-card class="notifications-class pb-3 mat-elevation-z4">
+<mat-card class="notifications-class mat-elevation-z4">
   <div class="header">
-    <mat-form-field appearance="outline" class="search-field">
+    <mat-form-field
+        appearance="outline"
+        floatLabel="always"
+        class="custom-input small-field">
       <mat-label>Ricerca</mat-label>
-      <input matInput (input)="search$.next($any($event.target).value)" placeholder="Cerca per testo o destinazione...">
+      <input matInput (input)="search$.next($any($event.target).value)">
       <button mat-icon-button matSuffix (click)="search$.next('')" aria-label="clear search">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
   </div>
 
-  <mat-tab-group>
+  <mat-tab-group class="tab-group">
 
     <!-- TUTTE -->
     <mat-tab label="Tutte">
