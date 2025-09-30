@@ -9,6 +9,8 @@ import { NotificationService } from '../../shared/toasts/notification.service';
 import { MAT_MENU_DEFAULT_OPTIONS } from '@angular/material/menu';
 import { reactiveLinks } from '../../shared/router-links/router-links';
 import { UserStorageService } from '../../pages/auth/services/user.storage';
+import { Tickets } from '../../pages/ticket/components/tickets/tickets';
+import { TicketService } from '../../pages/ticket/services/ticket.service';
 import { UserNotificationService } from '../notifications/user-notification.service';
 
 @Component({
@@ -46,6 +48,7 @@ export class Header implements OnInit {
     private notify: NotificationService,
     private router: Router,
     private location: LocationService,
+    private ticketService: TicketService,
     private userNotification: UserNotificationService
   ) {
     this.isLoggedIn$ = this.authService.loggedIn$;
@@ -66,6 +69,16 @@ export class Header implements OnInit {
       this.avatarService.clear();
       this.router.navigateByUrl(reactiveLinks.login);
     }
+  }
+
+  profileTickets(): void {
+    this.ticketService.setIsGestione(false);
+    this.router.navigateByUrl(reactiveLinks.yourTickets);
+  }
+
+  allTickets(): void {
+    this.ticketService.setIsGestione(true);
+    this.router.navigateByUrl(reactiveLinks.allTickets);
   }
 
   goBack() {

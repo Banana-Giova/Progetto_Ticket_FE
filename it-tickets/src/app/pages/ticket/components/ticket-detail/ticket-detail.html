@@ -19,26 +19,26 @@
       </span>
     </div> -->
     <div class="ticket-section mx-2" *ngIf="ticket.is_priority">
-      <mat-icon class="urgent-icon">priority_high</mat-icon
-      >
+      <mat-icon class="urgent-icon">priority_high</mat-icon>
       <span class="section-text">
-        <ng-container 
-          >Priorità</ng-container
-        >
+        <ng-container>Priorità</ng-container>
         <ng-template #normal>Nessuna Priorità</ng-template>
       </span>
     </div>
+
     <hr class="divider mb-0" [hidden]="!ticket.is_priority" />
 
-    <div class="row mx-2" [class.my-3]="!userIsOperator" >
-      <div class="col-6 px-0">
+    <div class="row mx-2" [class.my-3]="!isUtenteOperatore">
+      <div class="col-6 px-0 ">
         <ng-container class="icon-container">
           <mat-icon
             [ngClass]="{
               'status-todo': ticket.status == 'TO_DO',
               'status-inprogress': ticket.status == 'IN_PROGRESS',
               'status-completed': ticket.status == 'COMPLETED',
-              'status-rejected': ticket.status == 'REJECTED'
+              'status-rejected': ticket.status == 'REJECTED',
+              'status-deleted': ticket.status == 'DELETED'
+
             }"
           >
             info</mat-icon
@@ -51,12 +51,13 @@
             <span *ngSwitchCase="'IN_PROGRESS'">In lavorazione</span>
             <span *ngSwitchCase="'COMPLETED'">Completato</span>
             <span *ngSwitchCase="'REJECTED'">Rifiutato</span>
+            <span *ngSwitchCase="'DELETED'">Cancellato</span>
+
             <span *ngSwitchDefault>Nessuno stato presente</span>
           </ng-container>
         </span>
       </div>
-
-      <div *ngIf="userIsOperator" class="col-6 px-0 d-flex justify-content-end">
+      <div *ngIf="isUtenteOperatore && ticket.status !== 'DELETED'" class="col-6 px-0 d-flex justify-content-end">
         <mat-form-field
           appearance="outline"
           floatLabel="always"
@@ -67,13 +68,52 @@
             [(ngModel)]="newStatus"
             (selectionChange)="updateStatus()"
           >
-            <mat-option *ngFor="let s of status" [value]="s">
-              {{ s }}</mat-option
-            >
+            <ng-container *ngFor="let s of status">
+              <mat-option *ngIf="s !== 'DELETED'" [value]="s">
+                {{ s }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div
+        *ngIf="!isUtenteOperatore && ticket.status === 'TO_DO'"
+        class="col-6 px-0 d-flex justify-content-end"
+      >
+        <mat-form-field
+          appearance="outline"
+          floatLabel="always"
+          class="custom-select"
+        >
+          <mat-label>Cambia stato</mat-label>
+          <mat-select
+            [(ngModel)]="statusDeleted"
+            (selectionChange)="updateStatusDeleted()"
+          >
+            <mat-option [value]="'DELETED'">Cancellato</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
+    
+          <!-- <div *ngIf="userIsOperator" class="col-6 px-0 d-flex justify-content-end">
+            <mat-form-field
+              appearance="outline"
+              floatLabel="always"
+              class="custom-select"
+            >
+              <mat-label>Nuovo stato</mat-label>
+              <mat-select
+                [(ngModel)]="newStatus"
+                (selectionChange)="updateStatus()"
+              >
+                <mat-option *ngFor="let s of status" [value]="s">
+                  {{ s }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div> -->
 
     <hr class="divider mt-0" />
 

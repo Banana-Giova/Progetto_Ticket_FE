@@ -21,6 +21,7 @@ export const environments = {
     removeRole: 'remove',
     updateDescrpition: '/description',
     updateStatus: '/statuschange',
+    updateStatusDeleted: '/delete-status',
 
     notificationUrl: 'notifications/',
         markAsRead: 'read',

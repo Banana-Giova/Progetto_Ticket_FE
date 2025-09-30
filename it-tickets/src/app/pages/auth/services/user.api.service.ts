@@ -88,6 +88,11 @@ export class UserAPIService {
     return this.http.patch<any>(environments.baseUrl + environments.ticketUrl + id + environments.updateStatus, {newStatus});
   }
 
+  updateStatusDeleted$(id: number, deletedStatus: string): Observable<any> {
+    return this.http.patch<any>(environments.baseUrl + environments.ticketUrl+ id + environments.updateStatusDeleted, {deletedStatus})
+  }
+
+
   getTickets$(pageIndex: number, pageSize: number, isAllTickets: boolean, keyword?: string, categoryName?: string, status?: string): Observable<{ content: TicketModel[]; totalElements: number }> {
     let params = new HttpParams()
       .set('page', pageIndex.toString())
