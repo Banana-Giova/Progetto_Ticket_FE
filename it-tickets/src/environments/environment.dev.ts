@@ -1,4 +1,4 @@
-export const enviroments = {
+export const environments = {
     baseUrl: 'http://localhost:9090/',
     register: 'register',
     login: 'login',
